@@ -13,7 +13,7 @@ console_command = '/rails/bin/rails console'
   PORT = '8080'
 
 [processes]
-  app = './bin/thrust ./bin/rails server'
+  app = "./bin/rails server -b 0.0.0.0 -p 8080"
 
 [[mounts]]
   source = 'data'
