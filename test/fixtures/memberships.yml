@@ -1,0 +1,9 @@
+one:
+  user: one
+  club: one
+  role: "owner"
+
+two:
+  user: two
+  club: one
+  role: "member"
