@@ -1,3 +1,8 @@
+---
+name: Feature
+about: A user-visible feature or behaviour change
+---
+
 ## Context
 One or two sentences. What is this and why does it exist?
 Link to any DECISIONS.md entry if one applies.
