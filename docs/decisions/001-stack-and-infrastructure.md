@@ -3,6 +3,7 @@
 **Status:** Accepted
 
 ## Context
+
 A 9-day solo project to build a working book club web app with a React Native
 companion, used as a skills refresh exercise. Constraints: free-tier hosting
 only, roughly 25–35 hours of focused time, two repositories.
@@ -32,9 +33,20 @@ a separate frontend build. The React Native companion handles the one feature
 the web can't do as well — ISBN barcode scanning.
 
 **Fly.io for hosting**
-Free tier, good Rails support, persistent volume support for SQLite. Deployed
-on day 1 as an early smoke test — any infrastructure surprises surface early
-rather than on day 7.
+Fly.io was chosen over Render and Railway because it supports persistent volumes
+for SQLite—Render's free tier uses an ephemeral filesystem, and Railway removed
+its free tier in 2024. Fly.io's free tier is a 7-day trial rather than a
+permanent free tier; the minimal ongoing cost was accepted given the project's
+value as a portfolio piece. Deployed on day 1 as an early infrastructure smoke
+test. Two issues surfaced during deployment:
+
+- The generator's `chown` only covered specific subdirectories (`db`, `log`,
+  `storage`, `tmp`), leaving `/rails/config/` inaccessible to the non-root
+  runtime user (uid 1000). Fixed by expanding the `chown` to cover `/rails`
+  entirely.
+- Thruster (the default HTTP proxy) requires binding to port 80, which is not
+  permitted for non-root users. Thruster was removed; Rails now serves directly
+  on port 8080 via `./bin/rails server -b 0.0.0.0 -p 8080`.
 
 **Two-repo structure**
 `nextchapter` (Rails monolith) and `nextchapter-mobile` (Expo/React Native).
@@ -69,10 +81,14 @@ lint, scan_ruby, scan_js) must pass before merge. Established on day 1 so the
 working agreement is backed by repo config rather than relying on discipline
 alone.
 
-
 ## Consequences
+
 - Hotwire-first means the mobile app needs a separate API surface — planned for
   day 7.
 - Two-repo structure requires keeping PLAN.md and WORKFLOW.md in sync manually.
 - Owning the authentication code means owning any future extensions (OAuth,
   magic links, etc.).
+- Fly.io carries a small ongoing cost—accepted given the project's value as a
+  portfolio piece.
+- Future Dockerfile regenerations must preserve the `/rails` chown and the
+  direct Rails server command—both deviate from generator defaults.
