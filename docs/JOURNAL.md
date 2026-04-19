@@ -3,7 +3,7 @@
 Created both repositories. Committed PLAN.md and WORKFLOW.md to
 `nextchapter-mobile/docs/`. Set up a public GitHub Project board with both
 repos linked. Added labels, milestones, and issue templates to
-`nextchapter-mobile`. Filed the mobile ticket stubs (~7 issues).
+`nextchapter-mobile`. Filed the mobile ticket stubs (11 issues).
 
 Backend ticket stubs were not filed—deferred to Day 1 morning. No code
 shipped.
@@ -11,9 +11,9 @@ shipped.
 ## Day 1 — Foundations
 
 **Shipped**
-- Rails 8.1.3 / Ruby 3.4.2 app initialised—upgraded from the plan's 3.3 /
+- Rails 8.1.3 / Ruby 3.4.9 app initialised—upgraded from the plan's 3.3 /
   8.0 targets. Rails 8.0.x moves to security-only support in May 2026; 8.1.3
-  is current stable. Ruby 3.4.2 preferred over 4.0 on gem stability grounds.
+  is current stable. Ruby 3.4.9 preferred over 4.0 on gem stability grounds.
   (ADR-001)
 - `rails new` run with `--ci=github` to get a working Actions scaffold from
   the start; `--css` omitted
