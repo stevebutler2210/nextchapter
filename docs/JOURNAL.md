@@ -119,3 +119,67 @@ working week" narrative without compromising on quality.
 - Solid Queue guide needed before cover image caching job
 - Google Books API key setup required—confirm credentials approach
   before starting `BookLookupService`
+
+## Day 3 — Books and external lookup
+
+(NB: Day 3 tasks pulled forward and worked the evening of Day 2, as per note above)
+
+**Shipped**
+
+All five Day 3 tickets closed:
+
+- `Book` model with Google Books fields, unique index on `google_books_id`,
+  title presence validation. Uniqueness enforced at both DB and model level—DB
+  index is the hard constraint; model validation gives a cleaner error
+  before it hits the database. Fixtures updated with API-verified data:
+  Oathbringer and The Handmaid's Tale.
+- `BookLookupService` wrapping the Google Books API via Faraday. Two public
+  class methods: `search(query)` and `find_by_isbn(isbn)`. Results returned
+  as `BookLookupService::Result`—a nested `Data` class rather than
+  `Struct`. `Data` is immutable and uses keyword arguments; `Struct` had no
+  advantage at this scope. Connection injected via keyword argument for
+  testability without monkey-patching.
+- Live search-as-you-type on `GET /books/search` via Turbo Streams. Controller
+  responds to both `format.html` (full-page baseline, progressive enhancement)
+  and `format.turbo_stream` (in-place update). Stimulus `book-search`
+  controller debounces input at 300ms and calls `requestSubmit()` so Turbo
+  intercepts the submission—plain `submit()` bypasses Turbo and causes a
+  full-page reload.
+- Active Storage `has_one_attached :cover_image` on `Book`. `cover_image_url`
+  helper returns the Active Storage blob path if attached, falls back to
+  external `cover_url`, falls back to nil. Same method added to
+  `BookLookupService::Result` (returning `cover_url` directly) so the
+  `_results` partial works with both objects without type-checking.
+- `CacheCoverImageJob` via Solid Queue. Downloads and attaches cover images
+  in the background. Skips quietly if book not found, `cover_url` blank, or
+  attachment already present. Rescues `StandardError` without re-raising—
+  raising would cause Active Job to retry indefinitely on a permanently bad
+  URL.
+
+ADR-003 (Google Books API choice) committed. ADR-004 (Active Storage storage
+backend) to be written at start of Day 4.
+
+**Deferred**
+
+- `CacheCoverImageJob` call site deferred to Day 4—the job exists and is
+  tested but nothing enqueues it yet. Natural home is wherever a book is
+  first persisted from search results.
+- Turbo progress bar styling deferred to Day 6—noted on the styling ticket.
+
+**Surprises / deviations**
+
+- `turbo_stream.replace` broke subsequent searches by removing the `#book-results`
+  target element from the DOM. Switched to `turbo_stream.update`.
+- Minitest 6 was pulled in as a transitive dependency and removes `minitest/mock`
+  to favour a standalone gem (`minitest-mock`) that isn't yet stable. Pinned to
+  `~> 5.25`. Revisit when `minitest-mock` has stabilised.
+- Solid Queue required a separate queue database entry in `database.yml` for
+  development—the production multi-database config doesn't translate directly
+  because development previously used a single SQLite file. `bin/dev` rebuilt
+  as a Foreman setup to run web and worker processes together.
+
+**Open questions into Day 4**
+
+- ADR-004 (Active Storage storage backend) to be written before starting tickets
+- `CacheCoverImageJob.perform_later` call site to be wired in when books are
+  first persisted from search results
