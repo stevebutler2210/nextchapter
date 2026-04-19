@@ -24,6 +24,12 @@
   </head>
 
   <body>
+    <% if authenticated? %>
+      <header>
+        <%= link_to "Sign out", session_path, data: { turbo_method: :delete } %>
+      </header>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

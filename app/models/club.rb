@@ -4,4 +4,8 @@ class Club < ApplicationRecord
   has_many :members, through: :memberships, source: :user
 
   validates :name, presence: true, uniqueness: true
+
+  def owned_by?(user)
+    memberships.find_by(user_id: user.id)&.owner?
+  end
 end

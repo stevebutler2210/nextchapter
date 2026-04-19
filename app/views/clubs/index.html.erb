@@ -1,0 +1,15 @@
+<h1>Your Clubs</h1>
+
+<%= turbo_frame_tag "clubs_list" do %>
+  <% if @clubs.any? %>
+    <ul>
+        <% @clubs.each do |club| %>
+          <li><%= link_to club.name, club_path(club), data: { turbo_frame: "_top" } %></li>
+        <% end %>
+    </ul>
+  <% else %>
+    <p>You aren't a member of any clubs yet</p>
+  <% end %>
+
+  <p><%= link_to "New Club", new_club_path %></p>
+<% end %>

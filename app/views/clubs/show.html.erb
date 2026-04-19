@@ -1,0 +1,20 @@
+<%= turbo_frame_tag "club_details_#{@club.id}" do %>
+  <h1><%= @club.name %></h1>
+  <p><%= @club.description.presence || "No description provided." %></p>
+
+  <h2>Members</h2>
+  <ul>
+    <% @memberships.each do |membership| %>
+      <li><%= membership.user.email_address %></li>
+    <% end %>
+  </ul>
+
+  <p>Invite link placeholder</p>
+
+  <% if @club_owner %>
+    <p><%= link_to "Edit Club", edit_club_path(@club) %></p>
+    <p><%= link_to "Delete Club", club_path(@club), data: { turbo_method: :delete, turbo_confirm: "Delete this club?", turbo_frame: "_top" } %></p>
+  <% end %>
+
+  <p><%= link_to "Back to Clubs", clubs_path, data: { turbo_frame: "_top" } %></p>
+<% end %>

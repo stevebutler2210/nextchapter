@@ -1,0 +1,30 @@
+<%= turbo_frame_tag "clubs_list" do %>
+  <h2>New Club</h2>
+
+  <% if @club.errors.any? %>
+    <div>
+      <p><%= pluralize(@club.errors.count, "error") %> prevented this club from being created:</p>
+      <ul>
+        <% @club.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form_with model: @club do |form| %>
+    <p>
+      <%= form.label :name %><br>
+      <%= form.text_field :name %>
+    </p>
+
+    <p>
+      <%= form.label :description %><br>
+      <%= form.text_area :description %>
+    </p>
+
+    <p>
+      <%= form.submit "Create Club" %>
+    </p>
+  <% end %>
+<% end %>
