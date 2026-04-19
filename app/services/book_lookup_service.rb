@@ -4,7 +4,12 @@ class BookLookupService
   Result = Data.define(
     :google_books_id, :title, :authors, :isbn,
     :description, :cover_url, :publisher, :published_date
-  )
+  ) do
+    def cover_image_url
+      cover_url
+    end
+  end
+
 
   class << self
     def search(query, connection: default_connection)

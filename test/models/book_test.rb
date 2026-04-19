@@ -25,4 +25,25 @@ class BookTest < ActiveSupport::TestCase
     book.google_books_id = nil
     assert book.valid?
   end
+
+  test "cover_image_url returns cover_url when no attachment" do
+    book = books(:oathbringer)
+    assert_equal book.cover_url, book.cover_image_url
+  end
+
+  test "cover_image_url returns nil when no attachment and no cover_url" do
+    book = books(:oathbringer)
+    book.cover_url = nil
+    assert_nil book.cover_image_url
+  end
+
+  test "cover_image_url returns rails blob path when cover_image is attached" do
+    book = books(:oathbringer)
+    book.cover_image.attach(
+      io: File.open(Rails.root.join("test/fixtures/files/cover.jpg")),
+      filename: "cover.jpg",
+      content_type: "image/jpeg"
+    )
+    assert_match /\/rails\/active_storage\//, book.cover_image_url
+  end
 end
