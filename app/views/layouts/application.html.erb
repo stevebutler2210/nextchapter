@@ -26,8 +26,13 @@
   <body>
     <% if authenticated? %>
       <header>
+        <span>Signed in as <%= Current.user.email_address %></span>
         <%= link_to "Sign out", session_path, data: { turbo_method: :delete } %>
       </header>
+    <% end %>
+
+    <% flash.each do |type, message| %>
+      <p><%= message %></p>
     <% end %>
 
     <%= yield %>

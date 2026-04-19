@@ -9,9 +9,8 @@
     <% end %>
   </ul>
 
-  <p>Invite link placeholder</p>
-
   <% if @club_owner %>
+    <p>Invite link: <%= invite_url(signed_id: @invite_token) %></p>
     <p><%= link_to "Edit Club", edit_club_path(@club) %></p>
     <p><%= link_to "Delete Club", club_path(@club), data: { turbo_method: :delete, turbo_confirm: "Delete this club?", turbo_frame: "_top" } %></p>
   <% end %>
