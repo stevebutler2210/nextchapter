@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+oathbringer:
+  title: "Oathbringer"
+  authors: "Brandon Sanderson"
+  isbn: "9780575093355"
+  google_books_id: "1xfwCgAAQBAJ"
+  description: "The third volume of the Stormlight Archive series."
+  cover_url: "https://www.google.co.uk/books/content?id=1xfwCgAAQBAJ&printsec=frontcover&img=1&zoom=1"
+  publisher: "Tor Books"
+  published_date: "2017"
+
+handmaids_tale:
+  title: "The Handmaid's Tale"
+  authors: "Margaret Atwood"
+  isbn: "9781784708238"
+  google_books_id: "o79lk6nTsRgC"
+  description: "A dystopian novel set in the near-future theocratic republic of Gilead."
+  cover_url: "https://www.google.co.uk/books/content?id=o79lk6nTsRgC&printsec=frontcover&img=1&zoom=1"
+  publisher: "Anchor Books"
+  published_date: "1998"
