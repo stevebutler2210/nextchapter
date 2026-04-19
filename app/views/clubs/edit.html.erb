@@ -1,0 +1,28 @@
+<%= turbo_frame_tag "club_details_#{@club.id}" do %>
+  <%= form_with model: @club do |form| %>
+    <% if @club.errors.any? %>
+      <div>
+        <p><%= pluralize(@club.errors.count, "error") %> prevented this club from being updated:</p>
+        <ul>
+          <% @club.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <p>
+      <%= form.label :name %><br>
+      <%= form.text_field :name %>
+    </p>
+
+    <p>
+      <%= form.label :description %><br>
+      <%= form.text_area :description %>
+    </p>
+
+    <p>
+      <%= form.submit "Update Club" %>
+    </p>
+  <% end %>
+<% end %>
