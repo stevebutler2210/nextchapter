@@ -10,7 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_18_093648) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_19_171237) do
+  create_table "books", force: :cascade do |t|
+    t.string "authors"
+    t.string "cover_url"
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.string "google_books_id"
+    t.string "isbn"
+    t.string "published_date"
+    t.string "publisher"
+    t.string "title"
+    t.datetime "updated_at", null: false
+    t.index ["google_books_id"], name: "index_books_on_google_books_id", unique: true
+  end
+
   create_table "clubs", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "created_by_id", null: false
