@@ -13,7 +13,7 @@ class ClubsController < ApplicationController
 
   def show
     @memberships = @club.memberships.includes(:user)
-    @club_owner = current_user_club_owner?(@club)
+    @club_owner = @club.owned_by?(Current.user)
   end
 
   def edit
@@ -64,11 +64,7 @@ class ClubsController < ApplicationController
     end
 
     def require_club_owner!
-      head :forbidden unless current_user_club_owner?(@club)
-    end
-
-    def current_user_club_owner?(club)
-      club.memberships.find_by(user_id: Current.user.id)&.owner?
+      head :forbidden unless @club.owned_by?(Current.user)
     end
 
     def clubs_for_current_user

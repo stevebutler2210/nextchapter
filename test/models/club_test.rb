@@ -27,4 +27,12 @@ class ClubTest < ActiveSupport::TestCase
   test "has many members through memberships" do
     assert_respond_to @club, :members
   end
+
+  test "owned_by? returns true for owner" do
+    assert @club.owned_by?(users(:one))
+  end
+
+  test "owned_by? returns false for non-owner member" do
+    assert_not @club.owned_by?(users(:two))
+  end
 end
