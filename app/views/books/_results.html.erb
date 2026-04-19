@@ -5,8 +5,8 @@
 <% else %>
   <% @results.each do |book| %>
     <div>
-      <% if book.cover_url.present? %>
-        <%= image_tag book.cover_url, alt: book.title %>
+      <% if book.cover_image_url.present? %>
+        <%= image_tag book.cover_image_url, alt: book.title %>
       <% else %>
         <div>No cover available</div>
       <% end %>
