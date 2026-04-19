@@ -1,0 +1,17 @@
+<% if @error %>
+  <p>Something went wrong. Please try again.</p>
+<% elsif @results.empty? && @query.present? %>
+  <p>No books found for "<%= @query %>".</p>
+<% else %>
+  <% @results.each do |book| %>
+    <div>
+      <% if book.cover_url.present? %>
+        <%= image_tag book.cover_url, alt: book.title %>
+      <% else %>
+        <div>No cover available</div>
+      <% end %>
+      <p><strong><%= book.title %></strong></p>
+      <p><%= book.authors %></p>
+    </div>
+  <% end %>
+<% end %>

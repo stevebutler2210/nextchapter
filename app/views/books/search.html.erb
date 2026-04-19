@@ -1,0 +1,13 @@
+<h1>Search for a book</h1>
+
+<%= form_with url: search_books_path, method: :get, data: { controller: "book-search", turbo_stream: true } do |f| %>
+  <%= f.text_field :query,
+      value: @query,
+      placeholder: "Title or author...",
+      data: { book_search_target: "input", action: "input->book-search#debouncedSubmit" } %>
+  <%= f.submit "Search" %>
+<% end %>
+
+<div id="book-results">
+  <%= render "results" %>
+</div>
