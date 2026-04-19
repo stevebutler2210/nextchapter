@@ -105,6 +105,7 @@ shipped.
   formatter issues.
 
 **Planning note**
+
 Reviewed remaining day scoping against actual pace. Days 3 and 4 are
 the best pull-ahead opportunities. Day 8 (mobile auth + JWT plumbing)
 is the highest-risk day. Decision: pull Day 3 forward to this evening
