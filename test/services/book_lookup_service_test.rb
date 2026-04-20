@@ -11,7 +11,8 @@ class BookLookupServiceTest < ActiveSupport::TestCase
       ],
       "imageLinks" => { "thumbnail" => "https://books.google.com/thumbnail.jpg" },
       "publisher" => "Tor Books",
-      "publishedDate" => "2017"
+      "publishedDate" => "2017",
+      "pageCount" => 1232
     }
   }.freeze
 
@@ -36,6 +37,7 @@ class BookLookupServiceTest < ActiveSupport::TestCase
     assert_equal "Oathbringer", result.title
     assert_equal "Brandon Sanderson", result.authors
     assert_equal "9780575093355", result.isbn
+    assert_equal 1232, result.page_count
   end
 
   test "search returns empty array when no items" do
