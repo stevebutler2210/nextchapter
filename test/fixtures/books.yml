@@ -9,6 +9,7 @@ oathbringer:
   cover_url: "http://books.google.com/books/content?id=VsT3DQAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
   publisher: "Tor Books"
   published_date: "2017-11-14"
+  page_count: 1531
 
 handmaids_tale:
   title: "The Handmaid's Tale"
@@ -19,3 +20,4 @@ handmaids_tale:
   cover_url: "http://books.google.com/books/content?id=ECuBswEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
   publisher: "Vintage"
   published_date: "2017"
+  page_count: 322

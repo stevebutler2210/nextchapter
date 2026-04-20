@@ -3,7 +3,7 @@ class BookLookupService
 
   Result = Data.define(
     :google_books_id, :title, :authors, :isbn,
-    :description, :cover_url, :publisher, :published_date
+    :description, :cover_url, :publisher, :published_date, :page_count
   ) do
     def cover_image_url
       cover_url
@@ -51,7 +51,8 @@ class BookLookupService
         description: volume_info["description"],
         cover_url: volume_info.dig("imageLinks", "thumbnail"),
         publisher: volume_info["publisher"],
-        published_date: volume_info["publishedDate"]
+        published_date: volume_info["publishedDate"],
+        page_count: volume_info["pageCount"]
       )
     end
 

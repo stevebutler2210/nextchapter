@@ -12,6 +12,10 @@
       <% end %>
       <p><strong><%= book.title %></strong></p>
       <p><%= book.authors %></p>
+      <%# page_count can be nil or 0 from Google Books — both treated as absent %>
+      <% if book.page_count.presence&.positive? %>
+        <p><%= book.page_count %> pages</p>
+      <% end %>
     </div>
   <% end %>
 <% end %>
