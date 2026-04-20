@@ -1,4 +1,6 @@
 class Book < ApplicationRecord
+  has_many :nominations, dependent: :restrict_with_error
+
   validates :title, presence: true
   validates :google_books_id, uniqueness: true, allow_nil: true
 

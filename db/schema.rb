@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_20_230000) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_21_000100) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -84,6 +84,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_20_230000) do
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
+  create_table "nominations", force: :cascade do |t|
+    t.integer "book_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "cycle_id", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["book_id"], name: "index_nominations_on_book_id"
+    t.index ["cycle_id", "book_id"], name: "index_nominations_on_cycle_id_and_book_id", unique: true
+    t.index ["cycle_id", "user_id"], name: "index_nominations_on_cycle_id_and_user_id", unique: true
+    t.index ["cycle_id"], name: "index_nominations_on_cycle_id"
+    t.index ["user_id"], name: "index_nominations_on_user_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "ip_address"
@@ -105,5 +118,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_20_230000) do
   add_foreign_key "cycles", "clubs"
   add_foreign_key "memberships", "clubs"
   add_foreign_key "memberships", "users"
+  add_foreign_key "nominations", "books"
+  add_foreign_key "nominations", "cycles"
+  add_foreign_key "nominations", "users"
   add_foreign_key "sessions", "users"
 end

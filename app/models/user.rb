@@ -4,6 +4,7 @@ class User < ApplicationRecord
   validates :email_address, uniqueness: { case_sensitive: false }
 
   has_many :sessions, dependent: :destroy
+  has_many :nominations, dependent: :destroy
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 end
