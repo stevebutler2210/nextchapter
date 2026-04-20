@@ -28,6 +28,20 @@ class ClubTest < ActiveSupport::TestCase
     assert_respond_to @club, :members
   end
 
+  test "has many cycles" do
+    assert_respond_to @club, :cycles
+  end
+
+  test "current_cycle returns the active cycle" do
+    active_cycle = cycles(:one)
+    assert_equal active_cycle, @club.current_cycle
+  end
+
+  test "current_cycle returns nil when no active cycles exist" do
+    @club.cycles.update_all(state: :complete)
+    assert_nil @club.current_cycle
+  end
+
   test "owned_by? returns true for owner" do
     assert @club.owned_by?(users(:one))
   end
