@@ -183,3 +183,47 @@ backend) to be written at start of Day 4.
 - ADR-004 (Active Storage storage backend) to be written before starting tickets
 - `CacheCoverImageJob.perform_later` call site to be wired in when books are
   first persisted from search results
+
+## Day 4 — Cycles and nominations (partial)
+
+**What shipped**
+
+- ADRs 004, 005, and 006 written and committed. ADR-001 addendum
+  considered—made it ADR-006 instead to keep approved ADRs immutable.
+  Dates corrected to reflect when decisions were actually made (Day 3),
+  not when the ADRs were committed.
+- ADR format reconciled across all six files—status line standardised
+  to plain `Status: Accepted`.
+- `page_count` added to `Book` and `BookLookupService::Result`. Google
+  Books can return 0 as a page count—handled with `presence&.positive?`
+  in the partial rather than a bare nil check.
+- `Cycle` model with string enum states, explicit transition methods
+  that raise on invalid transitions, and one-active-cycle-per-club
+  enforced at both model and DB level via a partial unique index. Landed
+  on the built-in uniqueness validation with a `conditions` lambda.
+- `Nomination` model joining Book, Cycle, and User. Two uniqueness
+  constraints: one nomination per user per cycle, and one nomination per
+  book per cycle—the second was added during implementation and wasn't
+  in the original spec.
+- `BookFindOrCreateService` created to own find-or-create logic and job
+  dispatch rather than putting that logic in the controller.
+- Appropriate `dependent:` options added across associations after
+  working through the deletion semantics.
+
+**Deferred**
+
+- Nomination UI and Turbo Stream broadcast—Day 4 started late; both
+  tickets carry forward to Day 5 morning before evening work begins.
+
+**Surprises or deviations**
+
+- `page_count` nil check required `presence&.positive?` rather than a
+  simple nil guard—Google Books returns 0 for some entries.
+- Unique constraint on `[cycle_id, book_id]` added to nominations during
+  implementation—not in the original spec but the correct behaviour for
+  a book club app.
+
+**Open questions into Day 5**
+
+- Nomination UI and Turbo Stream broadcast tickets carry forward—start
+  these before picking up Day 5 work.

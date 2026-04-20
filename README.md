@@ -8,7 +8,8 @@ scoped, modern Rails 8 development: Hotwire for a server-rendered UI,
 Solid Queue for background jobs, Active Storage for file handling, and an
 Expo / React Native companion app for mobile (in progress).
 
-**Status:** Day 3 of 9—core book search and club management shipped.
+**Status:** Day 4 of 9—core book search and club management shipped. Nominations in progress.
+
 Active development. See [JOURNAL](docs/JOURNAL.md) for daily progress.
 
 [![CI](https://github.com/stevebutler2210/nextchapter/actions/workflows/ci.yml/badge.svg)](https://github.com/stevebutler2210/nextchapter/actions/workflows/ci.yml)
