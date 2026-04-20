@@ -1,9 +1,9 @@
 # ADR-003 — Google Books as the external book search API
 
-## Status
-Accepted
+Status: Accepted
 
 ## Context
+
 NextChapter needs a way to search for books by title or author and retrieve
 structured metadata: title, authors, ISBN, cover image, publisher, and
 publication date. The alternative to an external API is manual entry, which
@@ -21,6 +21,7 @@ Three external options were considered:
   request volumes
 
 ## Decision
+
 Use the Google Books API.
 
 The free tier is sufficient for a demo-scale app. Metadata quality and cover
@@ -37,6 +38,7 @@ The API key is stored in Rails credentials (`google_books_api_key`), not in
 ENV or source control.
 
 ## Consequences
+
 - A Google account and API key are required to run the app with live search.
   The README will document this as a setup step.
 - The 1,000 request/day free tier limit requires defensive use in both

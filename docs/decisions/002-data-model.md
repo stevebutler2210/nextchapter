@@ -1,8 +1,9 @@
 # ADR-002: Initial Data Model
 
-**Status:** Accepted
+Status: Accepted
 
 ## Context
+
 The app's core loop is: form a club, nominate books, vote on what to read next,
 track reading, move to the next cycle. The data model needs to support this loop
 end to end while staying simple enough to build in 9 days.
@@ -33,6 +34,7 @@ end to end while staying simple enough to build in 9 days.
   private notes field encrypted with Active Record Encryption.
 
 **Key field decisions**
+
 - `Sessions.created_at` — included via `t.timestamps` to enable future
   time-based session expiry sweeps. A comment in the model flags this for day 7
   hardening.
@@ -42,6 +44,7 @@ end to end while staying simple enough to build in 9 days.
   to extend.
 
 ## Consequences
+
 - The Cycle state machine needs careful handling — invalid transitions should
   raise rather than silently fail.
 - Active Record Encryption on ReadingLogEntry notes requires

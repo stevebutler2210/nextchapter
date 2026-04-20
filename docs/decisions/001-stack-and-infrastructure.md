@@ -1,6 +1,6 @@
 # ADR-001: Stack and Infrastructure
 
-**Status:** Accepted
+Status: Accepted
 
 ## Context
 
