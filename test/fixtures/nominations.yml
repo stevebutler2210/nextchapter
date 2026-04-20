@@ -1,0 +1,9 @@
+one:
+  book: oathbringer
+  cycle: one
+  user: one
+
+two:
+  book: handmaids_tale
+  cycle: one
+  user: two
