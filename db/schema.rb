@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_20_215505) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_20_230000) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -64,6 +64,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_20_215505) do
     t.index ["name"], name: "index_clubs_on_name", unique: true
   end
 
+  create_table "cycles", force: :cascade do |t|
+    t.integer "club_id", null: false
+    t.datetime "created_at", null: false
+    t.string "state", default: "nominating", null: false
+    t.datetime "updated_at", null: false
+    t.index ["club_id"], name: "index_cycles_on_club_id"
+    t.index ["club_id"], name: "index_cycles_on_club_id_where_state_not_complete", unique: true, where: "state != 'complete'"
+  end
+
   create_table "memberships", force: :cascade do |t|
     t.integer "club_id", null: false
     t.datetime "created_at", null: false
@@ -93,6 +102,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_20_215505) do
   end
 
   add_foreign_key "clubs", "users", column: "created_by_id"
+  add_foreign_key "cycles", "clubs"
   add_foreign_key "memberships", "clubs"
   add_foreign_key "memberships", "users"
   add_foreign_key "sessions", "users"
