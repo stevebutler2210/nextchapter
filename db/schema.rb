@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_21_000100) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_21_195527) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -106,12 +106,34 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_000100) do
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
+  create_table "solid_cable_messages", force: :cascade do |t|
+    t.binary "channel", limit: 1024, null: false
+    t.integer "channel_hash", limit: 8, null: false
+    t.datetime "created_at", null: false
+    t.binary "payload", limit: 536870912, null: false
+    t.index ["channel"], name: "index_solid_cable_messages_on_channel"
+    t.index ["channel_hash"], name: "index_solid_cable_messages_on_channel_hash"
+    t.index ["created_at"], name: "index_solid_cable_messages_on_created_at"
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email_address", null: false
     t.string "password_digest", null: false
     t.datetime "updated_at", null: false
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
+  end
+
+  create_table "votes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "cycle_id", null: false
+    t.integer "nomination_id", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["cycle_id"], name: "index_votes_on_cycle_id"
+    t.index ["nomination_id"], name: "index_votes_on_nomination_id"
+    t.index ["user_id", "cycle_id"], name: "index_votes_on_user_id_and_cycle_id", unique: true
+    t.index ["user_id"], name: "index_votes_on_user_id"
   end
 
   add_foreign_key "clubs", "users", column: "created_by_id"
@@ -122,4 +144,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_000100) do
   add_foreign_key "nominations", "cycles"
   add_foreign_key "nominations", "users"
   add_foreign_key "sessions", "users"
+  add_foreign_key "votes", "cycles"
+  add_foreign_key "votes", "nominations"
+  add_foreign_key "votes", "users"
 end
