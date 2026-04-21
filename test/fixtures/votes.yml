@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  nomination: voting_one
+  cycle: voting
+
+two:
+  user: two
+  nomination: voting_two
+  cycle: voting

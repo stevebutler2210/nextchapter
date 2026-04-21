@@ -7,3 +7,13 @@ handmaids_tale:
   book: handmaids_tale
   cycle: nominating
   user: two
+
+voting_one:
+  book: oathbringer
+  cycle: voting
+  user: one
+
+voting_two:
+  book: handmaids_tale
+  cycle: voting
+  user: two

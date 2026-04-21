@@ -3,6 +3,8 @@ class Nomination < ApplicationRecord
   belongs_to :cycle
   belongs_to :user
 
+  has_many :votes, dependent: :destroy
+
   validates :user_id, uniqueness: { scope: :cycle_id }
   validates :book_id, uniqueness: { scope: :cycle_id }
 

@@ -9,3 +9,8 @@ two:
   name: ClubTwo
   description: ClubTwo description
   created_by: two
+
+three:
+  name: ClubThree
+  description: ClubThree description
+  created_by: one

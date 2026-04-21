@@ -7,3 +7,7 @@ nominating:
 complete:
   club: two
   state: complete
+
+voting:
+  club: three
+  state: voting
