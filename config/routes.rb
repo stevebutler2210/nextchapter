@@ -7,12 +7,17 @@ Rails.application.routes.draw do
   # Core app
   root "clubs#index"
 
-  resources :clubs, only: %i[index show new create edit update destroy]
   get "/invites/:signed_id", to: "invites#show", as: :invite
 
   resources :books, only: [] do
     collection do
       get :search
+    end
+  end
+
+  resources :clubs, only: %i[index show new create edit update destroy] do
+    resources :cycles, shallow: true do
+      resources :nominations, only: [ :create ], shallow: true
     end
   end
 

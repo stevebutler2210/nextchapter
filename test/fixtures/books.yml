@@ -21,3 +21,14 @@ handmaids_tale:
   publisher: "Vintage"
   published_date: "2017"
   page_count: 322
+
+the_hobbit:
+  title: "The Hobbit"
+  authors: "J.R.R. Tolkien"
+  isbn: "9780547928227"
+  google_books_id: "pD6arNyKyi8C"
+  description: "A fantasy novel."
+  cover_url: "http://books.google.com/books/content?id=pD6arNyKyi8C"
+  publisher: "Houghton Mifflin Harcourt"
+  published_date: "2012-09-18"
+  page_count: 366

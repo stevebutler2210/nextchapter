@@ -15,6 +15,7 @@ class ClubsController < ApplicationController
     @memberships = @club.memberships.includes(:user)
     @club_owner = @club.owned_by?(Current.user)
     @invite_token = @club.signed_id(expires_in: 1.week)
+    @current_cycle = @club.current_cycle
   end
 
   def edit
@@ -39,6 +40,7 @@ class ClubsController < ApplicationController
     ActiveRecord::Base.transaction do
       @club.save!
       @club.memberships.create!(user: Current.user, role: :owner)
+      @club.cycles.create!(state: :nominating)
     end
 
     @clubs = clubs_for_current_user

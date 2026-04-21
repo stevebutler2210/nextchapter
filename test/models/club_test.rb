@@ -33,7 +33,7 @@ class ClubTest < ActiveSupport::TestCase
   end
 
   test "current_cycle returns the active cycle" do
-    active_cycle = cycles(:one)
+    active_cycle = cycles(:nominating)
     assert_equal active_cycle, @club.current_cycle
   end
 

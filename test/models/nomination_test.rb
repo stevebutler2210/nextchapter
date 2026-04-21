@@ -2,13 +2,13 @@ require "test_helper"
 
 class NominationTest < ActiveSupport::TestCase
   test "is valid with valid associations" do
-    nomination = nominations(:one)
+    nomination = nominations(:oathbringer)
 
     assert nomination.valid?
   end
 
   test "rejects duplicate nomination for same user and cycle" do
-    existing_nomination = nominations(:one)
+    existing_nomination = nominations(:oathbringer)
     duplicate = Nomination.new(
       cycle: existing_nomination.cycle,
       user: existing_nomination.user,
@@ -20,7 +20,7 @@ class NominationTest < ActiveSupport::TestCase
   end
 
   test "rejects duplicate book nomination in same cycle from different user" do
-    existing_nomination = nominations(:one)
+    existing_nomination = nominations(:oathbringer)
     duplicate = Nomination.new(
       cycle: existing_nomination.cycle,
       user: users(:two),

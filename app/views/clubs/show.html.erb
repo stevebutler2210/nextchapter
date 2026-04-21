@@ -18,5 +18,17 @@
     <p><%= link_to "Delete Club", club_path(@club), data: { turbo_method: :delete, turbo_confirm: "Delete this club?", turbo_frame: "_top" } %></p>
   <% end %>
 
+  <% if @current_cycle&.nominating? %>
+    <h2>Current Nominations</h2>
+    <div id="nominations_list">
+      <%= render @current_cycle.nominations.includes(:book, :user),
+            partial: "nominations/nomination",
+            as: :nomination %>
+    </div>
+
+    <h2>Nominate a Book</h2>
+    <%= render "books/search_and_nominate", club: @club, cycle: @current_cycle %>
+  <% end %>
+
   <p><%= link_to "Back to Clubs", clubs_path, data: { turbo_frame: "_top" } %></p>
 <% end %>
