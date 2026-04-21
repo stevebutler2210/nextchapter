@@ -227,3 +227,37 @@ backend) to be written at start of Day 4.
 
 - Nomination UI and Turbo Stream broadcast tickets carry forward—start
   these before picking up Day 5 work.
+
+## Day 5
+
+### What shipped
+
+- Design exploration using Google Stitch—four screens (landing, dashboard, club nominating/voting/reading) added to project files as working references. DESIGN.md drafted but not committed; authoring it properly by hand is a Day 6 ticket.
+- All Day 5 tickets expanded from stubs into full specs, plus a Day 6 DESIGN.md ticket stubbed.
+- Day 4 carryover: nomination UI—search, nominate, and update nominations on the club show page. Turbo Stream broadcast of new and updated nominations to all connected club members via Solid Cable.
+- Vote model with denormalised `cycle_id` for a database-level one-vote-per-user-per-cycle constraint. `before_validation` callback populates `cycle_id` from the nomination automatically.
+- Voting UI with live tally. Cast Vote / Remove Vote as separate controller actions. Vote counts broadcast to all connected members via `BroadcastVoteTallyJob` and a dedicated `_vote_count` partial.
+- Presenter layer introduced—`ApplicationPresenter` base class, `NominationPresenter` handling vote button logic and disabled state. `ApplicationHelper#present` for clean instantiation in views.
+- Solid Cable configured for development. Cable database added to `database.yml`, `cable_schema.rb` loaded manually (Rails `db:reset` doesn't load it automatically—README note queued for Day 7).
+- Club creation now includes an initial nominating cycle inside the existing transaction.
+- Seeds updated with cycle creation; stale TODOs removed.
+
+### What was skipped or deferred
+
+- Four Day 5 tickets remain: close-voting, cycle transition to reading, ReadingLogEntry, and Active Record Encryption. These were always the second half of the day's scope.
+- Request tests for voting UI are in but system-level broadcast tests are deferred to the Day 6 system test pass.
+- Voting UI PR raised but not merged—reviewing with fresh eyes tomorrow.
+
+### Surprises and deviations
+
+- Solid Cable required manual setup that wasn't generated on Day 1—`cable_schema.rb` exists but `db:reset` doesn't load it. Root cause: Action Cable wasn't exercised until Day 5, so the gap was invisible. Lesson for future projects: smoke-test infrastructure on Day 1 even if the feature isn't built yet.
+- `after_create_commit` on Vote was unreliable in the Solid Cable/SQLite threading context—the callback fired inside a `SolidCable::TrimJob` thread and was silently swallowed. Moved vote tally broadcasts to an explicit job dispatched from the controller. Nomination broadcasts remain as model callbacks (they work correctly in the simpler create-only flow).
+- Collection partial rendering with the shorthand `render @collection, locals:` does not reliably forward locals to each iteration. Switched to explicit `render partial:, collection:, as:, locals:` form.
+- Tie-break rule changed from earliest-nomination-wins to random selection between tied nominations. Not yet implemented—first ticket tomorrow covers this.
+
+### Open points into Day 6
+
+- Four remaining Day 5 tickets—close-voting, reading transition, ReadingLogEntry, encryption. Scope is recoverable: Day 3 work was pulled forward into Day 2's evening session, so the schedule has flex.
+- Voting UI PR needs a fresh-eyes review before merge.
+- `db:reset` + `cable_schema.rb` manual step needs documenting in the README (Day 7 deploy hardening).
+- `voted_by?` and the presenter's `cycle.votes.exists?` both fire per-row queries. Acceptable at current scale but worth revisiting if nomination counts grow. Counter cache is the likely fix.
