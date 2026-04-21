@@ -7,11 +7,7 @@ class NominationsController < ApplicationController
     nomination.book = book
 
     if nomination.save
-      @nomination = nomination
-      respond_to do |format|
-        format.turbo_stream
-        format.html { redirect_to @club }
-      end
+      redirect_to @club
     else
       redirect_to @club, alert: nomination.errors.full_messages.to_sentence
     end

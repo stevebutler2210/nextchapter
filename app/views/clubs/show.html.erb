@@ -1,3 +1,7 @@
+<% if @current_cycle&.nominating? %>
+  <%= turbo_stream_from "cycle_#{@current_cycle.id}_nominations" %>
+<% end %>
+
 <%= turbo_frame_tag "club_details_#{@club.id}" do %>
   <h1><%= @club.name %></h1>
   <p><%= @club.description.presence || "No description provided." %></p>
