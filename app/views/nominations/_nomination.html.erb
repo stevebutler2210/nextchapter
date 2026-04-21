@@ -1,3 +1,6 @@
+<%# instantiate current_user if not already set, for broadcasting or non-voting display purposes %>
+<% current_user ||= nil %>
+
 <div id="<%= "nomination_#{nomination.id}" %>">
   <p>
     <strong><%= nomination.book.title %></strong>
@@ -5,4 +8,12 @@
     <%= nomination.book.authors %>
   </p>
   <p>Nominated by <%= nomination.user.email_address %></p>
+
+  <% if nomination.cycle.voting? && current_user.present? %>
+    <%= present(nomination, current_user:).vote_button %>
+  <% end %>
+
+  <% if nomination.cycle.voting? %>
+    <%= render "nominations/vote_count", nomination: nomination %>
+  <% end %>
 </div>

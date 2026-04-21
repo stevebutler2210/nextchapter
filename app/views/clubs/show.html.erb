@@ -2,6 +2,10 @@
   <%= turbo_stream_from "cycle_#{@current_cycle.id}_nominations" %>
 <% end %>
 
+<% if @current_cycle&.voting? %>
+  <%= turbo_stream_from "cycle_#{@current_cycle.id}_votes" %>
+<% end %>
+
 <%= turbo_frame_tag "club_details_#{@club.id}" do %>
   <h1><%= @club.name %></h1>
   <p><%= @club.description.presence || "No description provided." %></p>
@@ -32,6 +36,16 @@
 
     <h2>Nominate a Book</h2>
     <%= render "books/search_and_nominate", club: @club, cycle: @current_cycle %>
+  <% end %>
+
+  <% if @current_cycle&.voting? %>
+    <h2>Vote for your favourite nomination</h2>
+    <div id="nominations_list">
+      <%= render partial: "nominations/nomination",
+            collection: @current_cycle.nominations.includes(:book, :user, :votes),
+            as: :nomination,
+            locals: { current_user: Current.user } %>
+    </div>
   <% end %>
 
   <p><%= link_to "Back to Clubs", clubs_path, data: { turbo_frame: "_top" } %></p>

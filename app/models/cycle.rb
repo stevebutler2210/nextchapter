@@ -1,6 +1,7 @@
 class Cycle < ApplicationRecord
   belongs_to :club
   has_many :nominations, dependent: :destroy
+  has_many :votes, dependent: :destroy
 
   enum :state, { nominating: "nominating", voting: "voting", reading: "reading", complete: "complete" }
 
