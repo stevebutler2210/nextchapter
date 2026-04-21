@@ -1,0 +1,8 @@
+<div id="<%= dom_id(nomination) %>">
+  <p>
+    <strong><%= nomination.book.title %></strong>
+    —
+    <%= nomination.book.authors %>
+  </p>
+  <p>Nominated by <%= nomination.user.email_address %></p>
+</div>

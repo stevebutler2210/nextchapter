@@ -2,7 +2,7 @@ require "test_helper"
 
 class MembershipTest < ActiveSupport::TestCase
   setup do
-    @membership = memberships(:one)
+    @membership = memberships(:owner)
   end
 
   test "is valid with valid attributes" do

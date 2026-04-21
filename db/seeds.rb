@@ -36,8 +36,13 @@ end
 
 puts "Created #{Membership.count} membership(s)"
 
-# TODO: Seed a Cycle in mid-voting state once Cycle model exists (Day 4)
+# Cycle
+unless club.current_cycle
+  club.cycles.create!(state: :nominating)
+end
+
+puts "Cycles: #{Cycle.count}"
+
 # TODO: Seed Nominations and Votes once those models exist (Day 4/5)
-# TODO: Seed Books with Google Books data once Book model exists (Day 3)
 
 puts "Done."

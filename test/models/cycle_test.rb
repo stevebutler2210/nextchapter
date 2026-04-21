@@ -36,21 +36,21 @@ class CycleTest < ActiveSupport::TestCase
 
   # Valid transitions
   test "advance_to_voting! transitions from nominating to voting" do
-    cycle = cycles(:one)
+    cycle = cycles(:nominating)
     assert_equal "nominating", cycle.state
     cycle.advance_to_voting!
     assert_equal "voting", cycle.reload.state
   end
 
   test "advance_to_reading! transitions from voting to reading" do
-    cycle = cycles(:one)
+    cycle = cycles(:nominating)
     cycle.update!(state: :voting)
     cycle.advance_to_reading!
     assert_equal "reading", cycle.reload.state
   end
 
   test "complete! transitions from reading to complete" do
-    cycle = cycles(:one)
+    cycle = cycles(:nominating)
     cycle.update!(state: :reading)
     cycle.complete!
     assert_equal "complete", cycle.reload.state
@@ -58,24 +58,24 @@ class CycleTest < ActiveSupport::TestCase
 
   # Invalid transitions
   test "advance_to_voting! raises when not in nominating state" do
-    cycle = cycles(:one)
+    cycle = cycles(:nominating)
     cycle.update!(state: :voting)
     assert_raises(RuntimeError) { cycle.advance_to_voting! }
   end
 
   test "advance_to_reading! raises when not in voting state" do
-    cycle = cycles(:one)
+    cycle = cycles(:nominating)
     assert_raises(RuntimeError) { cycle.advance_to_reading! }
   end
 
   test "complete! raises when not in reading state" do
-    cycle = cycles(:one)
+    cycle = cycles(:nominating)
     assert_raises(RuntimeError) { cycle.complete! }
   end
 
   # One active cycle per club constraint
   test "is invalid when club already has an active cycle" do
-    existing_cycle = cycles(:one)
+    existing_cycle = cycles(:nominating)
     assert existing_cycle.valid?
 
     new_cycle = Cycle.new(club: @club, state: "nominating")
@@ -84,7 +84,7 @@ class CycleTest < ActiveSupport::TestCase
   end
 
   test "allows a new active cycle after existing cycle is complete" do
-    existing_cycle = cycles(:one)
+    existing_cycle = cycles(:nominating)
     existing_cycle.update!(state: :complete)
 
     new_cycle = Cycle.new(club: @club, state: "nominating")
@@ -92,7 +92,7 @@ class CycleTest < ActiveSupport::TestCase
   end
 
   test "allows multiple complete cycles for a club" do
-    cycle1 = cycles(:one)
+    cycle1 = cycles(:nominating)
     cycle1.update!(state: :complete)
 
     cycle2 = @club.cycles.create!(state: "nominating")
@@ -104,13 +104,13 @@ class CycleTest < ActiveSupport::TestCase
 
   # Belongs to club
   test "belongs to club" do
-    cycle = cycles(:one)
+    cycle = cycles(:nominating)
     assert_equal @club, cycle.club
   end
 
   # Timestamps
   test "has timestamps" do
-    cycle = cycles(:one)
+    cycle = cycles(:nominating)
     assert_not_nil cycle.created_at
     assert_not_nil cycle.updated_at
   end

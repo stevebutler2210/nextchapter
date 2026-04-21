@@ -12,9 +12,23 @@
       <% end %>
       <p><strong><%= book.title %></strong></p>
       <p><%= book.authors %></p>
-      <%# page_count can be nil or 0 from Google Books — both treated as absent %>
       <% if book.page_count.presence&.positive? %>
         <p><%= book.page_count %> pages</p>
+      <% end %>
+
+      <% if params[:cycle_id].present? %>
+        <%= form_with url: cycle_nominations_path(params[:cycle_id]) do |f| %>
+          <%= f.hidden_field :google_books_id, value: book.google_books_id %>
+          <%= f.hidden_field :title, value: book.title %>
+          <%= f.hidden_field :authors, value: book.authors %>
+          <%= f.hidden_field :isbn, value: book.isbn %>
+          <%= f.hidden_field :description, value: book.description %>
+          <%= f.hidden_field :cover_url, value: book.cover_image_url %>
+          <%= f.hidden_field :publisher, value: book.publisher %>
+          <%= f.hidden_field :published_date, value: book.published_date %>
+          <%= f.hidden_field :page_count, value: book.page_count %>
+          <%= f.submit "Nominate" %>
+        <% end %>
       <% end %>
     </div>
   <% end %>

@@ -1,9 +1,9 @@
-one:
+oathbringer:
   book: oathbringer
-  cycle: one
+  cycle: nominating
   user: one
 
-two:
+handmaids_tale:
   book: handmaids_tale
-  cycle: one
+  cycle: nominating
   user: two

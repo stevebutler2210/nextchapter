@@ -1,9 +1,14 @@
-one:
+owner:
   user: one
   club: one
   role: "owner"
 
-two:
+member:
   user: two
+  club: one
+  role: "member"
+
+member_two:
+  user: three
   club: one
   role: "member"

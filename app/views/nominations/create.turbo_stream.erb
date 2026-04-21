@@ -1,0 +1,13 @@
+<% if @nomination.previously_new_record? %>
+  <%= turbo_stream.append "nominations_list" do %>
+    <%= render "nominations/nomination", nomination: @nomination %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.replace dom_id(@nomination) do %>
+    <%= render "nominations/nomination", nomination: @nomination %>
+  <% end %>
+<% end %>
+
+<%= turbo_stream.update "nomination_search" do %>
+  <%= render "books/search_and_nominate", club: @club, cycle: @cycle %>
+<% end %>
