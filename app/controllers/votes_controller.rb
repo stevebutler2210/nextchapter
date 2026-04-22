@@ -9,6 +9,7 @@ class VotesController < ApplicationController
     if vote.save
       @vote = vote
       BroadcastVoteTallyJob.perform_later(@nomination.id)
+
       respond_to do |format|
         format.html { redirect_to @nomination.cycle.club }
         format.turbo_stream

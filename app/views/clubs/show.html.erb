@@ -1,3 +1,5 @@
+<%= turbo_stream_from "club_#{@club.id}" %>
+
 <% if @current_cycle&.nominating? %>
   <%= turbo_stream_from "cycle_#{@current_cycle.id}_nominations" %>
 <% end %>
@@ -17,13 +19,21 @@
     <% end %>
   </ul>
 
-  <% if @club_owner %>
+  <% if @is_owner %>
     <div data-controller="clipboard">
       <p>Invite link: <span data-clipboard-target="source"><%= invite_url(signed_id: @invite_token) %></span></p>
       <button data-clipboard-target="button" data-action="clipboard#copy">Copy to Clipboard</button>
     </div>
     <p><%= link_to "Edit Club", edit_club_path(@club) %></p>
     <p><%= link_to "Delete Club", club_path(@club), data: { turbo_method: :delete, turbo_confirm: "Delete this club?", turbo_frame: "_top" } %></p>
+  <% end %>
+
+  <% if @is_owner && @current_cycle&.nominating? %>
+    <%= button_to "Close Nominations", close_nominations_cycle_path(@current_cycle), method: :patch, data: { turbo_frame: "_top" } %>
+  <% end %>
+
+  <% if @is_owner && @current_cycle&.voting? %>
+    <%= button_to "Close Voting", close_voting_cycle_path(@current_cycle), method: :patch, data: { turbo_frame: "_top" } %>
   <% end %>
 
   <% if @current_cycle&.nominating? %>
@@ -47,6 +57,6 @@
             locals: { current_user: Current.user } %>
     </div>
   <% end %>
-
-  <p><%= link_to "Back to Clubs", clubs_path, data: { turbo_frame: "_top" } %></p>
 <% end %>
+
+<p><%= link_to "Back to Clubs", clubs_path, data: { turbo_frame: "_top" } %></p>
