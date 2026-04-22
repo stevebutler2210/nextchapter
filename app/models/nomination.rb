@@ -11,6 +11,10 @@ class Nomination < ApplicationRecord
   after_create_commit :broadcast_nomination
   after_update_commit :broadcast_nomination_replace
 
+  def voted_by?(user)
+    votes.exists?(user_id: user.id)
+  end
+
   private
 
   def broadcast_nomination

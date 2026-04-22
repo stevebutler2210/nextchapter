@@ -12,8 +12,6 @@ class Vote < ApplicationRecord
 
   validate :cycle_must_be_in_voting_state
 
-  after_destroy_commit :broadcast_tally_update
-
   private
 
   def set_cycle_from_nomination
@@ -23,9 +21,5 @@ class Vote < ApplicationRecord
   def cycle_must_be_in_voting_state
     return unless cycle
     errors.add(:base, "Voting is not open for this cycle") unless cycle.voting?
-  end
-
-  def broadcast_tally_update
-    # Broadcast logic added in voting UI ticket
   end
 end

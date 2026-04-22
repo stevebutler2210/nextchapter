@@ -1,0 +1,7 @@
+<% @nomination.cycle.nominations.includes(:book, :user, :votes).each do |nomination| %>
+  <%= turbo_stream.replace "nomination_#{nomination.id}" do %>
+    <%= render "nominations/nomination",
+          nomination: nomination,
+          current_user: Current.user %>
+  <% end %>
+<% end %>
