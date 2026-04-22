@@ -1,4 +1,4 @@
-## Day 0 — Planning
+## Day 0 - 17/04/2026 - Planning
 
 Created both repositories. Committed PLAN.md and WORKFLOW.md to
 `nextchapter-mobile/docs/`. Set up a public GitHub Project board with both
@@ -8,7 +8,7 @@ repos linked. Added labels, milestones, and issue templates to
 Backend ticket stubs were not filed—deferred to Day 1 morning. No code
 shipped.
 
-## Day 1 — Foundations
+## Day 1 - 18/04/2026 - Foundations
 
 **Shipped**
 
@@ -57,11 +57,11 @@ shipped.
 
 **Open questions into Day 2**
 
-- Credentials setup deferred to Day 7—ticket notes to be updated when
+- Credentials setup deferred to planned Day 7—ticket notes to be updated when
   filing stubs today
-- `force_ssl` revisit flagged for Day 7 depending on deployment setup
+- `force_ssl` revisit flagged for planned Day 7 depending on deployment setup
 
-## Day 2 — Clubs and membership
+## Day 2 - 19/04/2026 - Clubs and Membership
 
 **Shipped**
 
@@ -89,7 +89,7 @@ shipped.
 
 **Deferred**
 
-- Stimulus controller system test deferred to Day 6 polish/test pass—
+- Stimulus controller system test deferred to planned Day 6 polish/test pass—
   noted on that ticket
 
 **Surprises / deviations**
@@ -113,20 +113,18 @@ as a focused session to bank time before the week's 3-hour day blocks.
 Total hours ceiling revised to ~40 to preserve the "delivered in a
 working week" narrative without compromising on quality.
 
-**Open questions into Day 3**
+**Open questions for Day 2 (Evening)**
 
 - Turbo Streams spike needed before live book search implementation
 - Solid Queue guide needed before cover image caching job
 - Google Books API key setup required—confirm credentials approach
   before starting `BookLookupService`
 
-## Day 3 — Books and external lookup
-
-(NB: Day 3 tasks pulled forward and worked the evening of Day 2, as per note above)
+## Day 2 (Evening) - 19/04/2026 - Books and External Lookup
 
 **Shipped**
 
-All five Day 3 tickets closed:
+All planned Day 3 tickets closed:
 
 - `Book` model with Google Books fields, unique index on `google_books_id`,
   title presence validation. Uniqueness enforced at both DB and model level—DB
@@ -164,7 +162,7 @@ backend) to be written at start of Day 4.
 - `CacheCoverImageJob` call site deferred to Day 4—the job exists and is
   tested but nothing enqueues it yet. Natural home is wherever a book is
   first persisted from search results.
-- Turbo progress bar styling deferred to Day 6—noted on the styling ticket.
+- Turbo progress bar styling deferred to planned Day 6—noted on the styling ticket.
 
 **Surprises / deviations**
 
@@ -184,7 +182,7 @@ backend) to be written at start of Day 4.
 - `CacheCoverImageJob.perform_later` call site to be wired in when books are
   first persisted from search results
 
-## Day 4 — Cycles and nominations (partial)
+## Day 3 - 20/04/2026 - Cycles and Nominations (Partial)
 
 **What shipped**
 
@@ -212,8 +210,8 @@ backend) to be written at start of Day 4.
 
 **Deferred**
 
-- Nomination UI and Turbo Stream broadcast—Day 4 started late; both
-  tickets carry forward to Day 5 morning before evening work begins.
+- Nomination UI and Turbo Stream broadcast—planned Day 4 started late; both
+  tickets carry forward to planned Day 5 morning before evening work begins.
 
 **Surprises or deviations**
 
@@ -226,38 +224,71 @@ backend) to be written at start of Day 4.
 **Open questions into Day 5**
 
 - Nomination UI and Turbo Stream broadcast tickets carry forward—start
-  these before picking up Day 5 work.
+  these before picking up planned Day 5 work.
 
-## Day 5
+## Day 4 - 21/04/2026 - Voting UI and Live Updates
 
 ### What shipped
 
-- Design exploration using Google Stitch—four screens (landing, dashboard, club nominating/voting/reading) added to project files as working references. DESIGN.md drafted but not committed; authoring it properly by hand is a Day 6 ticket.
-- All Day 5 tickets expanded from stubs into full specs, plus a Day 6 DESIGN.md ticket stubbed.
+- Design exploration using Google Stitch—four screens (landing, dashboard, club nominating/voting/reading) added to project files as working references. DESIGN.md drafted but not committed; authoring it properly by hand is a planned Day 6 ticket.
+- All planned Day 5 tickets expanded from stubs into full specs, plus a planned Day 6 DESIGN.md ticket stubbed.
 - Day 4 carryover: nomination UI—search, nominate, and update nominations on the club show page. Turbo Stream broadcast of new and updated nominations to all connected club members via Solid Cable.
 - Vote model with denormalised `cycle_id` for a database-level one-vote-per-user-per-cycle constraint. `before_validation` callback populates `cycle_id` from the nomination automatically.
 - Voting UI with live tally. Cast Vote / Remove Vote as separate controller actions. Vote counts broadcast to all connected members via `BroadcastVoteTallyJob` and a dedicated `_vote_count` partial.
 - Presenter layer introduced—`ApplicationPresenter` base class, `NominationPresenter` handling vote button logic and disabled state. `ApplicationHelper#present` for clean instantiation in views.
-- Solid Cable configured for development. Cable database added to `database.yml`, `cable_schema.rb` loaded manually (Rails `db:reset` doesn't load it automatically—README note queued for Day 7).
+- Solid Cable configured for development. Cable database added to `database.yml`, `cable_schema.rb` loaded manually (Rails `db:reset` doesn't load it automatically—README note queued for Day 6).
 - Club creation now includes an initial nominating cycle inside the existing transaction.
 - Seeds updated with cycle creation; stale TODOs removed.
 
 ### What was skipped or deferred
 
-- Four Day 5 tickets remain: close-voting, cycle transition to reading, ReadingLogEntry, and Active Record Encryption. These were always the second half of the day's scope.
-- Request tests for voting UI are in but system-level broadcast tests are deferred to the Day 6 system test pass.
+- Four planned Day 5 tickets remain: close-voting, cycle transition to reading, ReadingLogEntry, and Active Record Encryption. These were always the second half of the planned scope.
+- Request tests for voting UI are in but system-level broadcast tests are deferred to the planned Day 5 system test pass.
 - Voting UI PR raised but not merged—reviewing with fresh eyes tomorrow.
 
 ### Surprises and deviations
 
-- Solid Cable required manual setup that wasn't generated on Day 1—`cable_schema.rb` exists but `db:reset` doesn't load it. Root cause: Action Cable wasn't exercised until Day 5, so the gap was invisible. Lesson for future projects: smoke-test infrastructure on Day 1 even if the feature isn't built yet.
+- Solid Cable required manual setup that wasn't generated on Day 1—`cable_schema.rb` exists but `db:reset` doesn't load it. Root cause: Action Cable wasn't exercised until planned Day 5 scope, so the gap was invisible. Lesson for future projects: smoke-test infrastructure on Day 1 even if the feature isn't built yet.
 - `after_create_commit` on Vote was unreliable in the Solid Cable/SQLite threading context—the callback fired inside a `SolidCable::TrimJob` thread and was silently swallowed. Moved vote tally broadcasts to an explicit job dispatched from the controller. Nomination broadcasts remain as model callbacks (they work correctly in the simpler create-only flow).
 - Collection partial rendering with the shorthand `render @collection, locals:` does not reliably forward locals to each iteration. Switched to explicit `render partial:, collection:, as:, locals:` form.
-- Tie-break rule changed from earliest-nomination-wins to random selection between tied nominations. Not yet implemented—first ticket tomorrow covers this.
+- Tie-break rule changed from earliest-nomination-wins to random selection between tied nominations. Not yet implemented—first planned Day 5 ticket tomorrow covers this.
 
-### Open points into Day 6
+### Open points into Day 5
 
-- Four remaining Day 5 tickets—close-voting, reading transition, ReadingLogEntry, encryption. Scope is recoverable: Day 3 work was pulled forward into Day 2's evening session, so the schedule has flex.
+- Four remaining planned Day 5 tickets—close-voting, reading transition, ReadingLogEntry, encryption. Scope is recoverable: planned Day 3 work was pulled forward into Day 2's evening session, so the schedule has flex.
 - Voting UI PR needs a fresh-eyes review before merge.
-- `db:reset` + `cable_schema.rb` manual step needs documenting in the README (Day 7 deploy hardening).
+- `db:reset` + `cable_schema.rb` manual step needs documenting in the README (Day 6 deploy hardening).
 - `voted_by?` and the presenter's `cycle.votes.exists?` both fire per-row queries. Acceptable at current scale but worth revisiting if nomination counts grow. Counter cache is the likely fix.
+
+## Day 5 - 22/04/2026 - Cycle Transitions, Reading Logs, and Encryption
+
+### What shipped
+
+All four planned Day 5 carryover tickets closed, plus the voting UI minor refactor (#83):
+
+- **Voting UI refactor** — ownership check added to vote destroy, superfluous `reload` removed, vote lookup refactored to use `detect`, error handling added for missing votes in `VotesController`.
+- **`close_voting_and_select_winner!` on `Cycle`** — sets `winning_nomination_id`, transitions directly from voting to reading in one step. Tie-break by random selection among tied nominations. Returns a `:tie` / `:winner` symbol so the controller can set an appropriate flash without the model knowing about flash. `COUNT(votes.id)` used in the left-join aggregate—`COUNT(*)` was counting the nomination row itself for zero-vote nominations, not actual votes.
+- **State transition UI** — `close_nominations` and `close_voting` PATCH actions added to `CyclesController`, owner-only. Transition buttons rendered on the club show page for nominating and voting states. Club page subscribes to a club-level Turbo stream; `broadcast_action_to` with `action: :refresh` forces a full page reload for all connected members on state change. 303 See Other used for all transition redirects, including `RuntimeError` rescue paths. Request test coverage added for close-nominations and close-voting: success, forbidden, wrong-state, no-nominations, and no-votes paths.
+- **`ReadingLogEntry` model, controller, routes, and reading-state partial** — immutable log entries with explicit string enum states (`started`, `progressed`, `finished`). Validations: cycle must be in reading state; `page_reached` must be a positive integer when present and cannot exceed the winning book's page count. `ReadingLogEntriesController#create` with membership-scoped cycle lookup and member-only access. Nested route under cycles (shallow, create-only). Turbo Frame for the log form and entry list — form clears after successful create. Per-user stream considered and rejected as over-engineering for a private personal log.
+- **Active Record Encryption on `note`** — encrypts `:note` field on `ReadingLogEntry`. Non-deterministic (no lookup requirements on this field). Keys stored in `credentials.yml.enc`. `encrypt_fixtures: true` added to the test environment. Production key setup deferred to Day 6.
+
+### What was skipped or deferred
+
+- Style pass, system tests, empty states, landing page, and DESIGN.md commit — all carry into Day 6.
+- `advance_to_voting!` callsite wiring — fold into Day 6 polish pass.
+- Production encryption key setup on Fly — Day 6 deploy hardening.
+- Service object extraction for cycle transitions — noted as Day 6 cleanup.
+
+### Surprises and deviations
+
+- `close_voting_and_select_winner!` guard logic had a subtle bug — left-join with `COUNT(*)` returned 1 for nominations with zero votes. Fixed by using `count("votes.id")` which only counts non-NULL join values.
+- Turbo broadcast approach for state transitions iterated before landing on `broadcast_action_to` with `action: :refresh`. The simpler answer was available all along but took some exploration to get there.
+- `rescue_from RuntimeError { }` syntax error in `CyclesController` — curly-brace form parsed incorrectly by Ruby. Switched to `do...end`.
+
+### Open questions into Day 6
+
+- `advance_to_voting!` callsite still unwired — fold into Day 6 polish pass.
+- `dom_id` helper usage audit — some places may be using string interpolation where the helper should be used.
+- DESIGN.md needs committing as the canonical design record before the style pass begins.
+- Font imports (Newsreader, Work Sans) — confirm Google Fonts vs self-hosted before applying design tokens.
+- `db:reset` + `cable_schema.rb` manual step still needs README documentation.
