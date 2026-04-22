@@ -1,4 +1,6 @@
 class ReadingLogEntry < ApplicationRecord
+  encrypts :note
+
   belongs_to :user
   belongs_to :cycle
 
