@@ -25,6 +25,8 @@ Rails.application.routes.draw do
       resources :nominations, only: [ :create ], shallow: true do
         resources :votes, only: [ :create, :destroy ]
       end
+
+      resources :reading_log_entries, only: [ :create ], shallow: true
     end
   end
 

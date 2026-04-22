@@ -1,0 +1,19 @@
+<h2>Current Read</h2>
+
+<% if cycle.winning_nomination&.book.present? %>
+  <p>
+    <strong>Winning book:</strong>
+    <%= cycle.winning_nomination.book.title %>
+    <% if cycle.winning_nomination.book.cover_image_url.present? %>
+      <%= image_tag cycle.winning_nomination.book.cover_image_url, alt: cycle.winning_nomination.book.title %>
+    <% end %>
+    <% if cycle.winning_nomination.book.authors.present? %>
+      by <%= cycle.winning_nomination.book.authors %>
+    <% end %>
+  </p>
+<% end %>
+
+<%= render "reading_log_entries_frame",
+  cycle: cycle,
+  reading_log_entry: reading_log_entry,
+  reading_log_entries: reading_log_entries %>
