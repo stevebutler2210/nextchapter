@@ -17,6 +17,10 @@ Rails.application.routes.draw do
 
   resources :clubs, only: %i[index show new create edit update destroy] do
     resources :cycles, shallow: true do
+      member do
+        patch :close_voting
+      end
+
       resources :nominations, only: [ :create ], shallow: true do
         resources :votes, only: [ :create, :destroy ]
       end
