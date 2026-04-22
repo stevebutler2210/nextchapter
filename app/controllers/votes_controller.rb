@@ -1,6 +1,7 @@
 class VotesController < ApplicationController
   before_action :set_nomination, only: [ :create ]
   before_action :set_vote, only: [ :destroy ]
+  before_action :require_vote_owner!, only: [ :destroy ]
 
   def create
     vote = Vote.new(user: Current.user, nomination: @nomination)
@@ -19,8 +20,6 @@ class VotesController < ApplicationController
   end
 
   def destroy
-    return head :forbidden unless @vote.user_id == Current.user.id
-
     @nomination = @vote.nomination
     @vote.destroy
     BroadcastVoteTallyJob.perform_later(@nomination.id)
@@ -41,5 +40,9 @@ class VotesController < ApplicationController
 
   def set_vote
     @vote = Vote.find(params[:id])
+  end
+
+  def require_vote_owner!
+    head :forbidden unless @vote.user_id == Current.user.id
   end
 end

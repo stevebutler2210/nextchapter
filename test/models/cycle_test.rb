@@ -35,37 +35,65 @@ class CycleTest < ActiveSupport::TestCase
   end
 
   # Valid transitions
-  test "advance_to_voting! transitions from nominating to voting" do
+  test "close_nominations! transitions from nominating to voting" do
     cycle = cycles(:nominating)
     assert_equal "nominating", cycle.state
-    cycle.advance_to_voting!
+    cycle.close_nominations!
     assert_equal "voting", cycle.reload.state
   end
 
-  test "advance_to_reading! transitions from voting to reading" do
-    cycle = cycles(:nominating)
-    cycle.update!(state: :voting)
-    cycle.advance_to_reading!
+  test "close_voting_and_select_winner! returns :clear_winner and sets the leading nomination" do
+    cycle = cycles(:voting)
+    # voting_one and voting_two each have 1 vote via fixtures — add a second vote to voting_one
+    Vote.create!(user: users(:three), nomination: nominations(:voting_one), cycle: cycle)
+
+    result = cycle.close_voting_and_select_winner!
+
+    assert_equal :clear_winner, result
     assert_equal "reading", cycle.reload.state
+    assert_equal nominations(:voting_one), cycle.winning_nomination
+  end
+
+  test "close_voting_and_select_winner! returns :tied and picks a winner randomly on a tie" do
+    cycle = cycles(:voting)
+    # voting_one and voting_two each have exactly 1 vote via fixtures — genuine tie
+
+    result = cycle.close_voting_and_select_winner!
+
+    assert_equal :tied, result
+    assert_equal "reading", cycle.reload.state
+    assert_includes [ nominations(:voting_one), nominations(:voting_two) ], cycle.winning_nomination
   end
 
   test "complete! transitions from reading to complete" do
-    cycle = cycles(:nominating)
-    cycle.update!(state: :reading)
+    cycle = cycles(:voting)
+    cycle.close_voting_and_select_winner!
     cycle.complete!
     assert_equal "complete", cycle.reload.state
   end
 
   # Invalid transitions
-  test "advance_to_voting! raises when not in nominating state" do
+  test "close_nominations! raises when not in nominating state" do
     cycle = cycles(:nominating)
     cycle.update!(state: :voting)
-    assert_raises(RuntimeError) { cycle.advance_to_voting! }
+    assert_raises(RuntimeError) { cycle.close_nominations! }
   end
 
-  test "advance_to_reading! raises when not in voting state" do
+  test "close_nominations! raises when there are no nominations" do
+    club = Club.create!(name: "Empty Club", created_by: users(:one))
+    cycle = club.cycles.create!(state: :nominating)
+    assert_raises(RuntimeError) { cycle.close_nominations! }
+  end
+
+  test "close_voting_and_select_winner! raises when not in voting state" do
     cycle = cycles(:nominating)
-    assert_raises(RuntimeError) { cycle.advance_to_reading! }
+    assert_raises(RuntimeError) { cycle.close_voting_and_select_winner! }
+  end
+
+  test "close_voting_and_select_winner! raises when no votes have been cast" do
+    cycle = cycles(:voting)
+    cycle.votes.delete_all
+    assert_raises(RuntimeError) { cycle.close_voting_and_select_winner! }
   end
 
   test "complete! raises when not in reading state" do
