@@ -3,6 +3,7 @@ class Cycle < ApplicationRecord
   belongs_to :winning_nomination, class_name: "Nomination", optional: true
   has_many :nominations, dependent: :destroy
   has_many :votes, dependent: :destroy
+  has_many :reading_log_entries, dependent: :destroy
 
   enum :state, { nominating: "nominating", voting: "voting", reading: "reading", complete: "complete" }
 

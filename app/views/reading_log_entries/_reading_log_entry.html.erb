@@ -1,0 +1,14 @@
+<article id="<%= dom_id(reading_log_entry) %>">
+  <p>
+    <strong><%= reading_log_entry.state.humanize %></strong>
+    <span>on <%= reading_log_entry.created_at.strftime("%d %b %Y") %></span>
+  </p>
+
+  <% if reading_log_entry.page_reached.present? %>
+    <p>Page reached: <%= reading_log_entry.page_reached %></p>
+  <% end %>
+
+  <% if reading_log_entry.note.present? %>
+    <p><%= reading_log_entry.note %></p>
+  <% end %>
+</article>

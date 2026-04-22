@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_22_090000) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_22_101500) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -99,6 +99,20 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_22_090000) do
     t.index ["user_id"], name: "index_nominations_on_user_id"
   end
 
+  create_table "reading_log_entries", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "cycle_id", null: false
+    t.text "note"
+    t.integer "page_reached"
+    t.string "state", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["cycle_id", "created_at"], name: "index_reading_log_entries_on_cycle_id_and_created_at"
+    t.index ["cycle_id"], name: "index_reading_log_entries_on_cycle_id"
+    t.index ["user_id", "cycle_id"], name: "index_reading_log_entries_on_user_id_and_cycle_id"
+    t.index ["user_id"], name: "index_reading_log_entries_on_user_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "ip_address"
@@ -146,6 +160,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_22_090000) do
   add_foreign_key "nominations", "books"
   add_foreign_key "nominations", "cycles"
   add_foreign_key "nominations", "users"
+  add_foreign_key "reading_log_entries", "cycles"
+  add_foreign_key "reading_log_entries", "users"
   add_foreign_key "sessions", "users"
   add_foreign_key "votes", "cycles"
   add_foreign_key "votes", "nominations"

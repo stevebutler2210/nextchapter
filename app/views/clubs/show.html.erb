@@ -59,4 +59,12 @@
   <% end %>
 <% end %>
 
+<% if @current_cycle&.reading? %>
+  <%= render "reading",
+        club: @club,
+        cycle: @current_cycle,
+        reading_log_entry: ReadingLogEntry.new,
+        reading_log_entries: @current_cycle.reading_log_entries.where(user: Current.user).order(created_at: :desc) %>
+<% end %>
+
 <p><%= link_to "Back to Clubs", clubs_path, data: { turbo_frame: "_top" } %></p>
