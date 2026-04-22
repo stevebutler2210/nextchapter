@@ -15,6 +15,8 @@ class Cycle < ApplicationRecord
 
   validates :winning_nomination, presence: true, if: -> { reading? }
 
+  after_update :broadcast_state_change, if: :saved_change_to_state?
+
   # Transition methods - each raises on invalid transition
   def close_nominations!
     raise "Cannot advance to voting from #{state}" unless nominating?
@@ -41,7 +43,13 @@ class Cycle < ApplicationRecord
     update!(state: :complete)
   end
 
+  private
+
   def vote_counts_by_nomination_id
     nominations.left_joins(:votes).group("nominations.id").count("votes.id")
+  end
+
+  def broadcast_state_change
+    Turbo::StreamsChannel.broadcast_refresh_to("club_#{club.id}")
   end
 end

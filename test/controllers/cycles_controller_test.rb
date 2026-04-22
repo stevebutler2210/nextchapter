@@ -4,7 +4,50 @@ class CyclesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @owner = users(:one)
     @non_owner = users(:two)
+    @nominating_cycle = cycles(:nominating)
     @voting_cycle = cycles(:voting)
+  end
+
+  test "owner can close nominations" do
+    sign_in_as(@owner)
+
+    patch close_nominations_cycle_path(@nominating_cycle)
+
+    assert_redirected_to @nominating_cycle.club
+    assert_equal "Nominations closed.", flash[:notice]
+
+    @nominating_cycle.reload
+    assert_equal "voting", @nominating_cycle.state
+  end
+
+  test "non-owner gets 403 when trying to close nominations" do
+    sign_in_as(@non_owner)
+
+    patch close_nominations_cycle_path(@nominating_cycle)
+
+    assert_response :forbidden
+    assert_equal "nominating", @nominating_cycle.reload.state
+  end
+
+  test "close nominations is rejected when cycle is not in nominating state" do
+    sign_in_as(@owner)
+
+    patch close_nominations_cycle_path(@voting_cycle)
+
+    assert_redirected_to @voting_cycle.club
+    assert_equal "Cannot advance to voting from voting", flash[:alert]
+    assert_equal "voting", @voting_cycle.reload.state
+  end
+
+  test "close nominations is rejected when there are no nominations" do
+    sign_in_as(@owner)
+    @nominating_cycle.nominations.destroy_all
+
+    patch close_nominations_cycle_path(@nominating_cycle)
+
+    assert_redirected_to @nominating_cycle.club
+    assert_equal "Cannot advance to voting without any nominations", flash[:alert]
+    assert_equal "nominating", @nominating_cycle.reload.state
   end
 
   test "owner can close voting with a clear winner" do
@@ -55,5 +98,17 @@ class CyclesControllerTest < ActionDispatch::IntegrationTest
     assert_equal "Cannot close voting from nominating", flash[:alert]
     assert_equal "nominating", non_voting_cycle.reload.state
     assert_nil non_voting_cycle.winning_nomination
+  end
+
+  test "close voting is rejected when there are no votes" do
+    sign_in_as(@owner)
+    @voting_cycle.votes.destroy_all
+
+    patch close_voting_cycle_path(@voting_cycle)
+
+    assert_redirected_to @voting_cycle.club
+    assert_equal "Cannot close voting without any votes", flash[:alert]
+    assert_equal "voting", @voting_cycle.reload.state
+    assert_nil @voting_cycle.winning_nomination
   end
 end
