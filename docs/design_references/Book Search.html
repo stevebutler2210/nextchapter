@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NextChapter — Book Search</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..800;1,6..72,300..800&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            surface: { DEFAULT:'#fcf9f5','container-lowest':'#ffffff','container-low':'#f7f4f0','container':'#f0ede9','container-high':'#e5e2de','container-highest':'#dbd8d4','variant':'#e1ddd8' },
+            'on-surface': '#1c1c1a',
+            primary: { DEFAULT:'#89453a', container:'#f4ebe9' },
+            'on-primary': '#ffffff',
+            tertiary: { DEFAULT:'#7a826e', container:'#eff1ed' },
+            outline: { DEFAULT:'#85827e', variant:'#d1cfcc' },
+          },
+          fontFamily: { newsreader:['Newsreader','Georgia','serif'], 'work-sans':['Work Sans','system-ui','sans-serif'] },
+          borderRadius: { sm:'2px', DEFAULT:'4px' },
+        },
+      },
+    }
+  </script>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Work Sans',sans-serif; color:#1c1c1a; background:#fcf9f5; }
+  </style>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen flex">
+
+  <!-- Sidebar -->
+  <aside class="w-40 shrink-0 bg-surface-container-low min-h-screen flex flex-col py-6 px-4">
+    <a href="/" class="font-newsreader text-lg tracking-tight font-medium text-on-surface mb-10 block" style="text-decoration:none;">
+      <span class="mr-1.5 inline-block" style="font-size:1.1em;">📖</span>NextChapter
+    </a>
+    <nav class="flex flex-col gap-1">
+      <a href="/dashboard" class="font-work-sans text-sm font-medium px-3 py-2 rounded text-on-surface/60 hover:bg-surface-container transition-colors" style="text-decoration:none;">Dashboard</a>
+      <a href="#" class="font-work-sans text-sm font-medium px-3 py-2 rounded text-on-surface/60 hover:bg-surface-container transition-colors" style="text-decoration:none;">Log Out</a>
+    </nav>
+  </aside>
+
+  <main class="flex-1 px-12 py-10">
+    <div id="app" class="max-w-3xl"></div>
+  </main>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    /* ── Minimal club header placeholder ── */
+    function ClubHeader() {
+      return (
+        <div className="mb-8 pb-6">
+          <h1 className="font-newsreader text-[1.75rem] font-normal tracking-tight mb-1">The Paper &amp; Hearth Book Club</h1>
+          <p className="font-work-sans text-sm text-on-surface/50">Nominating state — search experience below</p>
+        </div>
+      );
+    }
+
+    /* ── Book cover placeholder ── */
+    function BookCover() {
+      return (
+        <div className="w-14 h-20 bg-surface-container-high rounded-sm flex items-center justify-center shrink-0">
+          <span className="font-work-sans text-[0.5rem] font-medium uppercase tracking-widest text-outline text-center leading-tight px-1">Book<br/>Cover</span>
+        </div>
+      );
+    }
+
+    /* ── Search bar ── */
+    function SearchBar({value, onChange}) {
+      return (
+        <div className="flex items-center gap-3 bg-surface-container rounded-sm px-4 py-3 border border-outline-variant/40 mb-4">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#85827e" strokeWidth="1.5"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg>
+          <input
+            type="text"
+            placeholder="Search to Nominate"
+            value={value}
+            onChange={e => onChange(e.target.value)}
+            className="bg-transparent font-work-sans text-sm text-on-surface w-full outline-none placeholder:text-outline"
+          />
+        </div>
+      );
+    }
+
+    /* ── Search results with different states ── */
+    const sampleResults = [
+      { title:'The Hidden Life of Trees', author:'Peter Wohlleben', nominated:false },
+      { title:'The Overstory', author:'Richard Powers', nominated:false },
+      { title:'Braiding Sweetgrass', author:'Robin Wall Kimmerer', nominated:true },
+      { title:'The Secret Life of Trees', author:'Colin Tudge', nominated:false },
+    ];
+
+    function ResultItem({book, onNominate}) {
+      const [justNominated, setJustNominated] = useState(false);
+      const isNominated = book.nominated || justNominated;
+      return (
+        <div className="flex items-center gap-4 px-5 py-4">
+          <BookCover />
+          <div className="flex-1 min-w-0">
+            <p className="font-newsreader text-[1.05rem] font-normal leading-snug">{book.title}</p>
+            <p className="font-work-sans text-xs text-on-surface/55">{book.author}</p>
+          </div>
+          {isNominated ? (
+            <span className="shrink-0 font-work-sans text-[0.7rem] font-medium uppercase tracking-widest text-tertiary">Already nominated</span>
+          ) : (
+            <button
+              onClick={() => setJustNominated(true)}
+              className="shrink-0 font-work-sans text-[0.75rem] font-medium uppercase tracking-widest px-4 py-1.5 rounded-sm border border-outline-variant text-on-surface bg-transparent hover:bg-surface-container transition-colors"
+            >
+              Nominate
+            </button>
+          )}
+        </div>
+      );
+    }
+
+    /* ── State panels ── */
+    function IdleState() {
+      return (
+        <div>
+          <SearchBar value="" onChange={() => {}} />
+          <div className="bg-surface-container-lowest rounded min-h-[120px]"></div>
+          <p className="font-work-sans text-[0.65rem] text-on-surface/35 mt-3 uppercase tracking-widest">Idle — no query entered. Results area empty. Short queries (&lt;3 chars) also show this state.</p>
+        </div>
+      );
+    }
+
+    function ResultsState() {
+      return (
+        <div>
+          <SearchBar value="trees" onChange={() => {}} />
+          <div className="bg-surface-container-lowest rounded">
+            {sampleResults.map((b,i) => <ResultItem key={i} book={b} />)}
+          </div>
+        </div>
+      );
+    }
+
+    function NoResultsState() {
+      return (
+        <div>
+          <SearchBar value="zxqpfm" onChange={() => {}} />
+          <div className="bg-surface-container-lowest rounded px-5 py-8">
+            <p className="font-work-sans text-sm text-on-surface/60">No books found for 'zxqpfm'. Try a different title or author.</p>
+          </div>
+        </div>
+      );
+    }
+
+    function ApiErrorState() {
+      return (
+        <div>
+          <SearchBar value="trees" onChange={() => {}} />
+          <div className="bg-surface-container-lowest rounded px-5 py-8">
+            <p className="font-work-sans text-sm text-on-surface/60">Book search is unavailable right now. Try again in a moment.</p>
+          </div>
+        </div>
+      );
+    }
+
+    /* ── Tabs ── */
+    function App() {
+      const [tab, setTab] = useState('results');
+      const tabs = [
+        { id:'idle', label:'Idle' },
+        { id:'results', label:'Results' },
+        { id:'no-results', label:'No Results' },
+        { id:'api-error', label:'API Error' },
+      ];
+      return (
+        <div>
+          <ClubHeader />
+          <div className="flex items-center gap-1 mb-8 bg-surface-container-low rounded-sm p-1 inline-flex">
+            {tabs.map(t => (
+              <button
+                key={t.id}
+                onClick={() => setTab(t.id)}
+                className={`font-work-sans text-[0.75rem] font-medium uppercase tracking-widest px-4 py-2 rounded-sm transition-all ${tab === t.id ? 'bg-surface-container-lowest text-on-surface shadow-sm' : 'text-on-surface/50 hover:text-on-surface/70'}`}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
+
+          {tab === 'idle' && <IdleState />}
+          {tab === 'results' && <ResultsState />}
+          {tab === 'no-results' && <NoResultsState />}
+          {tab === 'api-error' && <ApiErrorState />}
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('app')).render(<App />);
+  </script>
+
+  <script>
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "defaultTab": "results"
+    }/*EDITMODE-END*/;
+
+    window.addEventListener('message', e => {
+      if (e.data?.type === '__activate_edit_mode') {}
+      if (e.data?.type === '__deactivate_edit_mode') {}
+    });
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+  </script>
+</body>
+</html>

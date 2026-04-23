@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NextChapter — Sign Up &amp; Log In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..800;1,6..72,300..800&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            surface: { DEFAULT:'#fcf9f5','container-lowest':'#ffffff','container-low':'#f7f4f0','container':'#f0ede9','container-high':'#e5e2de','container-highest':'#dbd8d4','variant':'#e1ddd8' },
+            'on-surface':'#1c1c1a',
+            primary: { DEFAULT:'#89453a', container:'#f4ebe9' },
+            'on-primary':'#ffffff',
+            tertiary: { DEFAULT:'#7a826e', container:'#eff1ed' },
+            outline: { DEFAULT:'#85827e', variant:'#d1cfcc' },
+          },
+          fontFamily: { newsreader:['Newsreader','Georgia','serif'], 'work-sans':['Work Sans','system-ui','sans-serif'] },
+          borderRadius: { sm:'2px', DEFAULT:'4px' },
+        },
+      },
+    }
+  </script>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Work Sans',sans-serif; color:#1c1c1a; background:#fcf9f5; }
+  </style>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen flex items-start justify-center gap-16 px-8 py-16 flex-wrap">
+
+  <!-- SIGN UP -->
+  <div class="w-full max-w-sm">
+    <div class="text-center mb-8">
+      <a href="/" class="font-newsreader text-2xl tracking-tight font-medium text-on-surface" style="text-decoration:none;">NextChapter</a>
+    </div>
+    <div class="bg-surface-container-lowest rounded p-8">
+      <h1 class="font-newsreader text-xl font-normal tracking-tight mb-6 text-center">Sign Up</h1>
+      <form class="flex flex-col gap-5" onsubmit="return false;">
+        <!-- Name -->
+        <div>
+          <label class="font-work-sans text-[0.75rem] font-medium uppercase tracking-widest text-on-surface block mb-1.5">Name</label>
+          <input type="text" class="w-full bg-surface-container border border-outline-variant/50 rounded-sm px-3.5 py-2.5 font-work-sans text-sm text-on-surface outline-none focus:border-primary/50 transition-colors" />
+        </div>
+        <!-- Email — with error example -->
+        <div>
+          <label class="font-work-sans text-[0.75rem] font-medium uppercase tracking-widest text-on-surface block mb-1.5">Email</label>
+          <input type="email" value="jane@" class="w-full bg-surface-container border border-primary/40 rounded-sm px-3.5 py-2.5 font-work-sans text-sm text-on-surface outline-none" />
+          <p class="font-work-sans text-[0.875rem] text-primary mt-1.5">Please enter a valid email address.</p>
+        </div>
+        <!-- Password -->
+        <div>
+          <label class="font-work-sans text-[0.75rem] font-medium uppercase tracking-widest text-on-surface block mb-1.5">Password</label>
+          <input type="password" class="w-full bg-surface-container border border-outline-variant/50 rounded-sm px-3.5 py-2.5 font-work-sans text-sm text-on-surface outline-none focus:border-primary/50 transition-colors" />
+        </div>
+        <!-- Password confirmation -->
+        <div>
+          <label class="font-work-sans text-[0.75rem] font-medium uppercase tracking-widest text-on-surface block mb-1.5">Password Confirmation</label>
+          <input type="password" class="w-full bg-surface-container border border-outline-variant/50 rounded-sm px-3.5 py-2.5 font-work-sans text-sm text-on-surface outline-none focus:border-primary/50 transition-colors" />
+        </div>
+        <!-- Submit -->
+        <button type="submit" class="w-full font-work-sans text-[0.75rem] font-medium uppercase tracking-widest bg-primary text-on-primary py-3 rounded-sm hover:opacity-90 transition-opacity mt-2">Sign Up</button>
+      </form>
+      <p class="font-work-sans text-sm text-on-surface/50 text-center mt-6">
+        Already have an account? <a href="/sign_in" class="text-primary hover:underline" style="text-decoration:none;">Log in</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- LOG IN -->
+  <div class="w-full max-w-sm">
+    <div class="text-center mb-8">
+      <a href="/" class="font-newsreader text-2xl tracking-tight font-medium text-on-surface" style="text-decoration:none;">NextChapter</a>
+    </div>
+    <div class="bg-surface-container-lowest rounded p-8">
+      <h1 class="font-newsreader text-xl font-normal tracking-tight mb-6 text-center">Log In</h1>
+      <form class="flex flex-col gap-5" onsubmit="return false;">
+        <!-- Email -->
+        <div>
+          <label class="font-work-sans text-[0.75rem] font-medium uppercase tracking-widest text-on-surface block mb-1.5">Email</label>
+          <input type="email" class="w-full bg-surface-container border border-outline-variant/50 rounded-sm px-3.5 py-2.5 font-work-sans text-sm text-on-surface outline-none focus:border-primary/50 transition-colors" />
+        </div>
+        <!-- Password — with error example -->
+        <div>
+          <label class="font-work-sans text-[0.75rem] font-medium uppercase tracking-widest text-on-surface block mb-1.5">Password</label>
+          <input type="password" value="short" class="w-full bg-surface-container border border-primary/40 rounded-sm px-3.5 py-2.5 font-work-sans text-sm text-on-surface outline-none" />
+          <p class="font-work-sans text-[0.875rem] text-primary mt-1.5">Password is too short (minimum 8 characters).</p>
+        </div>
+        <!-- Submit -->
+        <button type="submit" class="w-full font-work-sans text-[0.75rem] font-medium uppercase tracking-widest bg-primary text-on-primary py-3 rounded-sm hover:opacity-90 transition-opacity mt-2">Log In</button>
+      </form>
+      <p class="font-work-sans text-sm text-on-surface/50 text-center mt-6">
+        Don't have an account? <a href="/sign_up" class="text-primary hover:underline" style="text-decoration:none;">Sign up</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{"placeholder":true}/*EDITMODE-END*/;
+    window.addEventListener('message', e => {});
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+  </script>
+</body>
+</html>
