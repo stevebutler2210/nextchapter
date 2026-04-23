@@ -1,70 +1,100 @@
 <%= turbo_stream_from "club_#{@club.id}" %>
 
-<% if @current_cycle&.nominating? %>
-  <%= turbo_stream_from "cycle_#{@current_cycle.id}_nominations" %>
+<% if @cycle&.nominating? %>
+  <%= turbo_stream_from "cycle_#{@cycle.id}_nominations" %>
 <% end %>
 
-<% if @current_cycle&.voting? %>
-  <%= turbo_stream_from "cycle_#{@current_cycle.id}_votes" %>
+<% if @cycle&.voting? %>
+  <%= turbo_stream_from "cycle_#{@cycle.id}_votes" %>
 <% end %>
 
 <%= turbo_frame_tag "club_details_#{@club.id}" do %>
-  <h1><%= @club.name %></h1>
-  <p><%= @club.description.presence || "No description provided." %></p>
+  <section class="nc-club-detail">
+    <header class="nc-club-detail__header">
+      <% if @is_owner %>
+        <div class="nc-club-detail__owner-actions">
+          <%= link_to "Edit", edit_club_path(@club), class: "nc-club-detail__owner-link" %>
+          <%= link_to "Delete", club_path(@club),
+                class: "nc-club-detail__owner-link",
+                data: { turbo_method: :delete, turbo_confirm: "Delete this club?", turbo_frame: "_top" } %>
+        </div>
+      <% end %>
 
-  <h2>Members</h2>
-  <ul>
-    <% @memberships.each do |membership| %>
-      <li><%= membership.user.email_address %></li>
+      <h1 class="nc-club-detail__title nc-type-headline-md"><%= @club.name %></h1>
+      <p class="nc-club-detail__description"><%= @club.description.presence || "No description provided." %></p>
+
+      <div class="nc-club-detail__meta">
+        <%= render "clubs/member_avatars", club: @club, memberships: @memberships %>
+
+        <div class="nc-club-detail__controls" data-controller="clipboard">
+          <% state_name = @cycle&.state&.upcase || "UNKNOWN" %>
+          <% state_class = @cycle&.state ? "nc-state-badge--#{@cycle.state}" : "nc-state-badge--voting" %>
+          <span class="nc-state-badge <%= state_class %>"><%= state_name %></span>
+
+          <% if @is_owner %>
+            <span class="nc-visually-hidden" data-clipboard-target="source"><%= invite_url(signed_id: @invite_token) %></span>
+            <button type="button"
+                    class="nc-button nc-button--ghost"
+                    data-clipboard-target="button"
+                    data-action="clipboard#copy">Copy Invite Link</button>
+          <% end %>
+        </div>
+      </div>
+    </header>
+
+    <% if @cycle&.nominating? %>
+      <section class="nc-club-detail__section">
+        <%= render "books/search_and_nominate", club: @club, cycle: @cycle %>
+
+        <div id="nominations_list" class="nc-nominations-list">
+          <% nominations = @cycle.nominations.includes(:book, :user) %>
+          <% if nominations.any? %>
+            <%= render nominations, partial: "nominations/nomination", as: :nomination %>
+          <% else %>
+            <p class="nc-empty-state">Nothing has been nominated yet. Start with the search bar above to add the first pick.</p>
+          <% end %>
+        </div>
+
+        <% if @is_owner %>
+          <%= button_to "Close Nominations", close_nominations_cycle_path(@cycle),
+                method: :patch,
+                class: "nc-button nc-button--tertiary",
+                data: { turbo_frame: "_top" } %>
+        <% end %>
+      </section>
     <% end %>
-  </ul>
 
-  <% if @is_owner %>
-    <div data-controller="clipboard">
-      <p>Invite link: <span data-clipboard-target="source"><%= invite_url(signed_id: @invite_token) %></span></p>
-      <button data-clipboard-target="button" data-action="clipboard#copy">Copy to Clipboard</button>
-    </div>
-    <p><%= link_to "Edit Club", edit_club_path(@club) %></p>
-    <p><%= link_to "Delete Club", club_path(@club), data: { turbo_method: :delete, turbo_confirm: "Delete this club?", turbo_frame: "_top" } %></p>
-  <% end %>
+    <% if @cycle&.voting? %>
+      <section class="nc-club-detail__section">
+        <% nominations = @cycle.nominations.includes(:book, :user, :votes) %>
+        <%= render "nominations/voting_no_votes_notice", nominations: nominations %>
 
-  <% if @is_owner && @current_cycle&.nominating? %>
-    <%= button_to "Close Nominations", close_nominations_cycle_path(@current_cycle), method: :patch, data: { turbo_frame: "_top" } %>
-  <% end %>
+        <div id="nominations_list" class="nc-nominations-list">
+          <% if nominations.any? %>
+            <%= render partial: "nominations/nomination",
+                  collection: nominations,
+                  as: :nomination,
+                  locals: { current_user: Current.user } %>
+          <% else %>
+            <p class="nc-empty-state">No votes have been cast yet. Voting is open once members start choosing nominations.</p>
+          <% end %>
+        </div>
 
-  <% if @is_owner && @current_cycle&.voting? %>
-    <%= button_to "Close Voting", close_voting_cycle_path(@current_cycle), method: :patch, data: { turbo_frame: "_top" } %>
-  <% end %>
+        <% if @is_owner %>
+          <%= button_to "Close Voting", close_voting_cycle_path(@cycle),
+                method: :patch,
+                class: "nc-button nc-button--tertiary",
+                data: { turbo_frame: "_top" } %>
+        <% end %>
+      </section>
+    <% end %>
 
-  <% if @current_cycle&.nominating? %>
-    <h2>Current Nominations</h2>
-    <div id="nominations_list">
-      <%= render @current_cycle.nominations.includes(:book, :user),
-            partial: "nominations/nomination",
-            as: :nomination %>
-    </div>
-
-    <h2>Nominate a Book</h2>
-    <%= render "books/search_and_nominate", club: @club, cycle: @current_cycle %>
-  <% end %>
-
-  <% if @current_cycle&.voting? %>
-    <h2>Vote for your favourite nomination</h2>
-    <div id="nominations_list">
-      <%= render partial: "nominations/nomination",
-            collection: @current_cycle.nominations.includes(:book, :user, :votes),
-            as: :nomination,
-            locals: { current_user: Current.user } %>
-    </div>
-  <% end %>
+    <% if @cycle&.reading? %>
+      <%= render "reading",
+            club: @club,
+            cycle: @cycle,
+            reading_log_entry: ReadingLogEntry.new,
+            reading_log_entries: @cycle.reading_log_entries.where(user: Current.user).order(created_at: :desc) %>
+    <% end %>
+  </section>
 <% end %>
-
-<% if @current_cycle&.reading? %>
-  <%= render "reading",
-        club: @club,
-        cycle: @current_cycle,
-        reading_log_entry: ReadingLogEntry.new,
-        reading_log_entries: @current_cycle.reading_log_entries.where(user: Current.user).order(created_at: :desc) %>
-<% end %>
-
-<p><%= link_to "Back to Clubs", clubs_path, data: { turbo_frame: "_top" } %></p>

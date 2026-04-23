@@ -1,19 +1,23 @@
-<h2>Current Read</h2>
+<section class="nc-club-detail__section">
+  <% current_book = cycle.winning_nomination&.book %>
+  <article class="nc-current-book-callout">
+    <div class="nc-book-cover-placeholder nc-book-cover-placeholder--lg" aria-hidden="true">
+      <% if current_book&.cover_image_url.present? %>
+        <%= image_tag current_book.cover_image_url, alt: current_book.title, class: "nc-book-cover-image" %>
+      <% else %>
+        <span><%= current_book&.title.to_s.first.to_s.upcase.presence || "B" %></span>
+      <% end %>
+    </div>
 
-<% if cycle.winning_nomination&.book.present? %>
-  <p>
-    <strong>Winning book:</strong>
-    <%= cycle.winning_nomination.book.title %>
-    <% if cycle.winning_nomination.book.cover_image_url.present? %>
-      <%= image_tag cycle.winning_nomination.book.cover_image_url, alt: cycle.winning_nomination.book.title %>
-    <% end %>
-    <% if cycle.winning_nomination.book.authors.present? %>
-      by <%= cycle.winning_nomination.book.authors %>
-    <% end %>
-  </p>
-<% end %>
+    <div>
+      <h2 class="nc-current-book-callout__title"><%= current_book&.title.presence || "A book will be selected once voting closes" %></h2>
+      <p class="nc-current-book-callout__author"><%= current_book&.authors.presence || "Author details will appear here." %></p>
+      <p class="nc-current-book-callout__label">Currently Reading</p>
+    </div>
+  </article>
 
-<%= render "reading_log_entries_frame",
-  cycle: cycle,
-  reading_log_entry: reading_log_entry,
-  reading_log_entries: reading_log_entries %>
+  <%= render "reading_log_entries_frame",
+    cycle: cycle,
+    reading_log_entry: reading_log_entry,
+    reading_log_entries: reading_log_entries %>
+</section>

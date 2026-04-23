@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :passwords, param: :token
 
   # Core app
-  root "clubs#index"
+  root "home#index"
 
   get "/invites/:signed_id", to: "invites#show", as: :invite
 

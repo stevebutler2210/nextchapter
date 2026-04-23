@@ -15,7 +15,7 @@ class ClubsController < ApplicationController
     @memberships = @club.memberships.includes(:user)
     @is_owner = @club.owned_by?(Current.user)
     @invite_token = @club.signed_id(expires_in: 1.week)
-    @current_cycle = @club.current_cycle
+    @cycle = @club.current_cycle
   end
 
   def edit

@@ -1,0 +1,11 @@
+<% if flash.any? %>
+  <div class="nc-flash-stack" aria-live="polite">
+    <% flash.each do |type, message| %>
+      <% variant = type.to_s == "notice" ? "notice" : "alert" %>
+      <div class="nc-flash nc-flash--<%= variant %>" data-controller="flash" role="status">
+        <p class="nc-flash__message"><%= message %></p>
+        <button type="button" class="nc-flash__dismiss" data-action="flash#dismiss" aria-label="Dismiss notification">&times;</button>
+      </div>
+    <% end %>
+  </div>
+<% end %>

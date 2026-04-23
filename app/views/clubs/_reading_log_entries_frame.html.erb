@@ -1,35 +1,33 @@
 <%= turbo_frame_tag dom_id(cycle, :reading_log_entries) do %>
   <% if reading_log_entry.errors.any? %>
-    <p><%= reading_log_entry.errors.full_messages.to_sentence %></p>
+    <p class="nc-form-error"><%= reading_log_entry.errors.full_messages.to_sentence %></p>
   <% end %>
 
-  <h3>Log your reading</h3>
-  <%= form_with model: reading_log_entry, url: cycle_reading_log_entries_path(cycle) do |form| %>
-    <p>
-      <%= form.label :state %><br>
-      <%= form.select :state, ReadingLogEntry.states.keys.map { |value| [ value.humanize, value ] } %>
-    </p>
+  <%= form_with model: reading_log_entry, url: cycle_reading_log_entries_path(cycle), html: { class: "nc-reading-note-form" } do |form| %>
+    <%= form.label :note, "Log a note", class: "nc-reading-note-form__label" %>
+    <%= form.text_area :note,
+          rows: 4,
+          placeholder: "Share your thoughts, favourite quotes, or progress here...",
+          class: "nc-reading-note-form__textarea" %>
 
-    <p>
-      <%= form.label :page_reached %><br>
-      <%= form.number_field :page_reached, min: 1 %>
-    </p>
+    <%= form.hidden_field :state, value: reading_log_entries.none? ? "started" : "progressed" %>
 
-    <p>
-      <%= form.label :note %><br>
-      <%= form.text_area :note, rows: 4 %>
-    </p>
-
-    <%= form.submit "Save reading log" %>
+    <div class="nc-reading-note-form__footer">
+      <div class="nc-reading-note-form__checkbox-row">
+        <%= form.check_box :finished_flag, class: "nc-checkbox" %>
+        <%= form.label :finished_flag, "Mark as finished", class: "nc-type-label-md" %>
+      </div>
+      <%= form.submit "Save Note", class: "nc-button nc-button--primary" %>
+    </div>
   <% end %>
 
-  <h3>Your reading log</h3>
+  <h3 class="nc-reading-log-heading">Your reading log</h3>
 
   <% if reading_log_entries.any? %>
-    <div id="reading_log_entries_list">
+    <div id="reading_log_entries_list" class="nc-reading-log-list">
       <%= render reading_log_entries %>
     </div>
   <% else %>
-    <p>No reading updates yet.</p>
+    <p class="nc-empty-state">No notes yet. Add your first thought above to begin your private reading log.</p>
   <% end %>
 <% end %>

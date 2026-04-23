@@ -5,3 +5,8 @@
           current_user: Current.user %>
   <% end %>
 <% end %>
+
+<%= turbo_stream.replace "voting_no_votes_notice" do %>
+  <%= render "nominations/voting_no_votes_notice",
+        nominations: @nomination.cycle.nominations.includes(:votes) %>
+<% end %>

@@ -6,11 +6,13 @@ puts "Seeding database..."
 
 # Users
 alice = User.find_or_create_by!(email_address: "alice@example.com") do |user|
+  user.name = "Alice Wonderland"
   user.password = "password123456"
   user.password_confirmation = "password123456"
 end
 
 bob = User.find_or_create_by!(email_address: "bob@example.com") do |user|
+  user.name = "Bob Belcher"
   user.password = "password123456"
   user.password_confirmation = "password123456"
 end

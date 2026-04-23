@@ -1,14 +1,7 @@
-<article id="<%= dom_id(reading_log_entry) %>">
-  <p>
-    <strong><%= reading_log_entry.state.humanize %></strong>
-    <span>on <%= reading_log_entry.created_at.strftime("%d %b %Y") %></span>
-  </p>
-
-  <% if reading_log_entry.page_reached.present? %>
-    <p>Page reached: <%= reading_log_entry.page_reached %></p>
-  <% end %>
-
-  <% if reading_log_entry.note.present? %>
-    <p><%= reading_log_entry.note %></p>
-  <% end %>
+<article id="<%= dom_id(reading_log_entry) %>" class="nc-reading-log-entry">
+  <p class="nc-reading-log-entry__note"><%= reading_log_entry.note.presence || "No note text provided." %></p>
+  <div class="nc-reading-log-entry__meta">
+    <span><%= reading_log_entry.created_at.strftime("%d %b %Y") %></span>
+    <span><%= reading_log_entry.state.humanize %></span>
+  </div>
 </article>

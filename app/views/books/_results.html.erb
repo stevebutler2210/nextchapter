@@ -1,23 +1,28 @@
 <% if @error %>
-  <p>Something went wrong. Please try again.</p>
+  <p class="nc-empty-state">Book search is unavailable right now. Try again in a moment.</p>
 <% elsif @results.empty? && @query.present? %>
-  <p>No books found for "<%= @query %>".</p>
+  <p class="nc-empty-state">No books found for "<%= @query %>". Try a different title or author.</p>
 <% else %>
+  <div class="nc-search-result-list">
   <% @results.each do |book| %>
-    <div>
+    <article class="nc-search-result-item">
+      <div class="nc-book-cover-placeholder" aria-hidden="true">
       <% if book.cover_image_url.present? %>
-        <%= image_tag book.cover_image_url, alt: book.title %>
+        <%= image_tag book.cover_image_url, alt: book.title, class: "nc-book-cover-image" %>
       <% else %>
-        <div>No cover available</div>
+        <span><%= book.title.to_s.first.to_s.upcase %></span>
       <% end %>
-      <p><strong><%= book.title %></strong></p>
-      <p><%= book.authors %></p>
-      <% if book.page_count.presence&.positive? %>
-        <p><%= book.page_count %> pages</p>
-      <% end %>
+      </div>
+      <div class="nc-search-result-item__content">
+        <h3 class="nc-nomination-item__title"><%= book.title %></h3>
+        <p class="nc-nomination-item__author"><%= book.authors.presence || "Author unknown" %></p>
+        <% if book.page_count.presence&.positive? %>
+          <p class="nc-nomination-item__meta"><%= book.page_count %> pages</p>
+        <% end %>
+      </div>
 
       <% if params[:cycle_id].present? %>
-        <%= form_with url: cycle_nominations_path(params[:cycle_id]) do |f| %>
+        <%= form_with url: cycle_nominations_path(params[:cycle_id]), html: { class: "nc-search-result-item__action" } do |f| %>
           <%= f.hidden_field :google_books_id, value: book.google_books_id %>
           <%= f.hidden_field :title, value: book.title %>
           <%= f.hidden_field :authors, value: book.authors %>
@@ -27,9 +32,10 @@
           <%= f.hidden_field :publisher, value: book.publisher %>
           <%= f.hidden_field :published_date, value: book.published_date %>
           <%= f.hidden_field :page_count, value: book.page_count %>
-          <%= f.submit "Nominate" %>
+          <%= f.submit "Nominate", class: "nc-button nc-button--ghost" %>
         <% end %>
       <% end %>
-    </div>
+    </article>
   <% end %>
+  </div>
 <% end %>

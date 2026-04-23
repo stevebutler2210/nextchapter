@@ -1,0 +1,24 @@
+<div class="nc-dashboard-empty">
+  <div class="nc-dashboard-empty__icon" aria-hidden="true">
+    <svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="#85827e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+      <rect x="8" y="10" width="8" height="30" rx="1"/>
+      <rect x="18" y="14" width="7" height="26" rx="1"/>
+      <rect x="27" y="8" width="8" height="32" rx="1"/>
+      <rect x="37" y="12" width="7" height="28" rx="1"/>
+      <line x1="4" y1="42" x2="52" y2="42"/>
+      <line x1="4" y1="44" x2="52" y2="44"/>
+      <circle cx="48" cy="38" r="4"/>
+      <path d="M52 36c2 0 3 1 3 2.5s-1 2.5-3 2.5"/>
+    </svg>
+  </div>
+
+  <% if title.present? %>
+    <h2 class="nc-type-headline-md nc-dashboard-empty__headline"><%= title %></h2>
+  <% end %>
+
+  <% if copy.present? %>
+    <p class="nc-type-body-sm nc-dashboard-empty__copy"><%= copy %></p>
+  <% end %>
+
+  <%= link_to cta_label, cta_path, class: "nc-button nc-button--primary" %>
+</div>

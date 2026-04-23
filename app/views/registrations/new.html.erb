@@ -1,28 +1,84 @@
-<h1>Create an account</h1>
+<div class="nc-auth-container">
+  <div class="nc-auth-header">
+    <%= link_to "NextChapter", root_path, class: "nc-auth-wordmark nc-type-headline-md" %>
+  </div>
 
-<%= form_with model: @user, url: registration_path do |form| %>
-<% if @user.errors.any? %>
-<ul>
-  <% @user.errors.full_messages.each do |message| %>
-  <li><%= message %></li>
-  <% end %>
-</ul>
-<% end %>
+  <div class="nc-auth-card">
+    <h1 class="nc-auth-card__title nc-type-headline-md">Sign Up</h1>
 
-<div>
-  <%= form.label :email_address %>
-  <%= form.email_field :email_address, required: true, autofocus: true %>
+    <%= form_with model: @user, url: registration_path, local: true, class: "nc-auth-form" do |form| %>
+      <!-- Name field -->
+      <div class="nc-auth-form-field">
+        <%= form.label :name, "Name", class: "nc-auth-form-label nc-type-label-md" %>
+        <%= form.text_field :name,
+          required: true,
+          autofocus: true,
+          class: "nc-auth-form-input"
+        %>
+        <% if @user.errors[:name].any? %>
+          <div class="nc-auth-form-error nc-type-body-sm">
+            <%= @user.errors[:name].first %>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Email field -->
+      <div class="nc-auth-form-field">
+        <%= form.label :email_address, "Email", class: "nc-auth-form-label nc-type-label-md" %>
+        <%= form.email_field :email_address,
+          required: true,
+          autocomplete: "username",
+          class: "nc-auth-form-input"
+        %>
+        <% if @user.errors[:email_address].any? %>
+          <div class="nc-auth-form-error nc-type-body-sm">
+            <%= @user.errors[:email_address].first %>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Password field -->
+      <div class="nc-auth-form-field">
+        <%= form.label :password, "Password", class: "nc-auth-form-label nc-type-label-md" %>
+        <%= form.password_field :password,
+          required: true,
+          autocomplete: "new-password",
+          maxlength: 72,
+          class: "nc-auth-form-input"
+        %>
+        <% if @user.errors[:password].any? %>
+          <div class="nc-auth-form-error nc-type-body-sm">
+            <%= @user.errors[:password].first %>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Password confirmation field -->
+      <div class="nc-auth-form-field">
+        <%= form.label :password_confirmation, "Confirm Password", class: "nc-auth-form-label nc-type-label-md" %>
+        <%= form.password_field :password_confirmation,
+          required: true,
+          autocomplete: "new-password",
+          maxlength: 72,
+          class: "nc-auth-form-input"
+        %>
+        <% if @user.errors[:password_confirmation].any? %>
+          <div class="nc-auth-form-error nc-type-body-sm">
+            <%= @user.errors[:password_confirmation].first %>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Submit button -->
+      <%= form.submit "Sign Up", class: "nc-auth-button nc-type-label-md" %>
+    <% end %>
+
+    <!-- Log in link -->
+    <div class="nc-auth-footer">
+      <p class="nc-type-body-sm">
+        Already have an account?
+        <%= link_to "Log in", new_session_path, class: "nc-auth-footer-link" %>
+      </p>
+    </div>
+  </div>
 </div>
-
-<div>
-  <%= form.label :password %>
-  <%= form.password_field :password, required: true %>
-</div>
-
-<div>
-  <%= form.label :password_confirmation %>
-  <%= form.password_field :password_confirmation, required: true %>
-</div>
-
-<%= form.submit "Create account" %>
-<% end %>

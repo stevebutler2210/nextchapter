@@ -1,8 +1,45 @@
-<%= form_with url: session_path do |form| %>
-  <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address] %><br>
-  <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 72 %><br>
-  <%= form.submit "Sign in" %>
-<% end %>
-<br>
+<div class="nc-auth-container">
+  <div class="nc-auth-header">
+    <%= link_to "NextChapter", root_path, class: "nc-auth-wordmark nc-type-headline-md" %>
+  </div>
 
-<%= link_to "Forgot password?", new_password_path %>
+  <div class="nc-auth-card">
+    <h1 class="nc-auth-card__title nc-type-headline-md">Log In</h1>
+
+    <%= form_with url: session_path, local: true, class: "nc-auth-form" do |form| %>
+      <!-- Email field -->
+      <div class="nc-auth-form-field">
+        <%= form.label :email_address, "Email", class: "nc-auth-form-label nc-type-label-md" %>
+        <%= form.email_field :email_address,
+          required: true,
+          autofocus: true,
+          autocomplete: "username",
+          value: params[:email_address],
+          class: "nc-auth-form-input"
+        %>
+      </div>
+
+      <!-- Password field -->
+      <div class="nc-auth-form-field">
+        <%= form.label :password, "Password", class: "nc-auth-form-label nc-type-label-md" %>
+        <%= form.password_field :password,
+          required: true,
+          autocomplete: "current-password",
+          maxlength: 72,
+          class: "nc-auth-form-input"
+        %>
+      </div>
+
+      <!-- Submit button -->
+      <%= form.submit "Log In", class: "nc-auth-button nc-type-label-md" %>
+    <% end %>
+
+    <!-- Sign up link -->
+    <div class="nc-auth-footer">
+      <p class="nc-type-body-sm">
+        Don't have an account?
+        <%= link_to "Sign up", new_registration_path, class: "nc-auth-footer-link" %>
+      </p>
+    </div>
+  </div>
+</div>
