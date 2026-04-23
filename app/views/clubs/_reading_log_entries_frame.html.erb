@@ -6,7 +6,7 @@
           placeholder: "Share your thoughts, favourite quotes, or progress here...",
           class: "nc-reading-note-form__textarea" %>
 
-    <div class="nc-reading-note-form__page-row">
+    <div class="flex items-center gap-3 mt-3">
       <%= form.label :page_reached, "Page reached", class: "nc-type-label-md" %>
       <%= form.number_field :page_reached,
             placeholder: "e.g. 42",
@@ -14,9 +14,9 @@
             class: "nc-reading-note-form__page-input" %>
     </div>
 
-    <div class="nc-reading-note-form__footer">
-      <div class="nc-reading-note-form__checkbox-row">
-        <%= form.check_box :finished_flag, class: "nc-checkbox" %>
+    <div class="flex items-center justify-between mt-3">
+      <div class="flex items-center gap-2">
+        <%= form.check_box :finished_flag, class: "w-4 h-4 accent-primary cursor-pointer" %>
         <%= form.label :finished_flag, "Mark as finished", class: "nc-type-label-md" %>
       </div>
       <%= form.submit "Save Note", class: "nc-button nc-button--primary" %>
