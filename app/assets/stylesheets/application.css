@@ -76,10 +76,6 @@ a {
 	color: inherit;
 }
 
-.nc-body--app {
-	display: flex;
-}
-
 .nc-sidebar {
 	width: 160px;
 	min-height: 100vh;
@@ -95,12 +91,6 @@ a {
 	font-size: 1.125rem;
 	line-height: 1.25;
 	letter-spacing: -0.01em;
-}
-
-.nc-nav {
-	display: flex;
-	flex-direction: column;
-	gap: 4px;
 }
 
 .nc-nav-link {
@@ -171,36 +161,6 @@ a {
 	cursor: pointer;
 }
 
-.nc-page {
-	width: 100%;
-	max-width: 1200px;
-	padding: 40px 48px;
-}
-
-@media (max-width: 900px) {
-	.nc-body--app {
-		display: block;
-	}
-
-	.nc-sidebar {
-		width: 100%;
-		min-height: auto;
-		padding: 16px;
-	}
-
-	.nc-brand {
-		margin-bottom: 16px;
-	}
-
-	.nc-nav {
-		flex-direction: row;
-		flex-wrap: wrap;
-	}
-
-	.nc-page {
-		padding: 24px 16px;
-	}
-}
 
 
 /* === Shared primitives — used across multiple features === */

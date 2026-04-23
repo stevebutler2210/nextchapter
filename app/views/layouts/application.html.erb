@@ -28,12 +28,12 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="nc-body <%= authenticated? ? "nc-body--app" : "nc-body--public" %>">
+  <body class="nc-body <%= authenticated? ? "flex max-[900px]:block" : "nc-body--public" %>">
     <% if authenticated? %>
       <aside class="nc-sidebar" aria-label="Primary">
         <%= link_to "📖 NextChapter", root_path, class: "nc-brand" %>
 
-        <nav class="nc-nav">
+        <nav class="flex flex-col gap-1 max-[900px]:flex-row max-[900px]:flex-wrap">
           <% dashboard_active = current_page?(root_path) || current_page?(clubs_path) %>
           <%= link_to "Dashboard", clubs_path, class: "nc-nav-link #{dashboard_active ? "is-active" : ""}" %>
           <%= link_to "Log out", session_path, class: "nc-nav-link", data: { turbo_method: :delete } %>
@@ -42,7 +42,7 @@
 
       <div class="nc-main">
         <%= render "layouts/flash" %>
-        <main class="nc-page">
+        <main class="w-full max-w-[1200px] py-10 px-12 max-[900px]:py-6 max-[900px]:px-4">
           <%= yield %>
         </main>
       </div>

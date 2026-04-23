@@ -1,8 +1,8 @@
 <div class="nc-landing">
   <nav class="nc-landing-nav">
-    <div class="nc-landing-nav__inner">
+    <div class="mx-auto max-w-[1200px] flex items-center justify-between gap-4 max-[700px]:flex-wrap">
       <%= link_to "NextChapter", root_path, class: "nc-landing-wordmark" %>
-      <div class="nc-landing-nav__actions">
+      <div class="flex items-center gap-4 max-[700px]:w-full max-[700px]:justify-start">
         <%= link_to "Log In", new_session_path, class: "nc-landing-link" %>
       <%= link_to "Sign Up", new_registration_path, class: "nc-landing-button nc-landing-button--primary" %>
       </div>
@@ -44,7 +44,7 @@
 
   <section class="nc-landing-features">
     <div class="nc-landing-section__inner">
-      <div class="nc-landing-feature-grid">
+      <div class="grid grid-cols-3 gap-6 max-[1080px]:grid-cols-1">
         <article class="nc-landing-feature-card">
           <span class="nc-landing-feature-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -89,16 +89,16 @@
   </section>
 
   <section class="nc-landing-footer-cta">
-    <div class="nc-landing-footer-cta__inner">
+    <div class="mx-auto max-w-[1200px] flex flex-col items-center text-center gap-8">
       <h2 class="nc-type-headline-md">Start your next chapter today.</h2>
       <%= link_to "Create Your Club", new_registration_path, class: "nc-landing-button nc-landing-button--primary" %>
     </div>
   </section>
 
   <footer class="nc-landing-footer">
-    <div class="nc-landing-footer__inner">
+    <div class="mx-auto max-w-[1200px] grid grid-cols-[1fr_auto_1fr] gap-4 items-center max-[1080px]:grid-cols-1 max-[1080px]:justify-items-center">
       <p class="nc-landing-wordmark">NextChapter</p>
-      <nav class="nc-landing-footer__links" aria-label="Footer">
+      <nav class="flex items-center justify-center gap-6 max-[700px]:gap-4 max-[700px]:flex-wrap" aria-label="Footer">
         <%= link_to "Privacy", "#", class: "nc-landing-footer__link" %>
         <%= link_to "Terms", "#", class: "nc-landing-footer__link" %>
         <%= link_to "About", "#", class: "nc-landing-footer__link" %>

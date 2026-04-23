@@ -12,7 +12,7 @@
   <section class="flex flex-col gap-8 max-w-3xl">
     <header class="nc-club-detail__header">
       <% if @is_owner %>
-        <div class="nc-club-detail__owner-actions">
+        <div class="absolute top-[15px] right-0 flex items-center gap-4 max-[820px]:static max-[820px]:justify-end">
           <%= link_to "Edit", edit_club_path(@club), class: "nc-club-detail__owner-link" %>
           <%= link_to "Delete", club_path(@club),
                 class: "nc-club-detail__owner-link",
@@ -20,7 +20,7 @@
         </div>
       <% end %>
 
-      <h1 class="nc-club-detail__title nc-type-headline-md"><%= @club.name %></h1>
+      <h1 class="pr-[120px] max-[820px]:pr-0 nc-type-headline-md"><%= @club.name %></h1>
       <p class="nc-club-detail__description"><%= @club.description.presence || "No description provided." %></p>
 
       <div class="flex flex-wrap items-center justify-between gap-4">

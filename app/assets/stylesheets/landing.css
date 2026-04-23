@@ -19,21 +19,11 @@
 	padding-bottom: 20px;
 }
 
-.nc-landing-nav__inner,
 .nc-landing-hero__inner,
 .nc-landing-section__inner,
-.nc-landing-quote__inner,
-.nc-landing-footer-cta__inner,
-.nc-landing-footer__inner {
+.nc-landing-quote__inner {
 	max-width: 1200px;
 	margin: 0 auto;
-}
-
-.nc-landing-nav__inner {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: 16px;
 }
 
 .nc-landing-wordmark {
@@ -43,12 +33,6 @@
 	font-size: 1.25rem;
 	line-height: 1.2;
 	letter-spacing: -0.01em;
-}
-
-.nc-landing-nav__actions {
-	display: flex;
-	align-items: center;
-	gap: 16px;
 }
 
 .nc-landing-link {
@@ -174,12 +158,6 @@
 	padding-bottom: 80px;
 }
 
-.nc-landing-feature-grid {
-	display: grid;
-	grid-template-columns: repeat(3, minmax(0, 1fr));
-	gap: 24px;
-}
-
 .nc-landing-feature-card {
 	background: var(--color-surface-container-lowest);
 	border-radius: var(--radius);
@@ -243,31 +221,9 @@
 	padding-bottom: 96px;
 }
 
-.nc-landing-footer-cta__inner {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	text-align: center;
-	gap: 32px;
-}
-
 .nc-landing-footer {
 	padding-top: 32px;
 	padding-bottom: 32px;
-}
-
-.nc-landing-footer__inner {
-	display: grid;
-	grid-template-columns: 1fr auto 1fr;
-	gap: 16px;
-	align-items: center;
-}
-
-.nc-landing-footer__links {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 24px;
 }
 
 .nc-landing-footer__link {
@@ -297,15 +253,6 @@
 		font-size: 2.75rem;
 	}
 
-	.nc-landing-feature-grid {
-		grid-template-columns: 1fr;
-	}
-
-	.nc-landing-footer__inner {
-		grid-template-columns: 1fr;
-		justify-items: center;
-	}
-
 	.nc-landing-footer__copy {
 		text-align: center;
 	}
@@ -330,15 +277,6 @@
 		padding-bottom: 16px;
 	}
 
-	.nc-landing-nav__inner {
-		flex-wrap: wrap;
-	}
-
-	.nc-landing-nav__actions {
-		width: 100%;
-		justify-content: flex-start;
-	}
-
 	.nc-landing-display {
 		font-size: 2.25rem;
 		margin-bottom: 24px;
@@ -360,10 +298,5 @@
 	.nc-landing-footer-cta {
 		padding-top: 72px;
 		padding-bottom: 72px;
-	}
-
-	.nc-landing-footer__links {
-		gap: 16px;
-		flex-wrap: wrap;
 	}
 }

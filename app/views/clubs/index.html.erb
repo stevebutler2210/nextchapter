@@ -3,7 +3,7 @@
 
   <%= turbo_frame_tag "clubs_list" do %>
     <% if @clubs.any? %>
-      <div class="nc-dashboard__cards">
+      <div class="grid grid-cols-3 gap-6 max-[1040px]:grid-cols-2 max-[640px]:grid-cols-1">
         <% @clubs.each do |club| %>
           <% cycle_state = club.current_cycle&.state || "nominating" %>
           <% badge_modifier = case cycle_state

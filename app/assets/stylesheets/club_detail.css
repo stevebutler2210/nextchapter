@@ -9,15 +9,6 @@
 	gap: var(--spacing-4);
 }
 
-.nc-club-detail__owner-actions {
-	position: absolute;
-	top: 15px;
-	right: 0;
-	display: flex;
-	align-items: center;
-	gap: var(--spacing-4);
-}
-
 .nc-club-detail__owner-link {
 	font-family: var(--font-work-sans);
 	font-size: 0.75rem;
@@ -31,10 +22,6 @@
 
 .nc-club-detail__owner-link:hover {
 	opacity: 0.75;
-}
-
-.nc-club-detail__title {
-	padding-right: 120px;
 }
 
 .nc-club-detail__description {
@@ -332,15 +319,6 @@
 }
 
 @media (max-width: 820px) {
-	.nc-club-detail__title {
-		padding-right: 0;
-	}
-
-	.nc-club-detail__owner-actions {
-		position: static;
-		justify-content: flex-end;
-	}
-
 	.nc-search-result-item,
 	.nc-nomination-item {
 		align-items: flex-start;
