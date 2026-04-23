@@ -1060,6 +1060,29 @@ a {
 	color: color-mix(in srgb, var(--outline) 90%, transparent);
 }
 
+.nc-reading-note-form__page-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.nc-reading-note-form__page-input {
+  width: 96px;
+  background: var(--surface-container);
+  border: 1px solid rgba(var(--outline-variant), 0.4);
+  border-radius: var(--radius-interactive);
+  padding: 6px 10px;
+  font-family: "Work Sans", sans-serif;
+  font-size: 0.875rem;
+  color: var(--on-surface);
+}
+
+.nc-reading-note-form__page-input:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+}
+
 .nc-reading-note-form__footer {
   display: flex;
   align-items: center;

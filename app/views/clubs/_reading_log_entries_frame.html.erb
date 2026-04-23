@@ -1,14 +1,18 @@
 <%= turbo_frame_tag dom_id(cycle, :reading_log_entries) do %>
-  <% if reading_log_entry.errors.any? %>
-    <p class="nc-form-error"><%= reading_log_entry.errors.full_messages.to_sentence %></p>
-  <% end %>
-
   <%= form_with model: reading_log_entry, url: cycle_reading_log_entries_path(cycle), html: { class: "nc-reading-note-form" } do |form| %>
     <%= form.label :note, "Log a note", class: "nc-reading-note-form__label" %>
     <%= form.text_area :note,
           rows: 4,
           placeholder: "Share your thoughts, favourite quotes, or progress here...",
           class: "nc-reading-note-form__textarea" %>
+
+    <div class="nc-reading-note-form__page-row">
+      <%= form.label :page_reached, "Page reached", class: "nc-type-label-md" %>
+      <%= form.number_field :page_reached,
+            placeholder: "e.g. 42",
+            min: 1,
+            class: "nc-reading-note-form__page-input" %>
+    </div>
 
     <%= form.hidden_field :state, value: reading_log_entries.none? ? "started" : "progressed" %>
 
@@ -19,6 +23,10 @@
       </div>
       <%= form.submit "Save Note", class: "nc-button nc-button--primary" %>
     </div>
+
+    <% if reading_log_entry.errors.any? %>
+      <p class="nc-form-error"><%= reading_log_entry.errors.full_messages.to_sentence %></p>
+    <% end %>
   <% end %>
 
   <h3 class="nc-reading-log-heading">Your reading log</h3>

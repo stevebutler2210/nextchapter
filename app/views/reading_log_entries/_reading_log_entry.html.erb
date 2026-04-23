@@ -3,5 +3,6 @@
   <div class="nc-reading-log-entry__meta">
     <span><%= reading_log_entry.created_at.strftime("%d %b %Y") %></span>
     <span><%= reading_log_entry.state.humanize %></span>
+    <span>(read to page <%= reading_log_entry.page_reached %>)</span>
   </div>
 </article>
