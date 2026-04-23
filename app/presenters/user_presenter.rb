@@ -11,7 +11,7 @@ class UserPresenter < ApplicationPresenter
       initials,
       class: "nc-avatar-chip nc-avatar-chip--#{tone}",
       data: { name: user.name },
-      aria_label: "Avatar for #{user.name}"
+      aria: { label: "Avatar for #{user.name}" }
   end
 
   private

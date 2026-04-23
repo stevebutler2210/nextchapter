@@ -67,7 +67,9 @@
     <% if @cycle&.voting? %>
       <section class="nc-club-detail__section">
         <% nominations = @cycle.nominations.includes(:book, :user, :votes) %>
-        <%= render "nominations/voting_no_votes_notice", nominations: nominations %>
+        <%= render "nominations/voting_no_votes_notice",
+              has_nominations: nominations.any?,
+              has_votes: Vote.where(cycle_id: @cycle.id).exists? %>
 
         <div id="nominations_list" class="nc-nominations-list">
           <% if nominations.any? %>
@@ -75,8 +77,6 @@
                   collection: nominations,
                   as: :nomination,
                   locals: { current_user: Current.user } %>
-          <% else %>
-            <p class="nc-empty-state">No votes have been cast yet. Voting is open once members start choosing nominations.</p>
           <% end %>
         </div>
 

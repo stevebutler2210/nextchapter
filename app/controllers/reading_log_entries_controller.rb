@@ -34,15 +34,15 @@ class ReadingLogEntriesController < ApplicationController
   end
 
   def reading_log_entry_params
-    state = if params[:reading_log_entry][:finished_flag] == "1"
+    entry = params.require(:reading_log_entry).permit(:note, :state, :finished_flag)
+
+    state = if entry[:finished_flag] == "1"
       "finished"
     else
-      params[:reading_log_entry][:state]
+      entry[:state]
     end
 
-    params.require(:reading_log_entry)
-          .permit(:note, :state)
-          .merge(state: state)
+    entry.except(:finished_flag).merge(state: state)
   end
 
   def render_reading_frame(status: :ok)

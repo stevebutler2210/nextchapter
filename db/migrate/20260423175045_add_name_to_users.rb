@@ -1,11 +1,33 @@
 class AddNameToUsers < ActiveRecord::Migration[8.1]
-  def change
+  class MigrationUser < ActiveRecord::Base
+    self.table_name = "users"
+  end
+
+  def up
+    return unless table_exists?(:users)
+
     add_column :users, :name, :string
+    MigrationUser.reset_column_information
 
-    # Set default name for existing users
-    User.update_all(name: "") unless User.table_exists? && User.count.zero?
+    MigrationUser.where(name: [ nil, "" ]).find_each do |user|
+      user.update_columns(name: derived_name_from_email(user.email_address))
+    end
 
-    # Now add the not null constraint
-    change_column :users, :name, :string, null: false
+    change_column_null :users, :name, false
+  end
+
+  def down
+    return unless table_exists?(:users)
+    return unless column_exists?(:users, :name)
+
+    remove_column :users, :name
+  end
+
+  private
+
+  def derived_name_from_email(email_address)
+    local_part = email_address.to_s.split("@").first.to_s
+    candidate = local_part.tr("._-", " ").squish.titleize
+    candidate.presence || "Unknown User"
   end
 end

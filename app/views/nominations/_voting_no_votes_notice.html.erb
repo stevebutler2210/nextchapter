@@ -1,5 +1,5 @@
 <div id="voting_no_votes_notice">
-  <% if nominations.any? && nominations.sum { |nomination| nomination.votes.size }.zero? %>
+  <% if has_nominations && !has_votes %>
     <p class="nc-empty-state">No votes have been cast yet.</p>
   <% end %>
 </div>

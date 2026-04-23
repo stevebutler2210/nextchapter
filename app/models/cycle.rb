@@ -17,7 +17,6 @@ class Cycle < ApplicationRecord
   validates :winning_nomination, presence: true, if: -> { reading? }, on: [ :create, :update ]
 
   after_update :broadcast_state_change, if: :saved_change_to_state?
-  before_destroy :nullify_winning_nomination
 
   # Transition methods - each raises on invalid transition
   def close_nominations!
@@ -49,10 +48,6 @@ class Cycle < ApplicationRecord
 
   def vote_counts_by_nomination_id
     nominations.left_joins(:votes).group("nominations.id").count("votes.id")
-  end
-
-  def nullify_winning_nomination
-    update_column(:winning_nomination_id, nil)
   end
 
   def broadcast_state_change
