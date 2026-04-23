@@ -9,7 +9,7 @@
 <% end %>
 
 <%= turbo_frame_tag "club_details_#{@club.id}" do %>
-  <section class="nc-club-detail">
+  <section class="flex flex-col gap-8 max-w-3xl">
     <header class="nc-club-detail__header">
       <% if @is_owner %>
         <div class="nc-club-detail__owner-actions">
@@ -23,10 +23,10 @@
       <h1 class="nc-club-detail__title nc-type-headline-md"><%= @club.name %></h1>
       <p class="nc-club-detail__description"><%= @club.description.presence || "No description provided." %></p>
 
-      <div class="nc-club-detail__meta">
+      <div class="flex flex-wrap items-center justify-between gap-4">
         <%= render "clubs/member_avatars", club: @club, memberships: @memberships %>
 
-        <div class="nc-club-detail__controls" data-controller="clipboard">
+        <div class="flex items-center gap-3 flex-wrap" data-controller="clipboard">
           <% state_name = @cycle&.state&.upcase || "UNKNOWN" %>
           <% state_class = @cycle&.state ? "nc-state-badge--#{@cycle.state}" : "nc-state-badge--voting" %>
           <span class="nc-state-badge <%= state_class %>"><%= state_name %></span>

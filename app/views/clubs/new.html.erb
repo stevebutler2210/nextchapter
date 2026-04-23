@@ -13,18 +13,18 @@
       </div>
     <% end %>
 
-    <%= form_with model: @club, html: { class: "nc-dashboard-form" } do |form| %>
-      <div class="nc-dashboard-form__field">
+    <%= form_with model: @club, html: { class: "flex flex-col gap-4" } do |form| %>
+      <div class="flex flex-col gap-2">
         <%= form.label :name, class: "nc-type-label-md" %>
         <%= form.text_field :name, class: "nc-dashboard-form__input" %>
       </div>
 
-      <div class="nc-dashboard-form__field">
+      <div class="flex flex-col gap-2">
         <%= form.label :description, class: "nc-type-label-md" %>
         <%= form.text_area :description, class: "nc-dashboard-form__input nc-dashboard-form__textarea" %>
       </div>
 
-      <div class="nc-dashboard-form__actions">
+      <div class="flex items-center gap-4 flex-wrap">
         <%= form.submit "Create Club", class: "nc-button nc-button--primary" %>
         <%= link_to "Cancel", clubs_path, class: "nc-button nc-button--tertiary" %>
       </div>

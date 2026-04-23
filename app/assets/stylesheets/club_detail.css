@@ -2,13 +2,6 @@
 
 /* === Club detail header and layout === */
 
-.nc-club-detail {
-	display: flex;
-	flex-direction: column;
-	gap: var(--spacing-8);
-	max-width: 768px;
-}
-
 .nc-club-detail__header {
 	position: relative;
 	display: flex;
@@ -53,21 +46,6 @@
 	color: color-mix(in srgb, var(--color-on-surface) 68%, transparent);
 }
 
-.nc-club-detail__meta {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	justify-content: space-between;
-	gap: var(--spacing-4);
-}
-
-.nc-club-detail__controls {
-	display: flex;
-	align-items: center;
-	gap: var(--spacing-3);
-	flex-wrap: wrap;
-}
-
 .nc-club-detail__section {
 	display: flex;
 	flex-direction: column;
@@ -75,12 +53,6 @@
 }
 
 /* === Avatar chips === */
-
-.nc-avatar-row {
-	display: flex;
-	align-items: center;
-	min-height: 32px;
-}
 
 .nc-avatar-chip {
 	width: 32px;
@@ -199,10 +171,6 @@
 	color: color-mix(in srgb, var(--color-outline) 90%, transparent);
 }
 
-.nc-search-results {
-	margin-top: var(--spacing-4);
-}
-
 .nc-search-result-list,
 .nc-nominations-list,
 .nc-reading-log-list {
@@ -296,12 +264,6 @@
 
 /* === Reading log === */
 
-.nc-reading-note-form {
-	display: flex;
-	flex-direction: column;
-	gap: var(--spacing-3);
-}
-
 .nc-reading-note-form__label {
 	font-family: var(--font-work-sans);
 	font-size: 0.875rem;
@@ -347,10 +309,6 @@
 .nc-reading-note-form__page-input:focus {
 	outline: 2px solid var(--color-primary);
 	outline-offset: 1px;
-}
-
-.nc-reading-log-heading {
-	margin: var(--spacing-2) 0 0;
 }
 
 .nc-reading-log-entry {

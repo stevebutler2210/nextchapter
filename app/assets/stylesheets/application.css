@@ -129,11 +129,6 @@ a {
 	flex-direction: column;
 }
 
-.nc-flash-stack {
-	display: flex;
-	flex-direction: column;
-}
-
 .nc-flash {
 	display: flex;
 	align-items: center;
@@ -180,11 +175,6 @@ a {
 	width: 100%;
 	max-width: 1200px;
 	padding: 40px 48px;
-}
-
-.nc-public-page {
-	width: 100%;
-	padding: 32px 24px;
 }
 
 @media (max-width: 900px) {

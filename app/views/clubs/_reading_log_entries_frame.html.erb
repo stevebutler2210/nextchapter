@@ -1,5 +1,5 @@
 <%= turbo_frame_tag dom_id(cycle, :reading_log_entries) do %>
-  <%= form_with model: reading_log_entry, url: cycle_reading_log_entries_path(cycle), html: { class: "nc-reading-note-form" } do |form| %>
+  <%= form_with model: reading_log_entry, url: cycle_reading_log_entries_path(cycle), html: { class: "flex flex-col gap-3" } do |form| %>
     <%= form.label :note, "Log a note", class: "nc-reading-note-form__label" %>
     <%= form.text_area :note,
           rows: 4,
@@ -27,7 +27,7 @@
     <% end %>
   <% end %>
 
-  <h3 class="nc-reading-log-heading">Your reading log</h3>
+  <h3 class="mt-2">Your reading log</h3>
 
   <% if reading_log_entries.any? %>
     <div id="reading_log_entries_list" class="nc-reading-log-list">

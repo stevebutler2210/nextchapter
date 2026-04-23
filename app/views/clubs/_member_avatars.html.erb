@@ -1,7 +1,7 @@
 <% memberships ||= club.memberships.includes(:user).order(:id) %>
 <% avatar_tones = %w[primary tertiary surface-container-highest outline primary-container] %>
 
-<div id="club_members_<%= club.id %>" class="nc-avatar-row" aria-label="Club members">
+<div id="club_members_<%= club.id %>" class="flex items-center min-h-8" aria-label="Club members">
   <% memberships.each_with_index do |membership, index| %>
     <% user_presenter = present(membership.user) %>
     <% tone = avatar_tones[index % avatar_tones.length] %>
