@@ -2,7 +2,7 @@ class NominationPresenter < ApplicationPresenter
   def vote_button
     return unless current_user.present?
 
-    if (user_vote = votes.find_by(user_id: current_user.id))
+    if (user_vote = votes.find { |v| v.user_id == current_user.id })
       view_context.button_to "Remove Vote",
         view_context.vote_path(user_vote),
         method: :delete,

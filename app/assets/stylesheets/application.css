@@ -1070,7 +1070,7 @@ a {
 .nc-reading-note-form__page-input {
   width: 96px;
   background: var(--surface-container);
-  border: 1px solid rgba(var(--outline-variant), 0.4);
+  border: 1px solid color-mix(in srgb, var(--outline-variant) 40%, transparent);
   border-radius: var(--radius-interactive);
   padding: 6px 10px;
   font-family: "Work Sans", sans-serif;
