@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NextChapter — Flash Notifications</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..800;1,6..72,300..800&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            surface: { DEFAULT:'#fcf9f5','container-lowest':'#ffffff','container-low':'#f7f4f0','container':'#f0ede9','container-high':'#e5e2de','container-highest':'#dbd8d4','variant':'#e1ddd8' },
+            'on-surface':'#1c1c1a',
+            primary: { DEFAULT:'#89453a', container:'#f4ebe9' },
+            'on-primary':'#ffffff',
+            tertiary: { DEFAULT:'#7a826e', container:'#eff1ed' },
+            outline: { DEFAULT:'#85827e', variant:'#d1cfcc' },
+          },
+          fontFamily: { newsreader:['Newsreader','Georgia','serif'], 'work-sans':['Work Sans','system-ui','sans-serif'] },
+          borderRadius: { sm:'2px', DEFAULT:'4px' },
+        },
+      },
+    }
+  </script>
+  <style>* { margin:0; padding:0; box-sizing:border-box; } body { font-family:'Work Sans',sans-serif; color:#1c1c1a; background:#fcf9f5; }</style>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen flex">
+
+  <!-- Sidebar -->
+  <aside class="w-40 shrink-0 bg-surface-container-low min-h-screen flex flex-col py-6 px-4">
+    <a href="/" class="font-newsreader text-lg tracking-tight font-medium text-on-surface mb-10 block" style="text-decoration:none;">
+      <span class="mr-1.5 inline-block" style="font-size:1.1em;">📖</span>NextChapter
+    </a>
+    <nav class="flex flex-col gap-1">
+      <a href="/dashboard" class="font-work-sans text-sm font-medium px-3 py-2 rounded bg-primary-container text-on-surface" style="text-decoration:none;">Dashboard</a>
+      <a href="#" class="font-work-sans text-sm font-medium px-3 py-2 rounded text-on-surface/60" style="text-decoration:none;">Log Out</a>
+    </nav>
+  </aside>
+
+  <main class="flex-1 flex flex-col">
+    <div id="app"></div>
+  </main>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    function Flash({ variant, message, onDismiss }) {
+      const isNotice = variant === 'notice';
+      return (
+        <div className={`w-full px-5 py-3 flex items-center justify-between gap-4 ${isNotice ? 'bg-tertiary-container' : 'bg-primary-container'}`}>
+          <p className={`font-work-sans text-[0.875rem] leading-relaxed ${isNotice ? 'text-tertiary' : 'text-primary'}`}>{message}</p>
+          <button onClick={onDismiss} className={`shrink-0 text-lg leading-none hover:opacity-60 ${isNotice ? 'text-tertiary' : 'text-primary'}`}>&times;</button>
+        </div>
+      );
+    }
+
+    const notices = [
+      "Voting closed. 'The Hidden Life of Trees' will be your next read.",
+      "It was a tie — 'The Night Circus' was selected at random.",
+      "Nominations closed. Time to vote.",
+    ];
+
+    const alerts = [
+      "You can't close voting until at least one vote has been cast.",
+      "Nominations can't be closed — no books have been nominated yet.",
+    ];
+
+    function App() {
+      const [dismissed, setDismissed] = useState({});
+      const dismiss = (key) => setDismissed(prev => ({...prev, [key]: true}));
+      const reset = () => setDismissed({});
+
+      return (
+        <div>
+          {/* Notice examples */}
+          {notices.map((msg, i) => !dismissed[`n${i}`] && (
+            <Flash key={`n${i}`} variant="notice" message={msg} onDismiss={() => dismiss(`n${i}`)} />
+          ))}
+
+          {/* Alert examples */}
+          {alerts.map((msg, i) => !dismissed[`a${i}`] && (
+            <Flash key={`a${i}`} variant="alert" message={msg} onDismiss={() => dismiss(`a${i}`)} />
+          ))}
+
+          {/* Page content placeholder */}
+          <div className="px-12 py-10 max-w-3xl">
+            <h1 className="font-newsreader text-[1.75rem] font-normal tracking-tight mb-4">Your Clubs</h1>
+            <p className="font-work-sans text-sm text-on-surface/50 mb-6">Flash notifications appear above this content, below the nav bar. Dismiss them with the × button.</p>
+            {Object.keys(dismissed).length > 0 && (
+              <button onClick={reset} className="font-work-sans text-[0.75rem] font-medium uppercase tracking-widest px-4 py-1.5 rounded-sm border border-outline-variant text-on-surface hover:bg-surface-container transition-colors">
+                Reset All
+              </button>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('app')).render(<App />);
+  </script>
+
+  <script>
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{"placeholder":true}/*EDITMODE-END*/;
+    window.addEventListener('message', e => {});
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+  </script>
+</body>
+</html>

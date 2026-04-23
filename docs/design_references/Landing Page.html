@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NextChapter — A quiet space for intentional readers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..800;1,6..72,300..800&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            surface: {
+              DEFAULT: '#fcf9f5',
+              'container-lowest': '#ffffff',
+              'container-low': '#f7f4f0',
+              'container': '#f0ede9',
+              'container-high': '#e5e2de',
+              'container-highest': '#dbd8d4',
+              'variant': '#e1ddd8',
+            },
+            'on-surface': '#1c1c1a',
+            primary: {
+              DEFAULT: '#89453a',
+              container: '#f4ebe9',
+            },
+            'on-primary': '#ffffff',
+            tertiary: {
+              DEFAULT: '#7a826e',
+              container: '#eff1ed',
+            },
+            outline: {
+              DEFAULT: '#85827e',
+              variant: '#d1cfcc',
+            },
+          },
+          fontFamily: {
+            newsreader: ['Newsreader', 'Georgia', 'serif'],
+            'work-sans': ['Work Sans', 'system-ui', 'sans-serif'],
+          },
+          borderRadius: {
+            sm: '2px',
+            DEFAULT: '4px',
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Work Sans', sans-serif; color: #1c1c1a; background: #fcf9f5; }
+
+    /* Book cover collage colours — muted editorial palette from reference */
+    .cover-clay { background: #89453a; }
+    .cover-sage { background: #7a826e; }
+    .cover-gold { background: #c4a44a; }
+    .cover-slate { background: #6b7d8a; }
+    .cover-rose { background: #b07272; }
+    .cover-sand { background: #c4b08b; }
+    .cover-ink { background: #3a3a3a; }
+    .cover-olive { background: #8a8a5c; }
+    .cover-rust { background: #a65d3f; }
+  </style>
+</head>
+<body class="bg-surface text-on-surface antialiased">
+
+  <!-- ====== NAV ====== -->
+  <nav class="w-full px-6 md:px-12 lg:px-20 py-5 flex items-center justify-between">
+    <a href="/" class="font-newsreader text-xl tracking-tight font-medium text-on-surface" style="text-decoration:none;">NextChapter</a>
+    <div class="flex items-center gap-4">
+      <a href="/sign_in" class="font-work-sans text-xs font-medium uppercase tracking-widest text-on-surface hover:opacity-70 transition-opacity" style="text-decoration:none;">Log In</a>
+      <a href="/sign_up" class="font-work-sans text-xs font-medium uppercase tracking-widest bg-primary text-on-primary px-5 py-2.5 rounded-sm hover:opacity-90 transition-opacity" style="text-decoration:none;">Sign Up</a>
+    </div>
+  </nav>
+
+  <!-- ====== HERO ====== -->
+  <section class="relative overflow-hidden">
+    <!-- Cover grid — right-aligned to match nav Sign Up button edge -->
+    <div class="absolute top-0 bottom-0 overflow-hidden" style="right: 0; left: 58%; padding-left: 24px;">
+      <div class="h-full px-6 md:px-12 lg:px-20 flex justify-end">
+        <div class="h-full" style="display: grid; grid-template-columns: repeat(3, 130px); gap: 10px; align-content: start;">
+
+          <!-- Column 1: starts below top edge, last cover overlaps bottom -->
+          <div class="flex flex-col gap-2.5" style="margin-top: 48px;">
+            <div class="cover-clay rounded-sm" style="aspect-ratio: 1 / 1.5; width: 100%;"></div>
+            <div class="cover-sage rounded-sm" style="aspect-ratio: 1 / 1.5; width: 100%;"></div>
+            <div class="cover-gold rounded-sm" style="aspect-ratio: 1 / 1.5; width: 100%;"></div>
+            <div class="cover-rose rounded-sm" style="aspect-ratio: 1 / 1.5; width: 100%;"></div>
+            <div class="cover-ink rounded-sm" style="aspect-ratio: 1 / 1.5; width: 100%;"></div>
+          </div>
+
+          <!-- Column 2: first & last covers overlap top & bottom halfway -->
+          <div class="flex flex-col gap-2.5" style="margin-top: -64px;">
+            <div class="cover-slate rounded-sm" style="aspect-ratio: 1 / 1.5; width: 100%;"></div>
+            <div class="cover-sand rounded-sm" style="aspect-ratio: 1 / 1.5; width: 100%;"></div>
+            <div class="cover-clay rounded-sm" style="aspect-ratio: 1 / 1.5; width: 100%;"></div>
+            <div class="cover-olive rounded-sm" style="aspect-ratio: 1 / 1.5; width: 100%;"></div>
+            <div class="cover-sage rounded-sm" style="aspect-ratio: 1 / 1.5; width: 100%;"></div>
+            <div class="cover-slate rounded-sm" style="aspect-ratio: 1 / 1.5; width: 100%;"></div>
+          </div>
+
+          <!-- Column 3: inverse of column 1 — first cover overlaps top, last ends above bottom -->
+          <div class="flex flex-col gap-2.5" style="margin-top: -24px; margin-bottom: 15px;">
+            <div class="cover-rust rounded-sm" style="aspect-ratio: 1 / 1.5; width: 100%;"></div>
+            <div class="cover-gold rounded-sm" style="aspect-ratio: 1 / 1.5; width: 100%;"></div>
+            <div class="cover-rose rounded-sm" style="aspect-ratio: 1 / 1.5; width: 100%;"></div>
+            <div class="cover-slate rounded-sm" style="aspect-ratio: 1 / 1.5; width: 100%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Featured selection overlay -->
+      <div data-featured class="absolute bg-surface-container-lowest/95 rounded px-5 py-4 shadow-sm" style="bottom: 16px; right: 80px; z-index: 2; max-width: 200px;">
+        <p class="font-work-sans text-[0.65rem] font-medium uppercase tracking-widest text-on-surface/50 mb-1">Featured Selection</p>
+        <p class="font-newsreader text-sm font-normal leading-snug">The Architecture of Silence</p>
+      </div>
+    </div>
+
+    <!-- Text block — positioned over the left side -->
+    <div class="relative z-10 px-6 md:px-12 lg:px-20 py-24 md:py-32" style="max-width: 58%;">
+      <div class="flex flex-col gap-8 max-w-xl">
+        <h1 class="font-newsreader text-5xl md:text-6xl lg:text-[3.5rem] leading-[1.1] font-normal tracking-tight" style="text-wrap: pretty;">
+          NextChapter is a quiet space for intentional readers to gather.
+        </h1>
+        <p class="font-work-sans text-base md:text-lg font-light text-on-surface/75 max-w-lg leading-relaxed">
+          Form small clubs, nominate your next read, and track your progress together without the noise of social media.
+        </p>
+        <div class="flex items-center gap-4 pt-2">
+          <a href="/sign_up" class="font-work-sans text-xs font-medium uppercase tracking-widest bg-primary text-on-primary px-7 py-3 rounded-sm hover:opacity-90 transition-opacity" style="text-decoration:none;">Sign Up</a>
+          <a href="/sign_in" class="font-work-sans text-xs font-medium uppercase tracking-widest bg-surface-container text-on-surface px-7 py-3 rounded-sm border border-outline-variant hover:bg-surface-container-high transition-colors" style="text-decoration:none;">Log In</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FEATURES ====== -->
+  <section class="bg-surface-container-low px-6 md:px-12 lg:px-20 py-24 md:py-32">
+    <div class="max-w-7xl mx-auto">
+
+      <!-- Section header -->
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-16">
+        <h2 class="font-newsreader text-3xl md:text-[1.75rem] font-normal tracking-tight">The Intentional Reader's Toolkit</h2>
+        <p class="font-work-sans text-sm text-on-surface/60 max-w-sm leading-relaxed">
+          Designed to facilitate deep engagement and meaningful discussion, removing the distractions of the modern web.
+        </p>
+      </div>
+
+      <!-- Three columns -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        <!-- Form a Club -->
+        <div class="bg-surface-container-lowest rounded p-6 flex flex-col gap-4">
+          <div class="w-10 h-10 bg-surface-container-high rounded-sm flex items-center justify-center">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#1c1c1a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="7" cy="7" r="3"/>
+              <circle cx="13" cy="7" r="3"/>
+              <path d="M2 16c0-3 2.5-5 5-5 1 0 2 .3 3 1 1-.7 2-1 3-1 2.5 0 5 2 5 5"/>
+            </svg>
+          </div>
+          <h3 class="font-newsreader text-xl font-normal">Form a Club</h3>
+          <p class="font-work-sans text-sm text-on-surface/65 leading-relaxed">Gather your favourite readers into a private, focused space. No public feeds, just your community and your books.</p>
+        </div>
+
+        <!-- Nominate & Vote -->
+        <div class="bg-surface-container-lowest rounded p-6 flex flex-col gap-4">
+          <div class="w-10 h-10 bg-surface-container-high rounded-sm flex items-center justify-center">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#1c1c1a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 2l2.4 4.8L18 7.6l-4 3.9.9 5.5L10 14.5 5.1 17l.9-5.5-4-3.9 5.6-.8z"/>
+            </svg>
+          </div>
+          <h3 class="font-newsreader text-xl font-normal">Nominate &amp; Vote</h3>
+          <p class="font-work-sans text-sm text-on-surface/65 leading-relaxed">A simple, democratic way to decide what the group reads next. Search for any title, and reach a consensus effortlessly.</p>
+        </div>
+
+        <!-- Track Together -->
+        <div class="bg-surface-container-lowest rounded p-6 flex flex-col gap-4">
+          <div class="w-10 h-10 bg-surface-container-high rounded-sm flex items-center justify-center">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#1c1c1a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="2" width="14" height="16" rx="1"/>
+              <path d="M7 6h6M7 10h6M7 14h3"/>
+            </svg>
+          </div>
+          <h3 class="font-newsreader text-xl font-normal">Track Together</h3>
+          <p class="font-work-sans text-sm text-on-surface/65 leading-relaxed">Stay in sync with shared reading timelines and progress tracking. Visualise the group's journey through every chapter.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== PHILOSOPHY QUOTE ====== -->
+  <section class="px-6 md:px-12 lg:px-20 py-24 md:py-32">
+    <div class="max-w-4xl mx-auto text-center flex flex-col items-center gap-6">
+      <p class="font-work-sans text-[0.65rem] font-medium uppercase tracking-[0.2em] text-on-surface/40">A New Philosophy</p>
+      <blockquote class="font-newsreader text-2xl md:text-3xl lg:text-[2.25rem] font-normal italic leading-snug tracking-tight" style="text-wrap: pretty;">
+        "NextChapter isn't about counting books; it's about the quality of the conversations that happen between the pages."
+      </blockquote>
+      <cite class="font-work-sans text-xs font-medium uppercase tracking-[0.2em] text-on-surface/50 not-italic">— The Curated Folio Journal</cite>
+    </div>
+  </section>
+
+  <!-- ====== FOOTER CTA ====== -->
+  <section class="bg-surface-container-high px-6 md:px-12 lg:px-20 py-24 md:py-32">
+    <div class="max-w-7xl mx-auto text-center flex flex-col items-center gap-8">
+      <h2 class="font-newsreader text-3xl md:text-4xl font-normal tracking-tight">Start your next chapter today.</h2>
+      <a href="/sign_up" class="font-work-sans text-xs font-medium uppercase tracking-widest bg-primary text-on-primary px-8 py-3.5 rounded-sm hover:opacity-90 transition-opacity" style="text-decoration:none;">Create Your Club</a>
+    </div>
+  </section>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="bg-surface px-6 md:px-12 lg:px-20 py-8 flex flex-col md:flex-row items-center justify-between gap-4 text-on-surface/40">
+    <a href="/" class="font-newsreader text-base tracking-tight text-on-surface/50" style="text-decoration:none;">NextChapter</a>
+    <div class="flex items-center gap-6 font-work-sans text-xs uppercase tracking-widest">
+      <a href="/privacy" class="hover:text-on-surface/70 transition-colors" style="text-decoration:none; color:inherit;">Privacy</a>
+      <a href="/terms" class="hover:text-on-surface/70 transition-colors" style="text-decoration:none; color:inherit;">Terms</a>
+      <a href="/about" class="hover:text-on-surface/70 transition-colors" style="text-decoration:none; color:inherit;">About</a>
+      <a href="/contact" class="hover:text-on-surface/70 transition-colors" style="text-decoration:none; color:inherit;">Contact</a>
+    </div>
+    <p class="font-work-sans text-xs">&copy; 2026 NextChapter. A space for the intentional reader.</p>
+  </footer>
+
+  <!-- Tweaks support -->
+  <script>
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "heroHeadline": "NextChapter is a quiet space for intentional readers to gather.",
+      "showFeaturedSelection": true,
+      "ctaText": "Create Your First Club"
+    }/*EDITMODE-END*/;
+
+    let tweaks = { ...TWEAK_DEFAULTS };
+    let tweakPanel = null;
+
+    function applyTweaks() {
+      const h1 = document.querySelector('h1');
+      if (h1) h1.textContent = tweaks.heroHeadline;
+
+      const featured = document.querySelector('[data-featured]');
+      if (featured) featured.style.display = tweaks.showFeaturedSelection ? '' : 'none';
+
+      document.querySelectorAll('[data-cta-text]').forEach(el => el.textContent = tweaks.ctaText);
+    }
+
+    function buildPanel() {
+      const panel = document.createElement('div');
+      panel.id = 'tweaks-panel';
+      panel.style.cssText = 'position:fixed;bottom:16px;right:16px;width:300px;background:#fff;border-radius:4px;box-shadow:0 4px 24px rgba(0,0,0,0.12);padding:20px;font-family:Work Sans,sans-serif;z-index:9999;display:none;';
+      panel.innerHTML = `
+        <p style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:16px;color:#1c1c1a;">Tweaks</p>
+        <label style="display:block;margin-bottom:12px;">
+          <span style="font-size:12px;color:#85827e;display:block;margin-bottom:4px;">Hero headline</span>
+          <textarea id="tw-headline" rows="3" style="width:100%;font-size:13px;padding:8px;border:1px solid #d1cfcc;border-radius:2px;font-family:inherit;resize:vertical;">${tweaks.heroHeadline}</textarea>
+        </label>
+        <label style="display:flex;align-items:center;gap:8px;margin-bottom:12px;font-size:12px;color:#1c1c1a;cursor:pointer;">
+          <input type="checkbox" id="tw-featured" ${tweaks.showFeaturedSelection ? 'checked' : ''} style="accent-color:#89453a;">
+          Show featured selection card
+        </label>
+        <label style="display:block;">
+          <span style="font-size:12px;color:#85827e;display:block;margin-bottom:4px;">Footer CTA button text</span>
+          <input id="tw-cta" value="${tweaks.ctaText}" style="width:100%;font-size:13px;padding:8px;border:1px solid #d1cfcc;border-radius:2px;font-family:inherit;">
+        </label>
+      `;
+      document.body.appendChild(panel);
+
+      panel.querySelector('#tw-headline').addEventListener('input', e => {
+        tweaks.heroHeadline = e.target.value;
+        applyTweaks();
+        window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { heroHeadline: tweaks.heroHeadline } }, '*');
+      });
+      panel.querySelector('#tw-featured').addEventListener('change', e => {
+        tweaks.showFeaturedSelection = e.target.checked;
+        applyTweaks();
+        window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { showFeaturedSelection: tweaks.showFeaturedSelection } }, '*');
+      });
+      panel.querySelector('#tw-cta').addEventListener('input', e => {
+        tweaks.ctaText = e.target.value;
+        applyTweaks();
+        window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { ctaText: tweaks.ctaText } }, '*');
+      });
+
+      return panel;
+    }
+
+    // Mark elements for tweaks
+    document.addEventListener('DOMContentLoaded', () => {
+      const featured = document.querySelector('.absolute.bg-surface-container-lowest\\/95');
+      if (featured) featured.setAttribute('data-featured', '');
+
+      const footerCTA = document.querySelector('section.bg-surface-container-high a');
+      if (footerCTA) footerCTA.setAttribute('data-cta-text', '');
+    });
+
+    // Tweaks protocol
+    window.addEventListener('message', e => {
+      if (e.data?.type === '__activate_edit_mode') {
+        if (!tweakPanel) tweakPanel = buildPanel();
+        tweakPanel.style.display = 'block';
+      }
+      if (e.data?.type === '__deactivate_edit_mode') {
+        if (tweakPanel) tweakPanel.style.display = 'none';
+      }
+    });
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+  </script>
+</body>
+</html>
