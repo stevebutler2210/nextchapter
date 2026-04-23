@@ -4,43 +4,6 @@
  *   auth.css, club_detail.css, dashboard.css, landing.css
  */
 
-:root {
-	/* Short aliases for Tailwind @theme tokens. Use these in all nc-* component styles. */
-	--surface: var(--color-surface, #fcf9f5);
-	--surface-container-lowest: var(--color-surface-container-lowest, #ffffff);
-	--surface-container-low: var(--color-surface-container-low, #f7f4f0);
-	--surface-container: var(--color-surface-container, #f0ede9);
-	--surface-container-high: var(--color-surface-container-high, #e5e2de);
-	--surface-container-highest: var(--color-surface-container-highest, #dbd8d4);
-	--surface-variant: var(--color-surface-variant, #e1ddd8);
-	--on-surface: var(--color-on-surface, #1c1c1a);
-	--primary: var(--color-primary, #89453a);
-	--primary-container: var(--color-primary-container, #f4ebe9);
-	--on-primary: var(--color-on-primary, #ffffff);
-	--tertiary: var(--color-tertiary, #7a826e);
-	--tertiary-container: var(--color-tertiary-container, #eff1ed);
-	--outline: var(--color-outline, #85827e);
-	--outline-variant: var(--color-outline-variant, #d1cfcc);
-	--newsreader: var(--font-newsreader, "Newsreader", Georgia, serif);
-	--work-sans: var(--font-work-sans, "Work Sans", system-ui, sans-serif);
-	--space-1: var(--spacing-1, 4px);
-	--space-2: var(--spacing-2, 8px);
-	--space-3: var(--spacing-3, 12px);
-	--space-4: var(--spacing-4, 16px);
-	--space-5: var(--spacing-5, 20px);
-	--space-6: var(--spacing-6, 24px);
-	--space-7: var(--spacing-7, 28px);
-	--space-8: var(--spacing-8, 32px);
-	--space-9: var(--spacing-9, 36px);
-	--space-10: var(--spacing-10, 40px);
-	--space-11: var(--spacing-11, 44px);
-	--space-12: var(--spacing-12, 48px);
-	--space-13: var(--spacing-13, 52px);
-	--space-14: var(--spacing-14, 56px);
-	--space-15: var(--spacing-15, 60px);
-	--space-16: var(--spacing-16, 64px);
-}
-
 /* === Type scale — use these classes in templates instead of inline font properties === */
 .nc-type-display-lg {
 	font-family: "Newsreader", Georgia, serif;
@@ -93,8 +56,8 @@
 body.nc-body {
 	margin: 0;
 	min-height: 100vh;
-	background: var(--surface);
-	color: var(--on-surface);
+	background: var(--color-surface);
+	color: var(--color-on-surface);
 	font-family: "Work Sans", system-ui, sans-serif;
 }
 
@@ -121,7 +84,7 @@ a {
 	width: 160px;
 	min-height: 100vh;
 	padding: 24px 16px;
-	background: var(--surface-container-low);
+	background: var(--color-surface-container-low);
 }
 
 .nc-brand {
@@ -151,11 +114,11 @@ a {
 }
 
 .nc-nav-link:hover {
-	background: var(--surface-container);
+	background: var(--color-surface-container);
 }
 
 .nc-nav-link.is-active {
-	background: var(--primary-container);
+	background: var(--color-primary-container);
 }
 
 .nc-main,
@@ -180,11 +143,11 @@ a {
 }
 
 .nc-flash--notice {
-	background: var(--tertiary-container);
+	background: var(--color-tertiary-container);
 }
 
 .nc-flash--alert {
-	background: var(--primary-container);
+	background: var(--color-primary-container);
 }
 
 .nc-flash__message {
@@ -195,12 +158,12 @@ a {
 
 .nc-flash--notice .nc-flash__message,
 .nc-flash--notice .nc-flash__dismiss {
-	color: var(--tertiary);
+	color: var(--color-tertiary);
 }
 
 .nc-flash--alert .nc-flash__message,
 .nc-flash--alert .nc-flash__dismiss {
-	color: var(--primary);
+	color: var(--color-primary);
 }
 
 .nc-flash__dismiss {
@@ -256,7 +219,7 @@ a {
 	border: 0;
 	border-radius: var(--radius-sm);
 	padding: 10px 20px;
-	font-family: var(--work-sans);
+	font-family: var(--font-work-sans);
 	font-size: 0.75rem;
 	font-weight: 500;
 	text-transform: uppercase;
@@ -270,29 +233,29 @@ a {
 }
 
 .nc-button--primary {
-	background: var(--primary);
-	color: var(--on-primary);
+	background: var(--color-primary);
+	color: var(--color-on-primary);
 }
 
 .nc-button--primary:disabled {
-	background: var(--surface-container-high);
-	color: color-mix(in srgb, var(--on-surface) 55%, transparent);
+	background: var(--color-surface-container-high);
+	color: color-mix(in srgb, var(--color-on-surface) 55%, transparent);
 }
 
 .nc-button--ghost {
 	background: transparent;
-	color: var(--on-surface);
-	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--outline-variant) 75%, transparent);
+	color: var(--color-on-surface);
+	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-outline-variant) 75%, transparent);
 }
 
 .nc-button--ghost:hover {
-	background: var(--surface-container);
+	background: var(--color-surface-container);
 }
 
 .nc-button--tertiary {
 	padding: 0;
 	background: transparent;
-	color: var(--tertiary);
+	color: var(--color-tertiary);
 	text-transform: uppercase;
 }
 
@@ -301,8 +264,8 @@ a {
 }
 
 .nc-button--voted {
-	background: var(--surface-container-high);
-	color: color-mix(in srgb, var(--on-surface) 65%, transparent);
+	background: var(--color-surface-container-high);
+	color: color-mix(in srgb, var(--color-on-surface) 65%, transparent);
 }
 
 .nc-state-badge {
@@ -310,9 +273,9 @@ a {
 	align-items: center;
 	justify-content: center;
 	height: 28px;
-	padding: 0 var(--space-3);
+	padding: 0 var(--spacing-3);
 	border-radius: 999px;
-	font-family: var(--work-sans);
+	font-family: var(--font-work-sans);
 	font-size: 0.75rem;
 	font-weight: 500;
 	text-transform: uppercase;
@@ -320,38 +283,38 @@ a {
 }
 
 .nc-state-badge--nominating {
-	background: var(--tertiary-container);
-	color: var(--tertiary);
+	background: var(--color-tertiary-container);
+	color: var(--color-tertiary);
 }
 
 .nc-state-badge--voting {
-	background: var(--surface-container-high);
-	color: var(--on-surface);
+	background: var(--color-surface-container-high);
+	color: var(--color-on-surface);
 }
 
 .nc-state-badge--reading {
-	background: var(--primary-container);
-	color: var(--primary);
+	background: var(--color-primary-container);
+	color: var(--color-primary);
 }
 
 .nc-empty-state,
 .nc-form-error {
 	margin: 0;
-	background: var(--surface-container-lowest);
+	background: var(--color-surface-container-lowest);
 	border-radius: var(--radius);
-	padding: var(--space-6);
-	font-family: var(--work-sans);
+	padding: var(--spacing-6);
+	font-family: var(--font-work-sans);
 	font-size: 0.875rem;
 	line-height: 1.6;
 }
 
 .nc-empty-state {
-	color: color-mix(in srgb, var(--on-surface) 72%, transparent);
+	color: color-mix(in srgb, var(--color-on-surface) 72%, transparent);
 }
 
 .nc-form-error {
-	background: var(--primary-container);
-	color: var(--primary);
+	background: var(--color-primary-container);
+	color: var(--color-primary);
 }
 
 .nc-visually-hidden {
@@ -370,7 +333,7 @@ a {
 	width: 64px;
 	aspect-ratio: 1 / 1.6;
 	border-radius: var(--radius-sm);
-	background: var(--surface-container-high);
+	background: var(--color-surface-container-high);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -379,9 +342,9 @@ a {
 }
 
 .nc-book-cover-placeholder span {
-	font-family: var(--newsreader);
+	font-family: var(--font-newsreader);
 	font-size: 1.125rem;
-	color: color-mix(in srgb, var(--on-surface) 55%, transparent);
+	color: color-mix(in srgb, var(--color-on-surface) 55%, transparent);
 }
 
 .nc-book-cover-image {
