@@ -1,0 +1,110 @@
+<div class="nc-landing">
+  <nav class="nc-landing-nav">
+    <div class="mx-auto max-w-[1200px] flex items-center justify-between gap-4 max-[700px]:flex-wrap">
+      <%= link_to "NextChapter", root_path, class: "nc-landing-wordmark" %>
+      <div class="flex items-center gap-4 max-[700px]:w-full max-[700px]:justify-start">
+        <%= link_to "Log In", new_session_path, class: "nc-landing-link" %>
+      <%= link_to "Sign Up", new_registration_path, class: "nc-landing-button nc-landing-button--primary" %>
+      </div>
+    </div>
+  </nav>
+
+  <section class="nc-landing-hero">
+    <div class="nc-landing-hero__inner">
+      <div class="nc-landing-hero__content">
+        <h1 class="nc-type-display-lg">NextChapter is a quiet space for intentional readers to gather.</h1>
+        <p class="nc-landing-body-lg">Form small clubs, nominate your next read, and track your progress together without the noise of social media.</p>
+        <div class="nc-landing-hero__actions">
+          <%= link_to "Sign Up", new_registration_path, class: "nc-landing-button nc-landing-button--primary" %>
+          <%= link_to "Log In", new_session_path, class: "nc-landing-button nc-landing-button--ghost" %>
+        </div>
+      </div>
+    </div>
+    <div class="nc-landing-hero__visual" aria-hidden="true">
+      <div class="nc-landing-collage">
+        <div class="nc-landing-collage__column nc-landing-collage__column--1">
+          <div class="nc-landing-collage__block bg-primary"></div>
+          <div class="nc-landing-collage__block bg-surface-container-highest"></div>
+          <div class="nc-landing-collage__block bg-primary-container"></div>
+        </div>
+        <div class="nc-landing-collage__column nc-landing-collage__column--2">
+          <div class="nc-landing-collage__block bg-tertiary"></div>
+          <div class="nc-landing-collage__block bg-primary"></div>
+          <div class="nc-landing-collage__block bg-tertiary-container"></div>
+          <div class="nc-landing-collage__block bg-outline-variant"></div>
+        </div>
+        <div class="nc-landing-collage__column nc-landing-collage__column--3">
+          <div class="nc-landing-collage__block bg-tertiary"></div>
+          <div class="nc-landing-collage__block bg-surface-container-high"></div>
+          <div class="nc-landing-collage__block bg-primary"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="nc-landing-features">
+    <div class="nc-landing-section__inner">
+      <div class="grid grid-cols-3 gap-6 max-[1080px]:grid-cols-1">
+        <article class="nc-landing-feature-card">
+          <span class="nc-landing-feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="8" cy="8" r="3"></circle>
+              <circle cx="16" cy="8" r="3"></circle>
+              <path d="M3 19c0-3 2.6-5 5-5 1 0 2 .3 3 1 1-.7 2-1 3-1 2.4 0 5 2 5 5"></path>
+            </svg>
+          </span>
+          <h2 class="nc-type-headline-sm">Form a Club</h2>
+          <p class="nc-landing-body-sm">Gather your favourite readers into a private, focused space. No public feeds, just your community and your books.</p>
+        </article>
+
+        <article class="nc-landing-feature-card">
+          <span class="nc-landing-feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3l2.8 5.6 6.2.9-4.5 4.4 1.1 6.2L12 17.2 6.4 20.1l1.1-6.2L3 9.5l6.2-.9z"></path>
+            </svg>
+          </span>
+          <h2 class="nc-type-headline-sm">Nominate &amp; Vote</h2>
+          <p class="nc-landing-body-sm">A simple, democratic way to decide what the group reads next. Search for any title, and reach a consensus effortlessly.</p>
+        </article>
+
+        <article class="nc-landing-feature-card">
+          <span class="nc-landing-feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="3" width="16" height="18" rx="1"></rect>
+              <path d="M8 8h8M8 12h8M8 16h4"></path>
+            </svg>
+          </span>
+          <h2 class="nc-type-headline-sm">Track Together</h2>
+          <p class="nc-landing-body-sm">Stay in sync with shared reading timelines and progress tracking. Visualise the group's journey through every chapter.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="nc-landing-quote">
+    <div class="nc-landing-quote__inner">
+      <blockquote class="nc-landing-quote__text">"NextChapter isn't about counting books; it's about the quality of the conversations that happen between the pages."</blockquote>
+      <p class="nc-landing-quote__attribution">- The Curated Folio Journal</p>
+    </div>
+  </section>
+
+  <section class="nc-landing-footer-cta">
+    <div class="mx-auto max-w-[1200px] flex flex-col items-center text-center gap-8">
+      <h2 class="nc-type-headline-md">Start your next chapter today.</h2>
+      <%= link_to "Create Your Club", new_registration_path, class: "nc-landing-button nc-landing-button--primary" %>
+    </div>
+  </section>
+
+  <footer class="nc-landing-footer">
+    <div class="mx-auto max-w-[1200px] grid grid-cols-[1fr_auto_1fr] gap-4 items-center max-[1080px]:grid-cols-1 max-[1080px]:justify-items-center">
+      <p class="nc-landing-wordmark">NextChapter</p>
+      <nav class="flex items-center justify-center gap-6 max-[700px]:gap-4 max-[700px]:flex-wrap" aria-label="Footer">
+        <%= link_to "Privacy", "#", class: "nc-landing-footer__link" %>
+        <%= link_to "Terms", "#", class: "nc-landing-footer__link" %>
+        <%= link_to "About", "#", class: "nc-landing-footer__link" %>
+        <%= link_to "Contact", "#", class: "nc-landing-footer__link" %>
+      </nav>
+      <p class="nc-landing-footer__copy">© 2026 NextChapter</p>
+    </div>
+  </footer>
+</div>

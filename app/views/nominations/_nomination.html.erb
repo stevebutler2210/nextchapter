@@ -1,19 +1,31 @@
 <%# instantiate current_user if not already set, for broadcasting or non-voting display purposes %>
 <% current_user ||= nil %>
+<% book_title = nomination.book.title.presence || "Untitled" %>
+<% book_authors = nomination.book.authors.presence || "Author unknown" %>
+<% nominator_name = nomination.user.attributes["name"].presence || nomination.user.email_address.split("@").first %>
 
-<div id="<%= "nomination_#{nomination.id}" %>">
-  <p>
-    <strong><%= nomination.book.title %></strong>
-    —
-    <%= nomination.book.authors %>
-  </p>
-  <p>Nominated by <%= nomination.user.email_address %></p>
+<article id="<%= "nomination_#{nomination.id}" %>" class="nc-nomination-item">
+  <% cover_url = nomination.book.cover_image_url %>
+  <div class="nc-book-cover-placeholder" <%= cover_url.present? ? "" : "aria-hidden=\"true\"" %>>
+    <% if cover_url.present? %>
+      <%= image_tag cover_url, alt: "Cover of #{book_title}", class: "nc-book-cover-image" %>
+    <% else %>
+      <span><%= book_title.first.to_s.upcase %></span>
+    <% end %>
+  </div>
+
+  <div class="nc-nomination-item__content">
+    <h3 class="nc-nomination-item__title"><%= book_title %></h3>
+    <p class="nc-nomination-item__author"><%= book_authors %></p>
+    <p class="nc-nomination-item__meta">Nominated by <%= nominator_name %></p>
+    <% if nomination.cycle.voting? %>
+      <%= render "nominations/vote_count", nomination: nomination %>
+    <% end %>
+  </div>
 
   <% if nomination.cycle.voting? && current_user.present? %>
-    <%= present(nomination, current_user:).vote_button %>
+    <div class="nc-nomination-item__action">
+      <%= present(nomination, current_user:).vote_button %>
+    </div>
   <% end %>
-
-  <% if nomination.cycle.voting? %>
-    <%= render "nominations/vote_count", nomination: nomination %>
-  <% end %>
-</div>
+</article>

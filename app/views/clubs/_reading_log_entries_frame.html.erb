@@ -1,35 +1,39 @@
 <%= turbo_frame_tag dom_id(cycle, :reading_log_entries) do %>
-  <% if reading_log_entry.errors.any? %>
-    <p><%= reading_log_entry.errors.full_messages.to_sentence %></p>
+  <%= form_with model: reading_log_entry, url: cycle_reading_log_entries_path(cycle), html: { class: "flex flex-col gap-3" } do |form| %>
+    <%= form.label :note, "Log a note", class: "nc-reading-note-form__label" %>
+    <%= form.text_area :note,
+          rows: 4,
+          placeholder: "Share your thoughts, favourite quotes, or progress here...",
+          class: "nc-reading-note-form__textarea" %>
+
+    <div class="flex items-center gap-3 mt-3">
+      <%= form.label :page_reached, "Page reached", class: "nc-type-label-md" %>
+      <%= form.number_field :page_reached,
+            placeholder: "e.g. 42",
+            min: 1,
+            class: "nc-reading-note-form__page-input" %>
+    </div>
+
+    <div class="flex items-center justify-between mt-3">
+      <div class="flex items-center gap-2">
+        <%= form.check_box :finished_flag, class: "w-4 h-4 accent-primary cursor-pointer" %>
+        <%= form.label :finished_flag, "Mark as finished", class: "nc-type-label-md" %>
+      </div>
+      <%= form.submit "Save Note", class: "nc-button nc-button--primary" %>
+    </div>
+
+    <% if reading_log_entry.errors.any? %>
+      <p class="nc-form-error"><%= reading_log_entry.errors.full_messages.to_sentence %></p>
+    <% end %>
   <% end %>
 
-  <h3>Log your reading</h3>
-  <%= form_with model: reading_log_entry, url: cycle_reading_log_entries_path(cycle) do |form| %>
-    <p>
-      <%= form.label :state %><br>
-      <%= form.select :state, ReadingLogEntry.states.keys.map { |value| [ value.humanize, value ] } %>
-    </p>
-
-    <p>
-      <%= form.label :page_reached %><br>
-      <%= form.number_field :page_reached, min: 1 %>
-    </p>
-
-    <p>
-      <%= form.label :note %><br>
-      <%= form.text_area :note, rows: 4 %>
-    </p>
-
-    <%= form.submit "Save reading log" %>
-  <% end %>
-
-  <h3>Your reading log</h3>
+  <h3 class="mt-2">Your reading log</h3>
 
   <% if reading_log_entries.any? %>
-    <div id="reading_log_entries_list">
+    <div id="reading_log_entries_list" class="nc-reading-log-list">
       <%= render reading_log_entries %>
     </div>
   <% else %>
-    <p>No reading updates yet.</p>
+    <p class="nc-empty-state">No notes yet. Add your first thought above to begin your private reading log.</p>
   <% end %>
 <% end %>

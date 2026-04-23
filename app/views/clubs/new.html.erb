@@ -1,30 +1,33 @@
 <%= turbo_frame_tag "clubs_list" do %>
-  <h2>New Club</h2>
+  <section class="nc-dashboard-form-wrap" aria-labelledby="new-club-heading">
+    <h2 id="new-club-heading" class="nc-type-headline-md">Create a Club</h2>
 
-  <% if @club.errors.any? %>
-    <div>
-      <p><%= pluralize(@club.errors.count, "error") %> prevented this club from being created:</p>
-      <ul>
-        <% @club.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+    <% if @club.errors.any? %>
+      <div class="nc-form-error">
+        <p><%= pluralize(@club.errors.count, "error") %> prevented this club from being created:</p>
+        <ul>
+          <% @club.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-  <%= form_with model: @club do |form| %>
-    <p>
-      <%= form.label :name %><br>
-      <%= form.text_field :name %>
-    </p>
+    <%= form_with model: @club, html: { class: "flex flex-col gap-4" } do |form| %>
+      <div class="flex flex-col gap-2">
+        <%= form.label :name, class: "nc-type-label-md" %>
+        <%= form.text_field :name, class: "nc-dashboard-form__input" %>
+      </div>
 
-    <p>
-      <%= form.label :description %><br>
-      <%= form.text_area :description %>
-    </p>
+      <div class="flex flex-col gap-2">
+        <%= form.label :description, class: "nc-type-label-md" %>
+        <%= form.text_area :description, class: "nc-dashboard-form__input nc-dashboard-form__textarea" %>
+      </div>
 
-    <p>
-      <%= form.submit "Create Club" %>
-    </p>
-  <% end %>
+      <div class="flex items-center gap-4 flex-wrap">
+        <%= form.submit "Create Club", class: "nc-button nc-button--primary" %>
+        <%= link_to "Cancel", clubs_path, class: "nc-button nc-button--tertiary" %>
+      </div>
+    <% end %>
+  </section>
 <% end %>

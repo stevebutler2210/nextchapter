@@ -13,6 +13,7 @@ class InvitesController < ApplicationController
     end
 
     @club.memberships.create!(user: Current.user, role: :member)
+    BroadcastClubMembersJob.perform_later(@club.id)
     redirect_to club_path(@club), notice: "You've joined #{@club.name}."
   end
 

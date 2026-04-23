@@ -1,15 +1,41 @@
-<h1>Your Clubs</h1>
+<section class="flex flex-col gap-8 max-w-[1040px]" aria-labelledby="clubs-heading">
+  <h1 id="clubs-heading" class="nc-type-headline-md">Your Clubs</h1>
 
-<%= turbo_frame_tag "clubs_list" do %>
-  <% if @clubs.any? %>
-    <ul>
+  <%= turbo_frame_tag "clubs_list" do %>
+    <% if @clubs.any? %>
+      <div class="grid grid-cols-3 gap-6 max-[1040px]:grid-cols-2 max-[640px]:grid-cols-1">
         <% @clubs.each do |club| %>
-          <li><%= link_to club.name, club_path(club), data: { turbo_frame: "_top" } %></li>
-        <% end %>
-    </ul>
-  <% else %>
-    <p>You aren't a member of any clubs yet</p>
-  <% end %>
+          <% cycle_state = club.current_cycle&.state || "nominating" %>
+          <% badge_modifier = case cycle_state
+                              when "reading" then "reading"
+                              when "voting" then "voting"
+                              else "nominating"
+                              end %>
+          <% state_supporting_text = case cycle_state
+                                     when "reading" then "Currently reading together."
+                                     when "voting" then "Votes are open for this cycle."
+                                     else "Gathering nominations for the next read."
+                                     end %>
 
-  <p><%= link_to "New Club", new_club_path %></p>
-<% end %>
+          <%= link_to club_path(club), class: "nc-dashboard-card", data: { turbo_frame: "_top" } do %>
+            <h2 class="nc-type-headline-sm nc-dashboard-card__title"><%= club.name %></h2>
+            <span class="nc-state-badge nc-state-badge--<%= badge_modifier %> nc-type-label-md"><%= cycle_state %></span>
+            <p class="nc-type-body-sm nc-dashboard-card__meta"><%= state_supporting_text %></p>
+          <% end %>
+        <% end %>
+      </div>
+
+      <%= render "dashboard_callout",
+                 title: nil,
+                 copy: nil,
+                 cta_label: "Create Club",
+                 cta_path: new_club_path %>
+    <% else %>
+      <%= render "dashboard_callout",
+                 title: "Your bookshelf is waiting.",
+                 copy: "Join a community or start your own to begin your next chapter.",
+                 cta_label: "Create Your First Club",
+                 cta_path: new_club_path %>
+    <% end %>
+  <% end %>
+</section>

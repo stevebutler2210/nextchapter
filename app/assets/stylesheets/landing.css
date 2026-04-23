@@ -1,0 +1,302 @@
+/* Landing page — styles scoped to nc-landing-* */
+
+.nc-landing {
+	margin: -32px -24px 0;
+	background: var(--color-surface);
+}
+
+.nc-landing-nav,
+.nc-landing-features,
+.nc-landing-quote,
+.nc-landing-footer-cta,
+.nc-landing-footer {
+	padding-left: 24px;
+	padding-right: 24px;
+}
+
+.nc-landing-nav {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.nc-landing-hero__inner,
+.nc-landing-section__inner,
+.nc-landing-quote__inner {
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.nc-landing-wordmark {
+	margin: 0;
+	text-decoration: none;
+	font-family: "Newsreader", Georgia, serif;
+	font-size: 1.25rem;
+	line-height: 1.2;
+	letter-spacing: -0.01em;
+}
+
+.nc-landing-link {
+	text-decoration: none;
+	font-size: 0.75rem;
+	font-weight: 500;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+
+.nc-landing-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 12px 28px;
+	border-radius: var(--radius-sm);
+	font-size: 0.75rem;
+	font-weight: 500;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	text-decoration: none;
+	line-height: 1.2;
+}
+
+.nc-landing-button--primary {
+	background: var(--color-primary);
+	color: var(--color-on-primary);
+}
+
+.nc-landing-button--ghost {
+	background: var(--color-surface-container);
+	color: var(--color-on-surface);
+	box-shadow: inset 0 0 0 1px var(--color-outline-variant);
+}
+
+.nc-landing-hero {
+	height: 594px;
+	position: relative;
+	overflow: hidden;
+	align-content: center;
+	--content-offset: max(24px, calc((100vw - 1200px) / 2));
+}
+
+.nc-landing-hero__inner {
+	display: flex;
+	gap: 40px;
+	padding: 56px 24px 96px;
+}
+
+.nc-landing-hero__visual {
+	position: absolute;
+	top: 0;
+	right: var(--content-offset);
+	display: flex;
+	justify-content: flex-end;
+	overflow: visible;
+}
+
+.nc-landing-hero__content {
+	max-width: 640px;
+}
+
+.nc-landing-display {
+	letter-spacing: -0.01em;
+	margin-bottom: 32px;
+}
+
+.nc-landing-body-lg {
+	margin: 0 0 32px;
+	font-size: 1rem;
+	line-height: 1.6;
+	max-width: 520px;
+}
+
+.nc-landing-hero__actions {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	flex-wrap: wrap;
+}
+
+.nc-landing-collage {
+	display: grid;
+	grid-template-columns: 130px 130px 130px;
+	gap: 8px;
+	height: 100%;
+	align-items: stretch;
+}
+
+.nc-landing-collage__column {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.nc-landing-collage__column--1 {
+	margin-top: 60px;
+	align-items: flex-start;
+}
+
+.nc-landing-collage__column--2 {
+	margin-top: 0;
+	align-items: center;
+	justify-content: stretch;
+}
+
+.nc-landing-collage__column--3 {
+	margin-top: -60px;
+	align-items: flex-end;
+	justify-content: flex-start;
+}
+
+.nc-landing-collage__block {
+	width: 130px;
+	height: 195px;
+	border-radius: var(--radius-sm);
+	flex-shrink: 0;
+}
+
+.nc-landing-features {
+	background: var(--color-surface-container-low);
+	padding-top: 80px;
+	padding-bottom: 80px;
+}
+
+.nc-landing-feature-card {
+	background: var(--color-surface-container-lowest);
+	border-radius: var(--radius);
+	padding: 24px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.nc-landing-feature-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	border-radius: var(--radius-sm);
+	background: var(--color-surface-container-high);
+}
+
+.nc-landing-feature-icon svg {
+	width: 20px;
+	height: 20px;
+}
+
+.nc-landing-body-sm {
+	margin: 0;
+	font-size: 0.875rem;
+	line-height: 1.6;
+}
+
+.nc-landing-quote {
+	padding-top: 96px;
+	padding-bottom: 96px;
+}
+
+.nc-landing-quote__inner {
+	max-width: 860px;
+	text-align: center;
+}
+
+.nc-landing-quote__text {
+	margin: 0 0 24px;
+	font-family: "Newsreader", Georgia, serif;
+	font-size: 2.25rem;
+	font-style: italic;
+	font-weight: 400;
+	line-height: 1.3;
+}
+
+.nc-landing-quote__attribution {
+	margin: 0;
+	font-size: 0.75rem;
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+}
+
+.nc-landing-footer-cta {
+	background: var(--color-surface-container-high);
+	padding-top: 96px;
+	padding-bottom: 96px;
+}
+
+.nc-landing-footer {
+	padding-top: 32px;
+	padding-bottom: 32px;
+}
+
+.nc-landing-footer__link {
+	text-decoration: none;
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+}
+
+.nc-landing-footer__copy {
+	margin: 0;
+	font-size: 0.75rem;
+	text-align: right;
+}
+
+@media (max-width: 1080px) {
+	.nc-landing-hero {
+		padding-top: 48px;
+		padding-bottom: 72px;
+	}
+
+	.nc-landing-hero__visual {
+		display: none;
+	}
+
+	.nc-landing-display {
+		font-size: 2.75rem;
+	}
+
+	.nc-landing-footer__copy {
+		text-align: center;
+	}
+}
+
+@media (max-width: 700px) {
+	.nc-landing {
+		margin: -32px -24px 0;
+	}
+
+	.nc-landing-nav,
+	.nc-landing-features,
+	.nc-landing-quote,
+	.nc-landing-footer-cta,
+	.nc-landing-footer {
+		padding-left: 16px;
+		padding-right: 16px;
+	}
+
+	.nc-landing-nav {
+		padding-top: 16px;
+		padding-bottom: 16px;
+	}
+
+	.nc-landing-display {
+		font-size: 2.25rem;
+		margin-bottom: 24px;
+	}
+
+	.nc-landing-body-lg {
+		margin-bottom: 24px;
+	}
+
+	.nc-landing-quote {
+		padding-top: 72px;
+		padding-bottom: 72px;
+	}
+
+	.nc-landing-quote__text {
+		font-size: 1.75rem;
+	}
+
+	.nc-landing-footer-cta {
+		padding-top: 72px;
+		padding-bottom: 72px;
+	}
+}

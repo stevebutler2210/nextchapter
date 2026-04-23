@@ -14,7 +14,7 @@ class Cycle < ApplicationRecord
     message: "can only have one active cycle at a time"
   }
 
-  validates :winning_nomination, presence: true, if: -> { reading? }
+  validates :winning_nomination, presence: true, if: -> { reading? }, on: [ :create, :update ]
 
   after_update :broadcast_state_change, if: :saved_change_to_state?
 

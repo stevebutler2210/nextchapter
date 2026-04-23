@@ -1,10 +1,309 @@
 /*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
+ * Main stylesheet — base reset, type scale, layout shell, and shared primitives.
+ * Component styles live in separate files loaded alphabetically alongside this one:
+ *   auth.css, club_detail.css, dashboard.css, landing.css
  */
+
+/* === Type scale — use these classes in templates instead of inline font properties === */
+.nc-type-display-lg {
+	font-family: "Newsreader", Georgia, serif;
+	font-size: 3.5rem;
+	font-weight: 400;
+	line-height: 1.1;
+}
+
+.nc-type-headline-md {
+	font-family: "Newsreader", Georgia, serif;
+	font-size: 1.75rem;
+	font-weight: 400;
+	line-height: 1.2;
+}
+
+.nc-type-headline-sm {
+	font-family: "Newsreader", Georgia, serif;
+	font-size: 1.25rem;
+	font-weight: 400;
+	line-height: 1.3;
+}
+
+.nc-type-body-lg {
+	font-family: "Work Sans", system-ui, sans-serif;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.6;
+}
+
+.nc-type-body-sm {
+	font-family: "Work Sans", system-ui, sans-serif;
+	font-size: 0.875rem;
+	font-weight: 400;
+	line-height: 1.5;
+}
+
+.nc-type-label-md {
+	font-family: "Work Sans", system-ui, sans-serif;
+	font-size: 0.75rem;
+	font-weight: 500;
+	line-height: 1.4;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body.nc-body {
+	margin: 0;
+	min-height: 100vh;
+	background: var(--color-surface);
+	color: var(--color-on-surface);
+	font-family: "Work Sans", system-ui, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0;
+	font-family: "Newsreader", Georgia, serif;
+	font-weight: 400;
+}
+
+a {
+	color: inherit;
+}
+
+.nc-sidebar {
+	width: 160px;
+	min-height: 100vh;
+	padding: 24px 16px;
+	background: var(--color-surface-container-low);
+}
+
+.nc-brand {
+	display: block;
+	margin-bottom: 40px;
+	text-decoration: none;
+	font-family: "Newsreader", Georgia, serif;
+	font-size: 1.125rem;
+	line-height: 1.25;
+	letter-spacing: -0.01em;
+}
+
+.nc-nav-link {
+	display: block;
+	padding: 8px 12px;
+	border-radius: var(--radius-sm);
+	text-decoration: none;
+	font-size: 0.875rem;
+	font-weight: 500;
+	line-height: 1.4;
+}
+
+.nc-nav-link:hover {
+	background: var(--color-surface-container);
+}
+
+.nc-nav-link.is-active {
+	background: var(--color-primary-container);
+}
+
+.nc-main,
+.nc-public-wrap {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.nc-flash {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	padding: 12px 20px;
+}
+
+.nc-flash--notice {
+	background: var(--color-tertiary-container);
+}
+
+.nc-flash--alert {
+	background: var(--color-primary-container);
+}
+
+.nc-flash__message {
+	margin: 0;
+	font-size: 0.875rem;
+	line-height: 1.5;
+}
+
+.nc-flash--notice .nc-flash__message,
+.nc-flash--notice .nc-flash__dismiss {
+	color: var(--color-tertiary);
+}
+
+.nc-flash--alert .nc-flash__message,
+.nc-flash--alert .nc-flash__dismiss {
+	color: var(--color-primary);
+}
+
+.nc-flash__dismiss {
+	border: 0;
+	border-radius: var(--radius-sm);
+	background: transparent;
+	padding: 4px 8px;
+	font-size: 1rem;
+	line-height: 1;
+	cursor: pointer;
+}
+
+
+
+/* === Shared primitives — used across multiple features === */
+
+.nc-button {
+	border: 0;
+	border-radius: var(--radius-sm);
+	padding: 10px 20px;
+	font-family: var(--font-work-sans);
+	font-size: 0.75rem;
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	line-height: 1.2;
+	cursor: pointer;
+}
+
+.nc-button:disabled {
+	cursor: default;
+}
+
+.nc-button--primary {
+	background: var(--color-primary);
+	color: var(--color-on-primary);
+}
+
+.nc-button--primary:disabled {
+	background: var(--color-surface-container-high);
+	color: color-mix(in srgb, var(--color-on-surface) 55%, transparent);
+}
+
+.nc-button--ghost {
+	background: transparent;
+	color: var(--color-on-surface);
+	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-outline-variant) 75%, transparent);
+}
+
+.nc-button--ghost:hover {
+	background: var(--color-surface-container);
+}
+
+.nc-button--tertiary {
+	padding: 0;
+	background: transparent;
+	color: var(--color-tertiary);
+	text-transform: uppercase;
+}
+
+.nc-button--tertiary:hover {
+	opacity: 0.75;
+}
+
+.nc-button--voted {
+	background: var(--color-surface-container-high);
+	color: color-mix(in srgb, var(--color-on-surface) 65%, transparent);
+}
+
+.nc-state-badge {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	height: 28px;
+	padding: 0 var(--spacing-3);
+	border-radius: 999px;
+	font-family: var(--font-work-sans);
+	font-size: 0.75rem;
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+}
+
+.nc-state-badge--nominating {
+	background: var(--color-tertiary-container);
+	color: var(--color-tertiary);
+}
+
+.nc-state-badge--voting {
+	background: var(--color-surface-container-high);
+	color: var(--color-on-surface);
+}
+
+.nc-state-badge--reading {
+	background: var(--color-primary-container);
+	color: var(--color-primary);
+}
+
+.nc-empty-state,
+.nc-form-error {
+	margin: 0;
+	background: var(--color-surface-container-lowest);
+	border-radius: var(--radius);
+	padding: var(--spacing-6);
+	font-family: var(--font-work-sans);
+	font-size: 0.875rem;
+	line-height: 1.6;
+}
+
+.nc-empty-state {
+	color: color-mix(in srgb, var(--color-on-surface) 72%, transparent);
+}
+
+.nc-form-error {
+	background: var(--color-primary-container);
+	color: var(--color-primary);
+}
+
+.nc-visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+.nc-book-cover-placeholder {
+	width: 64px;
+	aspect-ratio: 1 / 1.6;
+	border-radius: var(--radius-sm);
+	background: var(--color-surface-container-high);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	flex-shrink: 0;
+}
+
+.nc-book-cover-placeholder span {
+	font-family: var(--font-newsreader);
+	font-size: 1.125rem;
+	color: color-mix(in srgb, var(--color-on-surface) 55%, transparent);
+}
+
+.nc-book-cover-image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.nc-book-cover-placeholder--lg {
+	width: 96px;
+}

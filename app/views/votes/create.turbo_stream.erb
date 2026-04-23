@@ -5,3 +5,9 @@
           current_user: Current.user %>
   <% end %>
 <% end %>
+
+<%= turbo_stream.replace "voting_no_votes_notice" do %>
+  <%= render "nominations/voting_no_votes_notice",
+  has_nominations: Nomination.where(cycle_id: @nomination.cycle_id).exists?,
+  has_votes: Vote.where(cycle_id: @nomination.cycle_id).exists? %>
+<% end %>

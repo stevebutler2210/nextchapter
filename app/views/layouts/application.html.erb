@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-GB">
   <head>
     <title><%= content_for(:title) || "Nextchapter" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -14,27 +14,45 @@
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
     <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..800;1,6..72,300..800&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="nc-body <%= authenticated? ? "flex max-[900px]:block" : "nc-body--public" %>">
     <% if authenticated? %>
-      <header>
-        <span>Signed in as <%= Current.user.email_address %></span>
-        <%= link_to "Sign out", session_path, data: { turbo_method: :delete } %>
-      </header>
-    <% end %>
+      <aside class="nc-sidebar" aria-label="Primary">
+        <%= link_to "📖 NextChapter", root_path, class: "nc-brand" %>
 
-    <% flash.each do |type, message| %>
-      <p><%= message %></p>
-    <% end %>
+        <nav class="flex flex-col gap-1 max-[900px]:flex-row max-[900px]:flex-wrap">
+          <% dashboard_active = current_page?(root_path) || current_page?(clubs_path) %>
+          <%= link_to "Dashboard", clubs_path, class: "nc-nav-link #{dashboard_active ? "is-active" : ""}" %>
+          <%= link_to "Log out", session_path, class: "nc-nav-link", data: { turbo_method: :delete } %>
+        </nav>
+      </aside>
 
-    <%= yield %>
+      <div class="nc-main">
+        <%= render "layouts/flash" %>
+        <main class="w-full max-w-[1200px] py-10 px-12 max-[900px]:py-6 max-[900px]:px-4">
+          <%= yield %>
+        </main>
+      </div>
+    <% else %>
+      <div class="nc-public-wrap">
+        <%= render "layouts/flash" %>
+        <main class="w-full py-8 px-6">
+          <%= yield %>
+        </main>
+      </div>
+    <% end %>
   </body>
 </html>
