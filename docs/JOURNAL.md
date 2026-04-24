@@ -292,3 +292,92 @@ All four planned Day 5 carryover tickets closed, plus the voting UI minor refact
 - DESIGN.md needs committing as the canonical design record before the style pass begins.
 - Font imports (Newsreader, Work Sans) — confirm Google Fonts vs self-hosted before applying design tokens.
 - `db:reset` + `cable_schema.rb` manual step still needs README documentation.
+
+## Day 6 - 24/04/2026 - UI Polish and Design System
+
+### What shipped
+
+**Design system (DESIGN.md + Claude Design)**
+`docs/DESIGN.md` committed as the canonical design record — tokens,
+typography, spacing, component patterns, empty states, error states,
+flash messages, and the logged-out landing page. Design references
+produced in Claude Design (landing, dashboard, club detail × 3 states,
+book search, flash banner, sign up / log in) and stored in
+`docs/design_references/` as implementation guidance. All five Stitch
+screens uploaded as visual baseline. Claude Design kept constrained to
+`docs/DESIGN.md` throughout — no invented features or off-token values.
+
+**Tailwind v4 + `nc-` design system**
+`tailwindcss-rails ~> 4.4` added. Tokens defined in
+`app/assets/tailwind/application.css` via `@theme` with a comment
+block prohibiting unauthorised additions. Component styles use `nc-`
+prefix across `application.css`, `auth.css`, `club_detail.css`,
+`dashboard.css`, and `landing.css`. Type scale defined as reusable
+`nc-type-*` utility classes. `nc-` prefix keeps product styles
+distinct from Tailwind utilities and third-party defaults. Token
+values must be defined in `docs/DESIGN.md` first.
+
+**Public/auth shell split**
+Root route moved to `HomeController#index` — authenticated users
+redirect to clubs. New public landing page with hero, feature cards,
+pull quote, and footer CTA. Application layout branches into sidebar
+nav (authenticated) or public wrapper. Logout redirects to root.
+
+**Landing page collage — real book covers**
+`featured` boolean and `featured_index` integer added to `Book`.
+`db/seeds/collage_books.rb` seeds 9 curated books via
+`BookLookupService.find_by_isbn` and enqueues `CacheCoverImageJob`
+for each. `db/seeds.rb` restructured: collage seed runs in all
+environments; development fixtures gated on `Rails.env.development?`.
+`HomeController` queries `Book.where(featured: true)` ordered by
+`featured_index` with `Arel.sql` null-safe ordering. Landing page
+ERB renders cover images with colour block fallback.
+
+**User `name` field**
+NOT NULL column with safe backfill migration using a local
+`MigrationUser` class to avoid model coupling. Name derived from
+email local part for existing rows. Validation, registration form,
+seeds, and fixtures updated. Powers nomination attribution and avatar
+chips. Email encryption deferred as a separate hardening ticket.
+
+**Member avatars and `UserPresenter`**
+Initials-based avatar chips with deterministic tone variants and a
+CSS-only hover tooltip via `data-name` attribute and `::after`
+pseudo-element. `BroadcastClubMembersJob` refreshes the avatar row
+via Turbo on invite acceptance.
+
+**Reading log form**
+Note is the primary field; `page_reached` de-emphasised to a
+secondary input. Finished checkbox auto-sets state to `finished`;
+first entry defaults to `started`; subsequent entries default to
+`progressed`. Controller derives state from the flag and existing
+entry count.
+
+**Database integrity**
+`cycles.winning_nomination_id` FK updated to `on_delete: :nullify`
+at the database level — more robust than a Rails callback as it
+fires regardless of how the deletion happens. Winning nomination
+presence validation scoped to `create`/`update` only.
+
+### Deferred to Day 7
+
+- Ticket #77: suppress book search error flash on rapid input / short queries
+- Ticket #91: cycle closing and next-cycle creation
+- Ticket #42: system tests — club creation, nomination, voting
+- Email encryption (separate hardening ticket)
+- `db:reset` + `cable_schema.rb` README documentation
+- Breakpoint audit and named responsive scale in DESIGN.md
+- Production encryption key setup on Fly
+
+### Surprises and deviations
+
+- Tailwind v4 uses CSS-based `@theme` config rather than
+  `tailwind.config.js` — Copilot initially generated a v3 config
+  file; corrected early in the session.
+- `on_delete: :nullify` migration required after `ActiveRecord::
+InvalidForeignKey` on club destroy in reading state — `winning_
+nomination_id` still referenced a nomination being destroyed.
+  Database-level constraint is the correct fix over a Rails callback.
+- `nc-avatar:hover::after` selector had no effect — class mismatch
+  with `nc-avatar-chip`. One-line fix.
+- Column offset CSS for the landing collage had duplicate
