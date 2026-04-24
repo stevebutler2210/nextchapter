@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NextChapter — Logo Concepts (Warm)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..800;1,6..72,300..800&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            surface: { DEFAULT:'#fcf9f5','container-lowest':'#ffffff','container-low':'#f7f4f0','container':'#f0ede9','container-high':'#e5e2de','container-highest':'#dbd8d4','variant':'#e1ddd8' },
+            'on-surface':'#1c1c1a',
+            primary: { DEFAULT:'#89453a', container:'#f4ebe9' },
+            'on-primary':'#ffffff',
+            tertiary: { DEFAULT:'#7a826e', container:'#eff1ed' },
+            outline: { DEFAULT:'#85827e', variant:'#d1cfcc' },
+          },
+          fontFamily: { newsreader:['Newsreader','Georgia','serif'], 'work-sans':['Work Sans','system-ui','sans-serif'] },
+        },
+      },
+    }
+  </script>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Work Sans',sans-serif; color:#1c1c1a; background:#fcf9f5; }
+  </style>
+</head>
+<body class="bg-surface text-on-surface antialiased">
+
+  <div class="max-w-4xl mx-auto px-8 py-16 flex flex-col gap-20">
+
+    <!-- ═══ CONCEPT G — Gathered Volumes ═══ -->
+    <div>
+      <p class="font-work-sans text-[0.65rem] font-medium uppercase tracking-[0.2em] text-on-surface/40 mb-2">Concept G — Gathered Volumes</p>
+      <p class="font-work-sans text-sm text-on-surface/55 mb-6 max-w-lg leading-relaxed">
+        Three upright book spines leaning into each other — a small collection gathered together. Each spine uses a different token colour: clay-red, sage, and the warm container-highest. Feels like a shelf vignette.
+      </p>
+      <div class="flex flex-col gap-8">
+        <div class="bg-surface rounded p-5 flex items-center justify-between border border-outline-variant/30">
+          <div class="flex items-center gap-3">
+            <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+              <!-- Three leaning books -->
+              <rect x="5" y="5" width="6" height="22" rx="1.5" fill="#89453a" transform="rotate(-4 8 16)"/>
+              <rect x="12" y="4" width="6.5" height="23" rx="1.5" fill="#7a826e" transform="rotate(1 15 16)"/>
+              <rect x="20" y="5.5" width="6" height="21" rx="1.5" fill="#dbd8d4" transform="rotate(5 23 16)"/>
+            </svg>
+            <span class="font-newsreader text-lg tracking-tight font-medium text-on-surface">NextChapter</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <span class="font-work-sans text-xs font-medium uppercase tracking-widest text-on-surface">Log In</span>
+            <span class="font-work-sans text-xs font-medium uppercase tracking-widest bg-primary text-on-primary px-5 py-2.5 rounded-sm">Sign Up</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
+            <rect x="5" y="5" width="6" height="22" rx="1.5" fill="#89453a" transform="rotate(-4 8 16)"/>
+            <rect x="12" y="4" width="6.5" height="23" rx="1.5" fill="#7a826e" transform="rotate(1 15 16)"/>
+            <rect x="20" y="5.5" width="6" height="21" rx="1.5" fill="#dbd8d4" transform="rotate(5 23 16)"/>
+          </svg>
+          <span class="font-newsreader text-base tracking-tight font-medium text-on-surface/50">NextChapter</span>
+        </div>
+        <div class="flex items-center gap-6">
+          <svg width="40" height="40" viewBox="0 0 32 32" fill="none">
+            <rect x="5" y="5" width="6" height="22" rx="1.5" fill="#89453a" transform="rotate(-4 8 16)"/>
+            <rect x="12" y="4" width="6.5" height="23" rx="1.5" fill="#7a826e" transform="rotate(1 15 16)"/>
+            <rect x="20" y="5.5" width="6" height="21" rx="1.5" fill="#dbd8d4" transform="rotate(5 23 16)"/>
+          </svg>
+          <p class="font-work-sans text-[0.65rem] text-on-surface/30 uppercase tracking-widest">Standalone</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ CONCEPT H — Folded Corner ═══ -->
+    <div>
+      <p class="font-work-sans text-[0.65rem] font-medium uppercase tracking-[0.2em] text-on-surface/40 mb-2">Concept H — Folded Corner</p>
+      <p class="font-work-sans text-sm text-on-surface/55 mb-6 max-w-lg leading-relaxed">
+        A warm clay-red square with a folded corner revealing the paper surface beneath — a dog-eared page marking where you left off. The fold creates a natural triangle of warmth against the primary.
+      </p>
+      <div class="flex flex-col gap-8">
+        <div class="bg-surface rounded p-5 flex items-center justify-between border border-outline-variant/30">
+          <div class="flex items-center gap-3">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+              <path d="M2 2H24V18L18 24H2V2Z" fill="#89453a" rx="1"/>
+              <path d="M18 24V18H24Z" fill="#f4ebe9"/>
+              <path d="M18 24V18H24" stroke="#89453a" stroke-width="0.5" fill="none"/>
+            </svg>
+            <span class="font-newsreader text-lg tracking-tight font-medium text-on-surface">NextChapter</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <span class="font-work-sans text-xs font-medium uppercase tracking-widest text-on-surface">Log In</span>
+            <span class="font-work-sans text-xs font-medium uppercase tracking-widest bg-primary text-on-primary px-5 py-2.5 rounded-sm">Sign Up</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <svg width="20" height="20" viewBox="0 0 26 26" fill="none">
+            <path d="M2 2H24V18L18 24H2V2Z" fill="#89453a"/>
+            <path d="M18 24V18H24Z" fill="#f4ebe9"/>
+            <path d="M18 24V18H24" stroke="#89453a" stroke-width="0.5" fill="none"/>
+          </svg>
+          <span class="font-newsreader text-base tracking-tight font-medium text-on-surface/50">NextChapter</span>
+        </div>
+        <div class="flex items-center gap-6">
+          <svg width="40" height="40" viewBox="0 0 26 26" fill="none">
+            <path d="M2 2H24V18L18 24H2V2Z" fill="#89453a"/>
+            <path d="M18 24V18H24Z" fill="#f4ebe9"/>
+            <path d="M18 24V18H24" stroke="#89453a" stroke-width="0.5" fill="none"/>
+          </svg>
+          <p class="font-work-sans text-[0.65rem] text-on-surface/30 uppercase tracking-widest">Standalone</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ CONCEPT I — Bookmark Ribbon ═══ -->
+    <div>
+      <p class="font-work-sans text-[0.65rem] font-medium uppercase tracking-[0.2em] text-on-surface/40 mb-2">Concept I — Bookmark Ribbon</p>
+      <p class="font-work-sans text-sm text-on-surface/55 mb-6 max-w-lg leading-relaxed">
+        A softly rounded book shape in tertiary-container with a clay-red ribbon bookmark trailing from the top. The ribbon's forked tail adds a tactile, handmade quality. Warm and immediately readable as "books."
+      </p>
+      <div class="flex flex-col gap-8">
+        <div class="bg-surface rounded p-5 flex items-center justify-between border border-outline-variant/30">
+          <div class="flex items-center gap-3">
+            <svg width="24" height="28" viewBox="0 0 24 30" fill="none">
+              <!-- Book body -->
+              <rect x="2" y="3" width="20" height="26" rx="2" fill="#eff1ed"/>
+              <!-- Spine accent -->
+              <rect x="2" y="3" width="3.5" height="26" rx="1" fill="#7a826e"/>
+              <!-- Ribbon -->
+              <path d="M14 0V18L16.5 15.5L19 18V0Z" fill="#89453a"/>
+            </svg>
+            <span class="font-newsreader text-lg tracking-tight font-medium text-on-surface">NextChapter</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <span class="font-work-sans text-xs font-medium uppercase tracking-widest text-on-surface">Log In</span>
+            <span class="font-work-sans text-xs font-medium uppercase tracking-widest bg-primary text-on-primary px-5 py-2.5 rounded-sm">Sign Up</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <svg width="18" height="22" viewBox="0 0 24 30" fill="none">
+            <rect x="2" y="3" width="20" height="26" rx="2" fill="#eff1ed"/>
+            <rect x="2" y="3" width="3.5" height="26" rx="1" fill="#7a826e"/>
+            <path d="M14 0V18L16.5 15.5L19 18V0Z" fill="#89453a"/>
+          </svg>
+          <span class="font-newsreader text-base tracking-tight font-medium text-on-surface/50">NextChapter</span>
+        </div>
+        <div class="flex items-center gap-6">
+          <svg width="36" height="44" viewBox="0 0 24 30" fill="none">
+            <rect x="2" y="3" width="20" height="26" rx="2" fill="#eff1ed"/>
+            <rect x="2" y="3" width="3.5" height="26" rx="1" fill="#7a826e"/>
+            <path d="M14 0V18L16.5 15.5L19 18V0Z" fill="#89453a"/>
+          </svg>
+          <p class="font-work-sans text-[0.65rem] text-on-surface/30 uppercase tracking-widest">Standalone</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

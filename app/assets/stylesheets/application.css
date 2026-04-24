@@ -77,20 +77,26 @@ a {
 }
 
 .nc-sidebar {
-	width: 160px;
+	width: 170px;
 	min-height: 100vh;
 	padding: 24px 16px;
 	background: var(--color-surface-container-low);
 }
 
 .nc-brand {
-	display: block;
+	display: flex;
+	align-items: center;
+	gap: 6px;
 	margin-bottom: 40px;
 	text-decoration: none;
 	font-family: "Newsreader", Georgia, serif;
 	font-size: 1.125rem;
 	line-height: 1.25;
 	letter-spacing: -0.01em;
+}
+
+.nc-brand svg {
+	flex-shrink: 0;
 }
 
 .nc-nav-link {

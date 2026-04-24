@@ -31,7 +31,9 @@
   <body class="nc-body <%= authenticated? ? "flex max-[900px]:block" : "nc-body--public" %>">
     <% if authenticated? %>
       <aside class="nc-sidebar" aria-label="Primary">
-        <%= link_to "📖 NextChapter", root_path, class: "nc-brand" %>
+        <%= link_to root_path, class: "nc-brand" do %>
+          <%= render "shared/logo" %>
+        <% end %>
 
         <nav class="flex flex-col gap-1 max-[900px]:flex-row max-[900px]:flex-wrap">
           <% dashboard_active = current_page?(root_path) || current_page?(clubs_path) %>

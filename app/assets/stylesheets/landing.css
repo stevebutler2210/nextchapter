@@ -5,7 +5,7 @@
 	background: var(--color-surface);
 }
 
-.nc-landing-nav,
+.nc-landing-header,
 .nc-landing-features,
 .nc-landing-quote,
 .nc-landing-footer-cta,
@@ -14,9 +14,15 @@
 	padding-right: 24px;
 }
 
-.nc-landing-nav {
+.nc-landing-header {
 	padding-top: 20px;
 	padding-bottom: 20px;
+}
+
+.nc-landing-header__logo {
+	display: flex;
+	align-items: center;
+	gap: 12px;
 }
 
 .nc-landing-hero__inner,
@@ -26,13 +32,14 @@
 	margin: 0 auto;
 }
 
-.nc-landing-wordmark {
+.nc-landing-wordmark,
+.nc-wordmark-text {
 	margin: 0;
-	text-decoration: none;
 	font-family: "Newsreader", Georgia, serif;
 	font-size: 1.25rem;
 	line-height: 1.2;
 	letter-spacing: -0.01em;
+  margin-bottom: -6px;
 }
 
 .nc-landing-link {

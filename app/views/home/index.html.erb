@@ -1,13 +1,11 @@
 <div class="nc-landing">
-  <nav class="nc-landing-nav">
-    <div class="mx-auto max-w-[1200px] flex items-center justify-between gap-4 max-[700px]:flex-wrap">
-      <%= link_to "NextChapter", root_path, class: "nc-landing-wordmark" %>
-      <div class="flex items-center gap-4 max-[700px]:w-full max-[700px]:justify-start">
-        <%= link_to "Log In", new_session_path, class: "nc-landing-link" %>
-      <%= link_to "Sign Up", new_registration_path, class: "nc-landing-button nc-landing-button--primary" %>
+  <header class="nc-landing-header">
+    <div class="mx-auto max-w-[1200px]">
+      <div class="nc-landing-header__logo">
+        <%= render "shared/logo" %>
       </div>
     </div>
-  </nav>
+  </header>
 
   <section class="nc-landing-hero">
     <div class="nc-landing-hero__inner">
