@@ -8,7 +8,7 @@ scoped, modern Rails 8 development: Hotwire for a server-rendered UI,
 Solid Queue for background jobs, Active Storage for file handling, and an
 Expo / React Native companion app for mobile (in progress).
 
-**Status:** Day 4 of 9—core book search and club management shipped. Nominations in progress.
+**Status:** Day 6 of 9—full club lifecycle shipped, design system applied, public landing page with featured book collage, user avatars, and Tailwind v4 visual polish.
 
 Active development. See [JOURNAL](docs/JOURNAL.md) for daily progress.
 
@@ -21,6 +21,8 @@ Active development. See [JOURNAL](docs/JOURNAL.md) for daily progress.
 ## Live demo
 
 [nextchapter.fly.dev](https://nextchapter.fly.dev)
+
+![NextChapter screenshot](docs/readme_assets/day-6-fly-site-update.png)
 
 ---
 
@@ -45,9 +47,12 @@ project as much as the implementation.
 - Ruby 3.4.9, Rails 8.1.3
 - SQLite (development and production via Fly.io persistent volume)
 - Hotwire (Turbo + Stimulus)—server-rendered UI, no client-side SPA
+- Tailwind CSS v4 with a custom `nc-` design system
 - Solid Queue for background jobs
 - Solid Cache for caching
+- Solid Cable for Action Cable
 - Active Storage for book cover images
+- Active Record Encryption for reading log notes
 - Faraday for Google Books API integration
 - Minitest, GitHub Actions CI
 - Deployed to Fly.io
@@ -76,6 +81,8 @@ git clone https://github.com/stevebutler2210/nextchapter.git
 cd nextchapter
 bin/setup
 ```
+
+> **Note:** `db:reset` does not load `cable_schema.rb` automatically. After a reset, if live features (vote tallies, nomination broadcasts) aren't working, load it manually: `bin/rails runner 'load Rails.root.join("db/cable_schema.rb")'`
 
 Add your Google Books API key to Rails credentials:
 
