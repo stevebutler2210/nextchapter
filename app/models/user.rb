@@ -10,5 +10,7 @@ class User < ApplicationRecord
   has_many :memberships, dependent: :destroy
   has_many :reading_log_entries, dependent: :destroy
 
+  has_many :refresh_tokens, dependent: :destroy
+
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 end
