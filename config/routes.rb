@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       member do
         patch :close_voting
         patch :close_nominations
+        post :complete
       end
 
       resources :nominations, only: [ :create ], shallow: true do

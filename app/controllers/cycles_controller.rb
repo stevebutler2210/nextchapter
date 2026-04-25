@@ -1,6 +1,6 @@
 class CyclesController < ApplicationController
   before_action :set_cycle_and_club
-  before_action :require_club_owner!, only: [ :close_voting, :close_nominations ]
+  before_action :require_club_owner!, only: [ :close_nominations, :close_voting, :complete ]
 
   # Handle errors from invalid state transitions in the cycle model
   # TODO - extract transition logic to service and raise more specific
@@ -21,6 +21,15 @@ class CyclesController < ApplicationController
       "Voting closed. A tie was randomly broken to select the winner." : "Voting closed."
 
     redirect_to @club, notice: message, status: :see_other
+  end
+
+
+  def complete
+    ActiveRecord::Base.transaction do
+      @cycle.complete!
+      @club.cycles.create!(state: :nominating)
+    end
+    redirect_to @club, notice: "Reading cycle complete. Time to nominate again.", status: :see_other
   end
 
   private

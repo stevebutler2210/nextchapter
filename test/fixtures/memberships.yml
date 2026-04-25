@@ -22,3 +22,13 @@ club_three_member:
   user: two
   club: three
   role: member
+
+club_four_owner:
+  user: one
+  club: four
+  role: owner
+
+club_four_member:
+  user: two
+  club: four
+  role: member

@@ -11,3 +11,7 @@ complete:
 voting:
   club: three
   state: voting
+
+reading:
+  club: four
+  state: reading
