@@ -381,3 +381,41 @@ nomination_id` still referenced a nomination being destroyed.
 - `nc-avatar:hover::after` selector had no effect — class mismatch
   with `nc-avatar-chip`. One-line fix.
 - Column offset CSS for the landing collage had duplicate
+
+## Day 7 - 25/04/2026 - Nav refresh and error pages
+
+### What shipped
+
+- Nav / logged-out header refresh — updated navigation layout and favicon
+  (PR #101, squash-merged to main)
+- 404 and 500 error page designs generated in Claude Design, ready for
+  implementation in an upcoming ticket
+
+### Deferred to Day 8
+
+Lighter day by design — social plans meant a reduced session. The following
+carry forward to Day 8:
+
+- #77 — suppress book search error flash on rapid input / short queries
+- #91 — cycle closing and next-cycle creation
+- #42 — system tests: club creation, nomination, voting
+- #47 — JSON API endpoints for mobile client
+- #48 — custom 404/500 pages and production polish (designs done)
+- #51 — Sentry error reporting
+- #49 — docs: README polish
+- #50 — docs: review and tidy JOURNAL.md
+- #52 — feat(backend): GraphQL endpoint alongside REST
+- Email encryption hardening, breakpoint audit, `db:reset` + `cable_schema.rb`
+  README, production encryption key setup on Fly
+
+### Surprises and deviations
+
+None. Intentionally light session — Thursday had been a late night and Friday
+was a social evening.
+
+### Open questions into Day 8
+
+- #91 cycle closing logic still needs careful thought before touching—state
+  machine complexity flagged in Day 7 kickoff
+- Mobile companion milestone (#8) is now the active sprint; JSON API and
+  mobile scaffold are the priority thread
