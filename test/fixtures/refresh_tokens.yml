@@ -1,0 +1,7 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+active:
+  user: api_user
+  token: ActiveToken123
+  expires_at: 2026-12-31 00:00:00
+  revoked: false

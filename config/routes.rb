@@ -31,12 +31,23 @@ Rails.application.routes.draw do
     end
   end
 
-  # Infrastructure
-  get "up" => "rails/health#show", as: :rails_health_check
+  # API
+  namespace :api do
+    namespace :v1, defaults: { format: :json } do
+      post "sessions", to: "sessions#create"
+      post "sessions/refresh", to: "sessions#refresh"
+      post "registrations", to: "registrations#create"
+
+      resources :clubs, only: %i[index show]
+    end
+  end
 
   # API documentation (development only)
   if Rails.env.development?
     mount Miniswag::Ui::Engine => "/api-docs"
     mount Miniswag::Api::Engine => "/api-docs"
   end
+
+  # Infrastructure
+  get "up" => "rails/health#show", as: :rails_health_check
 end

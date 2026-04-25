@@ -59,6 +59,9 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  # Miniswag required in dev as well as test to access the `swaggerize` task
+  gem "miniswag"
 end
 
 group :development do
@@ -72,7 +75,6 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "minitest", "~> 5.25"
-  gem "miniswag"
 end
 
 gem "dockerfile-rails", ">= 1.7", group: :development

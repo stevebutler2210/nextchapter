@@ -32,3 +32,8 @@ club_four_member:
   user: two
   club: four
   role: member
+
+api_user_member:
+  user: api_user
+  club: one
+  role: member

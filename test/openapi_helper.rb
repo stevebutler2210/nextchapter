@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 require "test_helper"
+
 require "miniswag"
+require "miniswag/test_case"
 
 Miniswag.configure do |config|
   # Root folder where OpenAPI spec files will be generated
@@ -18,8 +20,8 @@ Miniswag.configure do |config|
         description: "JSON API for the NextChapter mobile companion app"
       },
       servers: [
-        { url: "https://nextchapter.fly.dev", description: "Production" },
-        { url: "http://localhost:3000", description: "Development" }
+        { url: "http://localhost:3000", description: "Development" },
+        { url: "https://nextchapter.fly.dev", description: "Production" }
       ],
       components: {
         securitySchemes: {
