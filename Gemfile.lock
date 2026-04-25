@@ -212,7 +212,9 @@ GEM
     miniswag-ui (0.2.3)
       actionpack (>= 7.0, < 9.0)
       railties (>= 7.0, < 9.0)
-    minitest (5.27.0)
+    minitest (6.0.5)
+      drb (~> 2.0)
+      prism (~> 1.5)
     msgpack (1.8.0)
     net-http (0.9.1)
       uri (>= 0.11.1)
@@ -456,7 +458,7 @@ DEPENDENCIES
   miniswag
   miniswag-api
   miniswag-ui
-  minitest (~> 5.25)
+  minitest (~> 6.0)
   propshaft
   puma (>= 5.0)
   rails (~> 8.1.3)
@@ -545,7 +547,7 @@ CHECKSUMS
   miniswag (0.2.3) sha256=a4957ab25ced7e23ce036106287a4333b8daddc902ef027cbd8cff911a574a9d
   miniswag-api (0.2.3) sha256=f75828c610e22b4710065c9ba7a01c2f3cc22cf8ce2132c055484748e0d915e9
   miniswag-ui (0.2.3) sha256=605750885e2e187992bb80d1f408af4069fe1f91cc8171a219e9d4aa97f2c421
-  minitest (5.27.0) sha256=2d3b17f8a36fe7801c1adcffdbc38233b938eb0b4966e97a6739055a45fa77d5
+  minitest (6.0.5) sha256=f007d7246bf4feea549502842cd7c6aba8851cdc9c90ba06de9c476c0d01155c
   msgpack (1.8.0) sha256=e64ce0212000d016809f5048b48eb3a65ffb169db22238fb4b72472fecb2d732
   net-http (0.9.1) sha256=25ba0b67c63e89df626ed8fac771d0ad24ad151a858af2cc8e6a716ca4336996
   net-imap (0.6.3) sha256=9bab75f876596d09ee7bf911a291da478e0cd6badc54dfb82874855ccc82f2ad
