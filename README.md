@@ -47,7 +47,7 @@ project as much as the implementation.
 - Ruby 3.4.9, Rails 8.1.3
 - SQLite (development and production via Fly.io persistent volume)
 - Hotwire (Turbo + Stimulus)—server-rendered UI, no client-side SPA
-- Tailwind CSS v4 with a custom `nc-` design system
+- Tailwind CSS v4 with design tokens shared via [`@stevebutler2210/nextchapter-design-tokens`](https://github.com/stevebutler2210/nextchapter-design-tokens)
 - Solid Queue for background jobs
 - Solid Cache for caching
 - Solid Cable for Action Cable
@@ -61,6 +61,7 @@ project as much as the implementation.
 
 - Expo SDK, React Native, TypeScript
 - Expo Router for navigation
+- NativeWind v5 with shared design tokens
 - JWT auth against the Rails API
 - ISBN barcode scanning to add books
 
@@ -72,7 +73,9 @@ project as much as the implementation.
 
 - Ruby 3.4.9 (`rbenv` or `asdf` recommended)
 - Bundler
+- Node 20
 - A Google Books API key ([get one here](https://console.cloud.google.com/apis/library/books.googleapis.com))
+- A GitHub PAT scoped to `read:packages` (required to install the private design tokens package)
 
 ### Steps
 
@@ -94,6 +97,18 @@ Add the following:
 
 ```yaml
 google_books_api_key: YOUR_KEY_HERE
+```
+
+Add your GitHub PAT to your shell profile (`.zshrc`, `.bashrc`, etc.):
+
+```bash
+export PACKAGES_TOKEN=your_github_pat
+```
+
+Then install npm dependencies:
+
+```bash
+npm install
 ```
 
 Start the app (web + background worker):
