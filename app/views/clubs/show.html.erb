@@ -95,6 +95,13 @@
             cycle: @cycle,
             reading_log_entry: ReadingLogEntry.new,
             reading_log_entries: @cycle.reading_log_entries.where(user: Current.user).order(created_at: :desc) %>
+
+      <% if @is_owner %>
+        <%= button_to "Start New Cycle", complete_cycle_path(@cycle),
+              method: :post,
+              class: "nc-button nc-button--tertiary",
+              data: { turbo_frame: "_top" } %>
+      <% end %>
     <% end %>
   </section>
 <% end %>

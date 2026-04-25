@@ -6,6 +6,7 @@ class CyclesControllerTest < ActionDispatch::IntegrationTest
     @non_owner = users(:two)
     @nominating_cycle = cycles(:nominating)
     @voting_cycle = cycles(:voting)
+    @reading_cycle = cycles(:reading)
   end
 
   test "owner can close nominations" do
@@ -110,5 +111,37 @@ class CyclesControllerTest < ActionDispatch::IntegrationTest
     assert_equal "Cannot close voting without any votes", flash[:alert]
     assert_equal "voting", @voting_cycle.reload.state
     assert_nil @voting_cycle.winning_nomination
+  end
+
+  test "owner can complete a reading cycle" do
+    sign_in_as(@owner)
+
+    post complete_cycle_path(@reading_cycle)
+
+    assert_redirected_to @reading_cycle.club
+    assert_equal "Reading cycle complete. Time to nominate again.", flash[:notice]
+
+    @reading_cycle.reload
+    assert_equal "complete", @reading_cycle.state
+    assert @reading_cycle.club.cycles.where(state: :nominating).exists?
+  end
+
+  test "non-owner gets 403 when trying to complete a cycle" do
+    sign_in_as(@non_owner)
+
+    post complete_cycle_path(@reading_cycle)
+
+    assert_response :forbidden
+    assert_equal "reading", @reading_cycle.reload.state
+  end
+
+  test "complete is rejected when cycle is not in reading state" do
+    sign_in_as(@owner)
+
+    post complete_cycle_path(@nominating_cycle)
+
+    assert_redirected_to @nominating_cycle.club
+    assert_equal "Cannot complete from nominating", flash[:alert]
+    assert_equal "nominating", @nominating_cycle.reload.state
   end
 end
