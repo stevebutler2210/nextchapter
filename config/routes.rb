@@ -33,4 +33,10 @@ Rails.application.routes.draw do
 
   # Infrastructure
   get "up" => "rails/health#show", as: :rails_health_check
+
+  # API documentation (development only)
+  if Rails.env.development?
+    mount Miniswag::Ui::Engine => "/api-docs"
+    mount Miniswag::Api::Engine => "/api-docs"
+  end
 end
