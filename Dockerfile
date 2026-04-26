@@ -64,9 +64,9 @@ RUN bundle exec bootsnap precompile app/ lib/
 RUN grep -l '#!/usr/bin/env ruby' /rails/bin/* | xargs sed -i '/^#!/aDir.chdir File.expand_path("..", __dir__)'
 
 # Install npm dependencies (design tokens package from GitHub Packages)
-# TODO: migrate to --secret mount
-ARG PACKAGES_TOKEN
-RUN echo "//npm.pkg.github.com/:_authToken=${PACKAGES_TOKEN}" > .npmrc && \
+RUN --mount=type=secret,id=packages_token \
+  PACKAGES_TOKEN=$(cat /run/secrets/packages_token) && \
+  echo "//npm.pkg.github.com/:_authToken=${PACKAGES_TOKEN}" > .npmrc && \
   npm install && \
   rm .npmrc
 
