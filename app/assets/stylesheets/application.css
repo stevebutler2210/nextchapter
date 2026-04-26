@@ -313,3 +313,22 @@ a {
 .nc-book-cover-placeholder--lg {
 	width: 96px;
 }
+
+/* === Mobile sidebar — top nav bar on small screens === */
+
+@media (max-width: 900px) {
+	.nc-sidebar {
+		width: 100%;
+		min-height: auto;
+		padding: 10px 16px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: 4px 8px;
+	}
+
+	.nc-brand {
+		margin-bottom: 0;
+	}
+}
