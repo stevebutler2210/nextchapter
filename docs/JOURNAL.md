@@ -487,3 +487,78 @@ was a social evening.
 - ExpoUI / SwiftUI — install before any screen work begins.
 - JWT auth implementation (#3/#4) is the highest-risk work remaining; approach
   discussion before any code.
+
+## Day 9 - 26/04/2026 - Mobile companion, part 2
+
+**Shipped**
+
+**Mobile**
+
+- Firmed up mobile UI approach—SwiftUI/ExpoUI pass deprioritised;
+  deferred to post-write-actions milestone as the screen count is small
+  enough that the risk/reward doesn't justify it during the initial build
+- All Day 9 mobile screens built and working against the live Rails API:
+  sign in, sign up, clubs list, club detail (all three cycle states),
+  and a profile stub with sign out
+- JWT auth with Zustand store, SecureStore persistence, and automatic
+  token refresh via Axios interceptor—full auth lifecycle working
+  including token expiry handling
+- Design tokens package (`@stevebutler2210/nextchapter-design-tokens`)
+  updated to v0.2.0—added a TypeScript export alongside the existing
+  CSS export, so token values are available for imperative React Native
+  code (StyleSheet, props, tintColor etc) as well as Uniwind className
+  usage
+- Mobile CI added—lint check on PR and push to main via GitHub Actions.
+  Decision to add this earlier than planned (original plan was to defer
+  until Maestro system tests): a stale `setToken` reference slipped
+  through a refactor that a lint check would have caught. Low-cost safety
+  net, added immediately
+- Mobile app architecture patterns established:
+  - `src/app/**/*`—route wrappers, data fetching, refresh logic
+  - `src/screens/**/*`—presentational layer per screen
+  - `src/components/**/*`—reusable building blocks; RNR components
+    under `ui/` subdirectory
+- Updated mobile app icons and splash screen assets
+
+**Rails side**
+
+- Six bugs fixed in a single pass:
+  - Removed ISBN from book search results (debug field left in)
+  - Reading log page count: added `greater_than: 0, allow_nil: true`
+    validation; hide page count on entry display if nil or zero
+  - Cycle close actions: added `data-turbo-confirm` to both close buttons
+    with explanatory copy so users understand the consequence before confirming
+  - Fixed literal ERB tags visible on auth screens; added SVG logo to
+    auth layout
+  - Mobile web responsive sweep—dashboard, club detail, and auth
+    screens audited and fixed at narrow viewports
+  - Email encryption: added `encrypts :email_address, deterministic: true`
+    to User model; deterministic required for sign-in lookup. ADR written.
+
+**What was skipped or deferred**
+
+- Barcode scan (#8)—demoted to tier 2; carrying to tomorrow
+- Mobile write actions (nominate, vote, log note)—requires new Rails
+  API endpoints; scoped as Phase 1 roadmap item, not this week
+- SwiftUI/ExpoUI design pass—deferred to post-write-actions
+- System tests (#42), Sentry (#51)—still carried
+
+**Surprises and deviations**
+
+- NativeWind incompatible with Metro 0.83.6—replaced with Uniwind
+  mid-session on Day 8; no downstream impact due to identical API
+- Design tokens package required more setup than anticipated—GitHub
+  Packages auth in Dockerfile needed a BuildKit secret mount to satisfy
+  the Dockerfile linter (`SecretsUsedInArgOrEnv`)
+- Token refresh interceptor required careful setup to avoid stacking
+  on hot reload—guarded with `interceptorsSetUp` flag
+- Fly deploy was broken by the design tokens package not being installed
+  in the Docker build—fixed with Node/npm install step and BuildKit secret
+
+**Open questions into Day 10**
+
+- Barcode scan (#8)
+- Final JOURNAL and decisions pass (#54)
+- README cross-linking, demo URLs, screenshots (#53)
+- TODO sweep across both repos (#55)
+- EAS preview build and shareable link (#10)
