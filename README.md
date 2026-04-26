@@ -8,9 +8,13 @@ scoped, modern Rails 8 development: Hotwire for a server-rendered UI,
 Solid Queue for background jobs, Active Storage for file handling, and an
 Expo / React Native companion app for mobile (in progress).
 
-**Status:** Day 6 of 9—full club lifecycle shipped, design system applied, public landing page with featured book collage, user avatars, and Tailwind v4 visual polish.
+**Status:** Complete (for now).
 
-Active development. See [JOURNAL](docs/JOURNAL.md) for daily progress.
+Full club lifecycle, design system, REST API, and Expo/React Native companion app built across nine days.
+
+See [JOURNAL](docs/JOURNAL.md) for historic daily progress logs.
+
+See [ROADMAP](docs/ROADMAP.md) for future plans.
 
 [![CI](https://github.com/stevebutler2210/nextchapter/actions/workflows/ci.yml/badge.svg)](https://github.com/stevebutler2210/nextchapter/actions/workflows/ci.yml)
 ![Ruby](https://img.shields.io/badge/ruby-3.4.9-red)
@@ -22,7 +26,7 @@ Active development. See [JOURNAL](docs/JOURNAL.md) for daily progress.
 
 [nextchapter.fly.dev](https://nextchapter.fly.dev)
 
-![NextChapter screenshot](docs/readme_assets/day-6-fly-site-update.png)
+![NextChapter screenshot](docs/readme_assets/banner.png)
 
 ---
 
@@ -61,7 +65,7 @@ project as much as the implementation.
 
 - Expo SDK, React Native, TypeScript
 - Expo Router for navigation
-- NativeWind v5 with shared design tokens
+- Uniwind (drop-in NativeWind alternative) with shared design tokens
 - JWT auth against the Rails API
 - ISBN barcode scanning to add books
 
