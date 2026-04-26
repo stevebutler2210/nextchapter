@@ -59,7 +59,7 @@
           <%= button_to "Close Nominations", close_nominations_cycle_path(@cycle),
                 method: :patch,
                 class: "nc-button nc-button--tertiary",
-                data: { turbo_frame: "_top" } %>
+                data: { turbo_frame: "_top", turbo_confirm: "This will end the nominations phase and open voting. Members will no longer be able to add nominations." } %>
         <% end %>
       </section>
     <% end %>
@@ -84,7 +84,7 @@
           <%= button_to "Close Voting", close_voting_cycle_path(@cycle),
                 method: :patch,
                 class: "nc-button nc-button--tertiary",
-                data: { turbo_frame: "_top" } %>
+                data: { turbo_frame: "_top", turbo_confirm: "This will close voting, select a winner, and begin the reading phase. This cannot be undone." } %>
         <% end %>
       </section>
     <% end %>

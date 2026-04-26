@@ -27,10 +27,10 @@ class ReadingLogEntry < ApplicationRecord
   end
 
   def page_reached_cannot_exceed_book_page_count
-    return if page_reached.nil?
+    return if page_reached.nil? || page_reached <= 0
 
     page_count = cycle&.winning_nomination&.book&.page_count
-    return if page_count.nil?
+    return if page_count.nil? || page_count <= 0
     return if page_reached <= page_count
 
     errors.add(:page_reached, "cannot be greater than total pages (#{page_count})")

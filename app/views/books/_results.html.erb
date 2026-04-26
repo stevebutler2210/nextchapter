@@ -15,7 +15,7 @@
       </div>
       <div class="nc-search-result-item__content">
         <h3 class="nc-nomination-item__title"><%= book.title %></h3>
-        <p class="nc-nomination-item__author"><%= book.authors.presence || "Author unknown" %> - <%= book.isbn %></p>
+        <p class="nc-nomination-item__author"><%= book.authors.presence || "Author unknown" %></p>
         <% if book.page_count.presence&.positive? %>
           <p class="nc-nomination-item__meta"><%= book.page_count %> pages</p>
         <% end %>
