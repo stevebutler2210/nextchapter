@@ -419,3 +419,71 @@ was a social evening.
   machine complexity flagged in Day 7 kickoff
 - Mobile companion milestone (#8) is now the active sprint; JSON API and
   mobile scaffold are the priority thread
+
+## Day 8 — 25/04/2026 — Mobile companion, part 1
+
+**Shipped**
+
+**Rails side**
+
+- **#77** (search error flash suppression) Book search no longer
+  flashes an error on rapid input or queries below the minimum length threshold.
+- **#91** (cycle closing and next-cycle creation)Full state
+  transition sequence implemented with guard conditions. API response shape
+  accounts for closed-cycle state so mobile screens have a consistent contract
+  to build against.
+- **#47** (REST API) JSON endpoints built for auth, clubs, current
+  cycle, nominations, and book lookup. Documented via Swagger using `miniswag`.
+  Smoke-tested with curl and covered with minitest. Dedicated `jwt_token` secret
+  added to Rails credentials via `SecureRandom.hex(64)`; production secret set
+  separately at the same time.
+
+**Mobile scaffold and infrastructure**
+
+- **Mobile #1** Expo 55 project scaffolded via Ignite 11 generator.
+  Obytes starter considered and rejected—too opinionated on auth and routing,
+  and no prior experience with it. Strategy: strip only the demo screen and dead
+  translations; re-evaluate component usage at end of week.
+- NativeWind selected initially as the styling layer, then rejected mid-session
+  after hitting a `react-native-css-interop` `addedFiles` crash under Metro
+  0.83.6. Replaced with Uniwind—a drop-in alternative with the same
+  API. React Native Reusables (RNR) installed with the Uniwind variant.
+- Design tokens package (`@stevebutler2210/nextchapter-design-tokens`) created
+  as a private npm package on GitHub Packages. CSS `@theme` + `:root` dual-export
+  allows both Rails and mobile to consume the same token values. Rails CI green;
+  mobile hot reload confirmed working. Setting up additional libraries (ExpoUI)
+  in flight at end of day.
+- **Mobile #2** (README) — drafted during session; pending final
+  review at start of Day 9.
+
+**What was skipped or deferred**
+
+- **Mobile #3–#7** (auth screens through club detail) not started.
+  Infrastructure work (NativeWind → Uniwind migration, RNR setup, design tokens
+  package) consumed more of the session than anticipated. All carry to Day 9.
+- ExpoUI / SwiftUI install—agreed but not done; carry to Day 9 morning.
+- Barcode scan-to-nominate (#9) demoted to tier 2. Rest of mobile app is read-only for the
+  initial build. Allows a leaner, more coherent experience to ship on Day 9
+  without the scan-to-nominate flow becoming a blocker.
+- **#48** (custom 404/500 pages), **#42** (system tests), **#51** (Sentry),
+  **#49/#50** (docs), email encryption hardening—all still carried.
+
+**Surprises and deviations**
+
+- NativeWind incompatibility with Metro 0.83.6 was not anticipated. Debugging
+  and evaluating the Uniwind replacement added roughly an hour to the session.
+  Uniwind turned out to be a clean swap with no API differences, so no rework
+  downstream.
+- Design tokens package took longer than estimated, primarily due
+  to GitHub Packages auth setup and confirming the dual-export approach worked
+  in both consumers before committing to the strategy.
+- GraphQL (#52) descoped entirely—REST serves mobile needs; GraphQL would add
+  complexity without a consumer at this stage. ADR to be written.
+
+**Open questions into Day 9**
+
+- Mobile #2 README — confirm it's accurate against what actually ships before
+  closing the ticket.
+- ExpoUI / SwiftUI — install before any screen work begins.
+- JWT auth implementation (#3/#4) is the highest-risk work remaining; approach
+  discussion before any code.
