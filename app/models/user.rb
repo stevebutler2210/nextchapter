@@ -1,5 +1,8 @@
 class User < ApplicationRecord
   has_secure_password
+
+  encrypts :email_address, deterministic: true
+
   validates :name, presence: true
   validates :password, length: { minimum: 12 }, if: -> { password.present? }
   validates :email_address, uniqueness: { case_sensitive: false }
