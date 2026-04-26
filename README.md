@@ -1,5 +1,7 @@
 # NextChapter
 
+![NextChapter](docs/readme_assets/banner.png)
+
 A book club web app. Groups of readers form a club, nominate books, vote on
 what to read next, and track what they've read together.
 
@@ -25,8 +27,6 @@ See [ROADMAP](docs/ROADMAP.md) for future plans.
 ## Live demo
 
 [nextchapter.fly.dev](https://nextchapter.fly.dev)
-
-![NextChapter screenshot](docs/readme_assets/banner.png)
 
 ---
 
