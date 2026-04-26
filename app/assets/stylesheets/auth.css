@@ -146,3 +146,15 @@
 		padding: var(--spacing-6);
 	}
 }
+
+@media (max-width: 430px) {
+	.nc-auth-container {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.nc-auth-card {
+		padding: var(--spacing-4);
+		border-radius: var(--radius-sm);
+	}
+}

@@ -322,11 +322,6 @@
 	.nc-search-result-item,
 	.nc-nomination-item {
 		align-items: flex-start;
-	}
-
-	.nc-search-result-item,
-	.nc-nomination-item,
-	.nc-current-book-callout {
 		flex-direction: column;
 	}
 

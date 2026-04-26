@@ -284,6 +284,24 @@
 		padding-bottom: 16px;
 	}
 
+	/* Hero: remove fixed height so buttons are never clipped */
+	.nc-landing-hero {
+		height: auto;
+		overflow: visible;
+		align-content: initial;
+	}
+
+	/* Tighten hero padding using spacing tokens */
+	.nc-landing-hero__inner {
+		padding-top: var(--spacing-8);
+		padding-bottom: var(--spacing-12);
+	}
+
+	/* Scale display heading down to the intended mobile size */
+	.nc-landing-hero .nc-type-display-lg {
+		font-size: 2.25rem;
+	}
+
 	.nc-landing-display {
 		font-size: 2.25rem;
 		margin-bottom: 24px;
